@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1082595369275",
+    "project_id": "sibersim-2a3c3",
+    "storage_bucket": "sibersim-2a3c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082595369275:android:8bbdeb4720757a0201171e",
+        "android_client_info": {
+          "package_name": "com.eujin.sibersim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082595369275-a42h6u2gs3ip6cr74klrmd7et0ui58u0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eujin.sibersim",
+            "certificate_hash": "0e4166e193c3fc81460d6b2760d59285088567d8"
+          }
+        },
+        {
+          "client_id": "1082595369275-mlknr9161k4gov8gidtc4dqssqfov6c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1wrfOMZnmhj1I4kkY-HKHAJrvyU3zQ7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082595369275-mlknr9161k4gov8gidtc4dqssqfov6c2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
