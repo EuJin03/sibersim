@@ -7,9 +7,12 @@ const SignIn: React.FC = () => {
   const { signIn } = useAuth();
 
   return (
-    <View>
-      <Button title="Sign In with Google" onPress={signIn} />
-    </View>
+    <>
+      <Stack.Screen options={{ title: 'SiberSim' }} />
+      <View>
+        <Button title="Sign In with Google" onPress={signIn} />
+      </View>
+    </>
   );
 };
 

@@ -13,6 +13,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { StatusBar } from 'expo-status-bar';
 import { Platform } from 'react-native';
 import { AuthContextProvider } from '@/contexts/userContext';
+import seedData from '@/hooks/useSeedData';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

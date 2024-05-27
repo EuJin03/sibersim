@@ -1,28 +1,34 @@
 interface User {
+  id: string;
   email: string;
   username: string;
-  password: string;
+  displayName: string;
   profilePicture: string;
   jobPosition: string;
   bios: string;
 }
 
 interface Group {
+  id: string;
   name: string;
   description: string;
   members: { id: string }[];
   createdBy: string;
+  createdAt: string;
+  templates: Template[];
+  results: Result[];
 }
 
 interface Quiz {
+  id: string;
   tag: string;
-  description: string;
   question: string;
   options: string[];
   correctAnswer: string;
 }
 
 interface Blog {
+  id: string;
   title: string;
   image: string;
   authorId: string;
@@ -45,9 +51,26 @@ interface Post {
 }
 
 interface Comment {
+  id: string;
   content: string;
   postedBy: string;
   upvote: number;
 }
 
-export type { User, Group, Quiz, Blog, Post, Comment };
+interface Template {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  tag: string;
+  template: string;
+}
+
+interface Result {
+  id: string;
+  user: string;
+  comment: string;
+  templateId: string;
+}
+
+export type { User, Group, Quiz, Blog, Post, Comment, Template, Result };

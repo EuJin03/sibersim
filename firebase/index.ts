@@ -12,18 +12,18 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APPID,
 };
 
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc,
-  onSnapshot,
-  doc,
-  deleteDoc,
-  updateDoc,
-  query,
-  where,
-} from 'firebase/firestore';
+// import {
+//   getFirestore,
+//   collection,
+//   getDocs,
+//   addDoc,
+//   onSnapshot,
+//   doc,
+//   deleteDoc,
+//   updateDoc,
+//   query,
+//   where,
+// } from 'firebase/firestore';
 
 //  measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENTID,
 
@@ -43,14 +43,14 @@ export {
   auth,
   firestore,
   storage,
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc,
-  onSnapshot,
-  doc,
-  deleteDoc,
-  updateDoc,
-  query,
-  where,
+  // getFirestore,
+  // collection,
+  // getDocs,
+  // addDoc,
+  // onSnapshot,
+  // doc,
+  // deleteDoc,
+  // updateDoc,
+  // query,
+  // where,
 };
