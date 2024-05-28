@@ -1,15 +1,16 @@
 interface User {
-  id: string;
+  id?: string;
   email: string;
-  username: string;
   displayName: string;
   profilePicture: string;
   jobPosition: string;
+  phoneNum?: string;
   bios: string;
+  isNewUser: boolean;
 }
 
 interface Group {
-  id: string;
+  id?: string;
   name: string;
   description: string;
   members: { id: string }[];
@@ -20,7 +21,7 @@ interface Group {
 }
 
 interface Quiz {
-  id: string;
+  id?: string;
   tag: string;
   question: string;
   options: string[];
@@ -28,7 +29,7 @@ interface Quiz {
 }
 
 interface Blog {
-  id: string;
+  id?: string;
   title: string;
   image: string;
   authorId: string;
@@ -41,24 +42,26 @@ interface Blog {
 }
 
 interface Post {
-  id: string;
+  id?: string;
   title: string;
   content: string;
   image?: string;
   upvote: number;
   postedBy: string;
   commentsId: string[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface Comment {
-  id: string;
+  id?: string;
   content: string;
   postedBy: string;
   upvote: number;
 }
 
 interface Template {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   image: string;
@@ -67,7 +70,7 @@ interface Template {
 }
 
 interface Result {
-  id: string;
+  id?: string;
   user: string;
   comment: string;
   templateId: string;
