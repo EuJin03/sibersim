@@ -2,8 +2,10 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSegments, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { User } from '@/constants/Types';
+import useUsers from '@/hooks/useUsers';
 
 // Initialize Firebase (replace with your Firebase configuration)
 const firebaseConfig = {
@@ -19,7 +21,7 @@ firebase.initializeApp(firebaseConfig);
 
 interface AuthType {
   authUser: firebase.User | null;
-  dbUser: firebase.User | null;
+  dbUser: User | null;
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -33,26 +35,17 @@ const AuthContext = createContext<AuthType>({
 
 export const useAuth = () => useContext(AuthContext);
 
-function useProtectedRoute(dbUser: firebase.User | null) {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!dbUser) {
-      router.replace('/login');
-    } else {
-      router.replace('/(tabs)');
-    }
-  }, [dbUser]);
-}
-
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [authUser, setAuthUser] = useState<firebase.User | null>(null);
-  const [dbUser, setDbUser] = useState<firebase.User | null>(null);
+  const [dbUser, setDbUser] = useState<User | null>(null);
+  const router = useRouter();
+  const { getUserByEmail, addNewUser } = useUsers();
 
   useEffect(() => {
     const loadUserFromStorage = async () => {
+      AsyncStorage.removeItem('dbUser');
       try {
         const storedUser = await AsyncStorage.getItem('dbUser');
         if (storedUser) {
@@ -66,12 +59,31 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     loadUserFromStorage();
 
     GoogleSignin.configure({
-      webClientId:
-        '1082595369275-mlknr9161k4gov8gidtc4dqssqfov6c2.apps.googleusercontent.com',
+      webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
     });
   }, []);
 
-  useProtectedRoute(dbUser);
+  useEffect(() => {
+    const handleRouting = async () => {
+      if (authUser) {
+        if (!dbUser) {
+          router.replace('/login');
+        }
+
+        if (dbUser && dbUser.isNewUser) {
+          router.replace('/setup');
+        }
+
+        if (dbUser && !dbUser.isNewUser) {
+          router.replace('/(tabs)');
+        }
+      } else {
+        router.replace('/login');
+      }
+    };
+
+    handleRouting();
+  }, [dbUser]);
 
   const signIn = async () => {
     try {
@@ -82,12 +94,28 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       );
       const result = await firebase.auth().signInWithCredential(credential);
       const authUser = result.user;
+      const isNewUser = result.additionalUserInfo?.isNewUser;
       setAuthUser(authUser);
-      setDbUser(authUser);
-      console.log(authUser);
-      console.log(result);
 
-      await AsyncStorage.setItem('dbUser', JSON.stringify(authUser));
+      if (isNewUser) {
+        const newUser: User = {
+          email: authUser?.email || '',
+          displayName: authUser?.displayName || '',
+          profilePicture: authUser?.photoURL || '',
+          jobPosition: '',
+          bios: '',
+          isNewUser: isNewUser || false,
+        };
+        const user = await addNewUser(newUser);
+        // console.log('newUser', newUser);
+        setDbUser(newUser);
+        await AsyncStorage.setItem('dbUser', JSON.stringify(user));
+      } else {
+        const user = await getUserByEmail(authUser?.email || '');
+        setDbUser(user);
+        await AsyncStorage.setItem('dbUser', JSON.stringify(user));
+        // console.log('user', user);
+      }
     } catch (error) {
       console.error('Error signing in:', error);
     }
