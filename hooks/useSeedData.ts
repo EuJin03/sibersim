@@ -23,59 +23,58 @@ async function seedData() {
   const db = getFirestore();
 
   // Seed users
-  // const usersCollection = collection(db, 'users');
-  // const usersDocs = await Promise.all(
-  //   users.map((user: User) => addDoc(usersCollection, user))
-  // );
-  // const usersData: { id: string; data: User }[] = usersDocs.map(
-  //   (doc, index) => ({ id: doc.id, data: users[index] })
-  // );
+  const usersCollection = collection(db, 'users');
+  const usersDocs = await Promise.all(
+    users.map((user: User) => addDoc(usersCollection, user))
+  );
+  const usersData: { id: string; data: User }[] = usersDocs.map(
+    (doc, index) => ({ id: doc.id, data: users[index] })
+  );
 
-  // // // Seed groups
-  // const groupsCollection = collection(db, 'groups');
-  // const groupsDocs = await Promise.all(
-  //   groups.map((group: Group) => addDoc(groupsCollection, group))
-  // );
-  // const groupsData: { id: string; data: Group }[] = groupsDocs.map(
-  //   (doc, index) => ({ id: doc.id, data: groups[index] })
-  // );
+  // // Seed groups
+  const groupsCollection = collection(db, 'groups');
+  const groupsDocs = await Promise.all(
+    groups.map((group: Group) => addDoc(groupsCollection, group))
+  );
+  const groupsData: { id: string; data: Group }[] = groupsDocs.map(
+    (doc, index) => ({ id: doc.id, data: groups[index] })
+  );
 
-  // // Seed quizzes
-  // const quizzesCollection = collection(db, 'quizzes');
-  // const quizzesDocs = await Promise.all(
-  //   quizzes.map((quiz: Quiz) => addDoc(quizzesCollection, quiz))
-  // );
-  // const quizzesData: { id: string; data: Quiz }[] = quizzesDocs.map(
-  //   (doc, index) => ({ id: doc.id, data: quizzes[index] })
-  // );
+  // Seed quizzes
+  const quizzesCollection = collection(db, 'quizzes');
+  const quizzesDocs = await Promise.all(
+    quizzes.map((quiz: Quiz) => addDoc(quizzesCollection, quiz))
+  );
+  const quizzesData: { id: string; data: Quiz }[] = quizzesDocs.map(
+    (doc, index) => ({ id: doc.id, data: quizzes[index] })
+  );
 
   // Seed blogs
-  // const blogsCollection = collection(db, 'blogs');
-  // const blogsDocs = await Promise.all(
-  //   blogs.map((blog: Blog) => {
-  //     addDoc(blogsCollection, blog);
-  //   })
-  // );
-  // const blogsData: { id: string; data: Blog }[] = blogsDocs.map(
-  //   (doc, index) => {
-  //     return { id: doc.id, data: blogs[index] };
-  //   }
-  // );
+  const blogsCollection = collection(db, 'blogs');
+  const blogsDocs = await Promise.all(
+    blogs.map((blog: Blog) => {
+      addDoc(blogsCollection, blog);
+    })
+  );
+  const blogsData: { id: string; data: Blog }[] = blogsDocs.map(
+    (doc, index) => {
+      return { id: doc.id, data: blogs[index] };
+    }
+  );
 
-  // // Seed posts
-  // const postsCollection = collection(db, 'posts');
-  // const postsCollection = collection(db, 'posts');
-  // const postsDocs = await Promise.all(
-  //   posts.map((post: Post) => {
-  //     addDoc(postsCollection, post);
-  //   })
-  // );
+  // Seed posts
+  const postsCollection = collection(db, 'posts');
+  const postsDocs = await Promise.all(
+    posts.map((post: Post) => {
+      addDoc(postsCollection, post);
+    })
+  );
 
-  // const postsData: { id: string; data: Post }[] = postsDocs.map(
-  //   (doc, index) => {
-  //     return { id: doc.id, data: posts[index] };
-  //   }
-  // );
+  const postsData: { id: string; data: Post }[] = postsDocs.map(
+    (doc, index) => {
+      return { id: doc.id, data: posts[index] };
+    }
+  );
 
   // Seed comments
   const commentsCollection = collection(db, 'comments');

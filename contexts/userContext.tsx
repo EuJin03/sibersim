@@ -89,6 +89,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      console.log('userInfo', userInfo);
       const credential = firebase.auth.GoogleAuthProvider.credential(
         userInfo.idToken
       );
@@ -114,6 +115,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
         const user = await getUserByEmail(authUser?.email || '');
         setDbUser(user);
         await AsyncStorage.setItem('dbUser', JSON.stringify(user));
+
         // console.log('user', user);
       }
     } catch (error) {
