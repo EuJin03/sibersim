@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { User } from '@/constants/Types';
-import useUsers from '@/hooks/useUsers';
+import useUsersStore from '@/hooks/useUsers';
 
 // Initialize Firebase (replace with your Firebase configuration)
 const firebaseConfig = {
@@ -40,28 +40,9 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [authUser, setAuthUser] = useState<firebase.User | null>(null);
   const [dbUser, setDbUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { getUserByEmail, addNewUser } = useUsersStore();
   const router = useRouter();
-  const { getUserByEmail, addNewUser } = useUsers();
-
-  useEffect(() => {
-    const loadUserFromStorage = async () => {
-      AsyncStorage.removeItem('dbUser');
-      try {
-        const storedUser = await AsyncStorage.getItem('dbUser');
-        if (storedUser) {
-          setDbUser(JSON.parse(storedUser));
-        }
-      } catch (error) {
-        console.error('Error loading user from storage:', error);
-      }
-    };
-
-    loadUserFromStorage();
-
-    GoogleSignin.configure({
-      webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
-    });
-  }, []);
 
   useEffect(() => {
     const handleRouting = async () => {
@@ -82,8 +63,33 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     };
 
-    handleRouting();
-  }, [dbUser]);
+    if (!isLoading) {
+      handleRouting();
+    }
+  }, [dbUser, router, isLoading]);
+
+  useEffect(() => {
+    const loadUserFromStorage = async () => {
+      try {
+        const storedAuthUser = await AsyncStorage.getItem('authUser');
+        const storedUser = await AsyncStorage.getItem('dbUser');
+        if (storedUser) {
+          setAuthUser(storedAuthUser ? JSON.parse(storedAuthUser) : null);
+          setDbUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error('Error loading user from storage:', error);
+      } finally {
+        setIsLoading(false); // Set loading to false after checking for stored user
+      }
+    };
+
+    loadUserFromStorage();
+
+    GoogleSignin.configure({
+      webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
+    });
+  }, []);
 
   const signIn = async () => {
     try {
@@ -97,6 +103,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       const authUser = result.user;
       const isNewUser = result.additionalUserInfo?.isNewUser;
       setAuthUser(authUser);
+      await AsyncStorage.setItem('authUser', JSON.stringify(authUser));
 
       if (isNewUser) {
         const newUser: User = {
@@ -115,11 +122,11 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
         const user = await getUserByEmail(authUser?.email || '');
         setDbUser(user);
         await AsyncStorage.setItem('dbUser', JSON.stringify(user));
-
-        // console.log('user', user);
       }
     } catch (error) {
       console.error('Error signing in:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -130,6 +137,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       await firebase.auth().signOut();
       setAuthUser(null);
       setDbUser(null);
+      await AsyncStorage.removeItem('authUser');
       await AsyncStorage.removeItem('dbUser');
     } catch (error) {
       console.error('Error signing out:', error);

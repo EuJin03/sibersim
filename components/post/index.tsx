@@ -1,7 +1,13 @@
-import { Text, View, StyleSheet, Image, Pressable } from 'react-native';
+import { View, StyleSheet, Image, Pressable } from 'react-native';
 import { Post } from '@/constants/Types';
 import { FontAwesome } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import {
+  actuatedNormalize,
+  actuatedNormalizeVertical,
+} from '@/constants/DynamicSize';
+import { ScaledImage } from '../basic/ScaledImage';
+import { Text } from 'react-native-paper';
 
 type PostListItemProps = {
   post: Post;
@@ -24,43 +30,65 @@ function FooterButton({ text, icon }: FooterButtonProp) {
 }
 
 export default function PostListItem() {
+  const router = useRouter();
+
   return (
-    <Link href={`/posts/1`} asChild>
-      <Pressable style={styles.container}>
-        {/* Header */}
-        <Link href={`/users/1`} asChild>
-          <Pressable style={styles.header}>
-            <Image
-              source={require('@/assets/images/10221134.jpg')}
-              style={styles.userImage}
-            />
+    <View style={styles.container}>
+      <Link href={`/posts/1`} asChild>
+        <Pressable>
+          {/* Header */}
+
+          <View style={styles.header}>
+            <Pressable onPressOut={() => router.push('/users/1')}>
+              <Image
+                source={require('@/assets/images/10221134.jpg')}
+                style={styles.userImage}
+              />
+            </Pressable>
             <View>
-              <Text style={styles.userName}>Eugene</Text>
-              <Text>Student at APU</Text>
+              <Pressable onPressOut={() => router.push('/users/1')}>
+                <Text style={styles.userName} variant="bodyMedium">
+                  Eugene
+                </Text>
+              </Pressable>
+              <Text
+                style={{ fontSize: actuatedNormalize(10), color: '#121212' }}
+              >
+                Student at APU
+              </Text>
+              <Text
+                style={{
+                  marginVertical: actuatedNormalizeVertical(-1),
+                  color: '#888888',
+                  fontSize: actuatedNormalize(10),
+                }}
+              >
+                1d ago
+              </Text>
             </View>
-          </Pressable>
-        </Link>
+          </View>
+        </Pressable>
+      </Link>
+      {/* Text content */}
+      <Text style={styles.content}>blablablablablablabla</Text>
 
-        {/* Text content */}
-        <Text style={styles.content}>blablablablablablabla</Text>
+      {/* Image content */}
 
-        {/* Image content */}
+      <View>
+        <ScaledImage
+          uri={
+            'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04'
+          }
+        />
+      </View>
 
-        <View className="w-full h-[1000px] bg-slate-600">
-          <Image
-            source={require('@/assets/images/10221134.jpg')}
-            style={styles.postImage}
-          />
-        </View>
-
-        {/* Footer */}
-        <View style={styles.footer}>
-          <FooterButton text="Like" icon="thumbs-o-up" />
-          <FooterButton text="Comment" icon="comment-o" />
-          <FooterButton text="Share" icon="share" />
-        </View>
-      </Pressable>
-    </Link>
+      {/* Footer */}
+      <View style={styles.footer}>
+        <FooterButton text="Like" icon="thumbs-o-up" />
+        <FooterButton text="Comment" icon="comment-o" />
+        <FooterButton text="Share" icon="share" />
+      </View>
+    </View>
   );
 }
 
@@ -68,7 +96,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     width: '100%',
-    maxWidth: 500,
+    maxWidth: actuatedNormalize(500),
     alignSelf: 'center',
   },
 
@@ -76,18 +104,17 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    padding: actuatedNormalize(10),
   },
   userName: {
     fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 5,
+    marginBottom: actuatedNormalizeVertical(-2),
   },
   userImage: {
-    width: 50,
-    height: 50,
+    width: actuatedNormalize(44),
+    height: actuatedNormalize(44),
     borderRadius: 25,
-    marginRight: 10,
+    marginRight: actuatedNormalize(10),
   },
 
   // Body
@@ -95,19 +122,15 @@ const styles = StyleSheet.create({
     margin: 10,
     marginTop: 0,
   },
-  postImage: {
-    width: '100%',
-    height: 300,
-    aspectRatio: 1,
-    resizeMode: 'cover',
-  },
 
   // footer
   footer: {
+    backgroundColor: 'white',
     flexDirection: 'row',
     paddingVertical: 10,
     justifyContent: 'space-around',
     borderTopWidth: 0.5,
     borderColor: 'lightgray',
+    borderBottomWidth: 0.5,
   },
 });

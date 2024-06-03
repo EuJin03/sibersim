@@ -1,7 +1,6 @@
 import { View, Text, Button } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
-import ThemedView from '@/components/ThemedView';
 import { useAuth } from '@/contexts/userContext';
 import MUI from '@expo/vector-icons/MaterialCommunityIcons';
 
@@ -19,9 +18,9 @@ export default function setup() {
     <>
       <Stack.Screen options={{ title: 'SiberSim' }} />
       <View>
-        <ThemedView>
+        <View>
           <Button title="signout" onPress={signOut} />
-        </ThemedView>
+        </View>
       </View>
     </>
   );
