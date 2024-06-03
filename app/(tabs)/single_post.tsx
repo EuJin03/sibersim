@@ -1,10 +1,9 @@
-import { Pressable, StyleSheet, TextInput, Image } from 'react-native';
-import Text from '@/components/ThemedText';
-import View from '@/components/ThemedView';
+import { Pressable, StyleSheet, TextInput, Image, View } from 'react-native';
 import { useNavigation, useRouter } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome } from '@expo/vector-icons';
+import { ScaledImage } from '@/components/basic/ScaledImage';
 
 // const insertPost = gql`
 //   mutation MyMutation($userid: ID, $image: String, $content: String!) {
@@ -58,7 +57,7 @@ export default function NewPostScreen() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      // aspect: [4, 3],
+      aspect: [4, 3],
       quality: 0.5,
     });
 
@@ -79,7 +78,7 @@ export default function NewPostScreen() {
         multiline
       />
 
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      {image && <ScaledImage uri={image} />}
 
       <View style={styles.footer}>
         <Pressable onPress={pickImage} style={styles.iconButton}>

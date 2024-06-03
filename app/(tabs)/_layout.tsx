@@ -1,26 +1,33 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useColorScheme } from 'react-native';
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={22} style={{ marginBottom: -6 }} {...props} />;
+  return <FontAwesome size={20} style={{ marginBottom: -6 }} {...props} />;
 }
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function TabLayout({}) {
+  const colorScheme = 'light';
 
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].inactive,
+        tabBarActiveBackgroundColor: Colors[colorScheme ?? 'light'].background,
+        tabBarInactiveBackgroundColor:
+          Colors[colorScheme ?? 'light'].background,
         headerShown: false,
-        tabBarStyle: {
+        tabBarLabelStyle: {
           paddingBottom: 6,
+        },
+        tabBarStyle: {
+          borderTopWidth: 0,
         },
       }}
     >
@@ -55,7 +62,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="simulation"
         options={{
-          title: 'Notifications',
+          title: 'Simulation',
           tabBarIcon: ({ color }: { color: string }) => (
             <TabBarIcon name="flag" color={color} />
           ),

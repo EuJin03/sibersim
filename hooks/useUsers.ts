@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { create } from 'zustand';
 import {
   getFirestore,
   collection,
@@ -10,99 +10,108 @@ import {
   updateDoc,
   addDoc,
 } from 'firebase/firestore';
-
 import { User } from '@/constants/Types';
 
-const useUsers = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+interface UserState {
+  users: User[];
+  loading: boolean;
+  error: Error | null;
+  fetchUsers: () => Promise<void>;
+  getUserByEmail: (email: string) => Promise<User | null>;
+  getUserById: (id: string) => Promise<User | null>;
+  updateUser: (userId: string, updatedData: Partial<User>) => Promise<void>;
+  addNewUser: (newUser: User) => Promise<User | null>;
+}
 
-  const fetchUsers = async () => {
+const useUsersStore = create<UserState>((set, get) => ({
+  users: [],
+  loading: true,
+  error: null,
+
+  fetchUsers: async () => {
     try {
+      set({ loading: true, error: null });
       const usersCollection = collection(getFirestore(), 'users');
       const querySnapshot = await getDocs(usersCollection);
       const userData: User[] = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...(doc.data() as User),
       }));
-      setUsers(userData);
-      setLoading(false);
+      set({ users: userData, loading: false });
     } catch (err) {
-      setError(err as Error);
-      setLoading(false);
+      set({ error: err as Error, loading: false });
     }
-  };
+  },
 
-  const getUserByEmail = async (email: string) => {
+  getUserByEmail: async (email: string) => {
     try {
+      set({ loading: true, error: null });
       const usersCollection = collection(getFirestore(), 'users');
       const q = query(usersCollection, where('email', '==', email));
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
+        set({ loading: false });
         return null;
       }
       const userDoc = querySnapshot.docs[0];
       const userData = { id: userDoc.id, ...(userDoc.data() as User) };
+      set({ loading: false });
       return userData;
     } catch (err) {
-      setError(err as Error);
+      set({ error: err as Error, loading: false });
       return null;
     }
-  };
+  },
 
-  const getUserById = async (id: string) => {
+  getUserById: async (id: string) => {
     try {
+      set({ loading: true, error: null });
       const userDocRef = doc(getFirestore(), 'users', id);
       const docSnapshot = await getDoc(userDocRef);
       if (!docSnapshot.exists()) {
+        set({ loading: false });
         return null;
       }
       const userData = { id: docSnapshot.id, ...(docSnapshot.data() as User) };
+      set({ loading: false });
       return userData;
     } catch (err) {
-      setError(err as Error);
+      set({ error: err as Error, loading: false });
       return null;
     }
-  };
+  },
 
-  const updateUser = async (userId: string, updatedData: Partial<User>) => {
+  updateUser: async (userId: string, updatedData: Partial<User>) => {
     try {
+      set({ loading: true, error: null });
       const userDocRef = doc(getFirestore(), 'users', userId);
       await updateDoc(userDocRef, updatedData);
-      console.log('User updated successfully');
+      set(state => ({
+        users: state.users.map(user =>
+          user.id === userId ? { ...user, ...updatedData } : user
+        ),
+        loading: false,
+      }));
     } catch (err) {
-      setError(err as Error);
+      set({ error: err as Error, loading: false });
       console.error('Error updating user:', err);
     }
-  };
+  },
 
-  const addNewUser = async (newUser: User) => {
+  addNewUser: async (newUser: User) => {
     try {
+      set({ loading: true, error: null });
       const usersCollection = collection(getFirestore(), 'users');
       const docRef = await addDoc(usersCollection, newUser);
       const userData = { id: docRef.id, ...newUser };
-      setUsers([...users, userData]);
-      console.log('New user added successfully');
+      set(state => ({ users: [...state.users, userData], loading: false }));
       return userData;
     } catch (err) {
-      setError(err as Error);
+      set({ error: err as Error, loading: false });
       console.error('Error adding new user:', err);
+      return null;
     }
-  };
+  },
+}));
 
-  return {
-    users,
-    loading,
-    error,
-    fetchUsers,
-    getUserByEmail,
-    getUserById,
-    updateUser,
-    addNewUser,
-    setLoading,
-    setError,
-  };
-};
-
-export default useUsers;
+export default useUsersStore;
