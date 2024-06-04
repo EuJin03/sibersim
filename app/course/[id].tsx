@@ -1,7 +1,7 @@
 import { ScrollView, View } from 'react-native';
 import React from 'react';
 import { Text } from 'react-native-paper';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ScaledImage } from '@/components/basic/ScaledImage';
 import {
   actuatedNormalize,
@@ -9,9 +9,14 @@ import {
 } from '@/constants/DynamicSize';
 import Avatar from '@/components/user/Avatar';
 import CourseContent from '@/components/blog/CourseContent';
+import useRelativeTime from '@/hooks/useTimeFormat';
+import { Material } from '@/constants/Types';
+import { materials } from '@/assets/seeds/material';
 
 export default function Course() {
-  const { title, thumbnail, description } = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
+  const item = materials.find(material => material.id === id) as Material;
+
   return (
     <>
       <Stack.Screen
@@ -25,26 +30,26 @@ export default function Course() {
         style={{ padding: actuatedNormalize(20), backgroundColor: '#f1f1f1' }}
       >
         <Text variant="titleLarge" numberOfLines={2}>
-          {title}
+          {item.title}
         </Text>
-        <Text variant="bodySmall">Course</Text>
-        {thumbnail && (
-          <ScaledImage
-            uri={Array.isArray(thumbnail) ? thumbnail[0] : thumbnail}
-          />
-        )}
+        <Text style={{ color: 'gray', fontSize: actuatedNormalize(10) }}>
+          {useRelativeTime(item.publishedAt)}
+        </Text>
+        {item?.thumbnail && <ScaledImage uri={item.thumbnail} />}
         <Text variant="labelLarge">About Course</Text>
         <Text
-          numberOfLines={3}
-          style={{ marginTop: actuatedNormalizeVertical(4), color: '#171617' }}
+          numberOfLines={6}
+          style={{
+            marginVertical: actuatedNormalizeVertical(6),
+            color: '#171617',
+          }}
           variant="bodySmall"
         >
-          {description}
+          {item.description}
         </Text>
-        {description && (
-          <CourseContent
-            course={Array.isArray(description) ? description[0] : description}
-          />
+
+        {item?.id && item?.topic && (
+          <CourseContent courseId={item.id} courseTopics={item.topic} />
         )}
       </View>
     </>

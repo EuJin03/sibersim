@@ -59,7 +59,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
           router.replace('/(tabs)');
         }
       } else {
-        router.replace('/login');
+        router.replace('/(login)');
       }
     };
 

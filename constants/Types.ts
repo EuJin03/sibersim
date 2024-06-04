@@ -76,4 +76,43 @@ interface Result {
   templateId: string;
 }
 
-export type { User, Group, Quiz, Blog, Post, Comment, Template, Result };
+interface Topic {
+  id: string;
+  topic: string;
+  name: string;
+  lesson: Lesson[];
+  input: null | string;
+  output: null | string;
+}
+
+interface Lesson {
+  id: string;
+  title: string;
+  description: string;
+}
+
+interface Material {
+  type: 'video' | 'course';
+  id: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  videoUrl?: string;
+  thumbnail?: string;
+  topic?: Topic[];
+}
+
+export type {
+  User,
+  Group,
+  Quiz,
+  Blog,
+  Post,
+  Comment,
+  Template,
+  Result,
+  Topic,
+  Material,
+};

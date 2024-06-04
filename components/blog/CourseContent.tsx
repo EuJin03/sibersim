@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import {
   actuatedNormalize,
@@ -7,47 +7,51 @@ import {
 import { Text } from 'react-native-paper';
 import MUI from '@expo/vector-icons/MaterialCommunityIcons';
 import { Colors } from '@/hooks/useThemeColor';
+import { Stack, useRouter } from 'expo-router';
+import { Topic } from '@/constants/Types';
 
-const topic = [
-  {
-    id: 't00001',
-    title: 'Cybersecurity',
-  },
-  {
-    id: 't00002',
-    title: 'Online Safety',
-  },
-  {
-    id: 't00003',
-    title: 'Privacy',
-  },
-];
-
-export default function CourseContent({ course }: { course: string }) {
+export default function CourseContent({
+  courseId,
+  courseTopics,
+}: {
+  courseId: string;
+  courseTopics: Topic[];
+}) {
   const colorScheme = 'light';
+  const router = useRouter();
 
   return (
-    <View style={{ marginTop: actuatedNormalizeVertical(10) }}>
-      <Text variant="labelLarge">Course Content</Text>
-      <FlatList
-        data={topic}
-        renderItem={({ item, index }) => (
-          <View style={style.contentContainer}>
-            <Text style={style.contentIndex}>
-              {index < 10 ? '0' + (index + 1) : index + 1}
-            </Text>
-            <Text numberOfLines={1} style={style.contentTitle}>
-              {item.title}
-            </Text>
-            <MUI
-              name="play-circle"
-              size={24}
-              color={Colors[colorScheme].secondary}
-            />
-          </View>
-        )}
-      />
-    </View>
+    <>
+      <View style={{ marginTop: actuatedNormalizeVertical(10) }}>
+        <Text variant="labelLarge">Course Content</Text>
+        <FlatList
+          data={courseTopics}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              onPress={() =>
+                router.navigate({
+                  pathname: `/course-chapter/${courseId}`,
+                  params: { topicId: item.id },
+                })
+              }
+              style={style.contentContainer}
+            >
+              <Text style={style.contentIndex}>
+                {index < 10 ? '0' + (index + 1) : index + 1}
+              </Text>
+              <Text numberOfLines={1} style={style.contentTitle}>
+                {item.name}
+              </Text>
+              <MUI
+                name="play-circle"
+                size={24}
+                color={Colors[colorScheme].secondary}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </>
   );
 }
 
