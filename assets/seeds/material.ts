@@ -59,6 +59,20 @@ export const articles = [
     createdAt: '2023-04-20T10:30:00Z',
     updatedAt: '2023-04-20T10:30:00Z',
     publishedAt: '2023-04-20T10:30:00Z',
+    topic: [
+      {
+        id: 't00001',
+        title: 'Cybersecurity',
+      },
+      {
+        id: 't00002',
+        title: 'Online Safety',
+      },
+      {
+        id: 't00003',
+        title: 'Privacy',
+      },
+    ],
   },
   {
     id: 'a00002',
