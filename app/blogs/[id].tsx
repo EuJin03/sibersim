@@ -7,7 +7,7 @@ interface props {
 }
 
 export default function Blog() {
-  const item = useLocalSearchParams();
+  const { blogid } = useLocalSearchParams();
 
   return (
     <>
