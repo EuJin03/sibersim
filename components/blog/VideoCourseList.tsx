@@ -1,30 +1,25 @@
 import { View, FlatList, TouchableHighlight, Image } from 'react-native';
 import React, { useCallback, useState, useEffect } from 'react';
-import { videos } from '@/assets/seeds/material';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
 import { Text } from 'react-native-paper';
 import YoutubePlayer, { getYoutubeMeta } from 'react-native-youtube-iframe';
-
-interface VideoItem {
-  id: string;
-  title: string;
-  desc: string;
-  thumbnail: string;
-  URL: string;
-}
+import { Material } from '@/constants/Types';
+import { materials } from '@/assets/seeds/material';
+import { router } from 'expo-router';
 
 const loadVideoThumbnail = async (videoId: string) => {
   return (await getYoutubeMeta(videoId)).thumbnail_url;
 };
 
 export default function VideoCourseList() {
-  const [items, setItems] = useState<VideoItem[]>([]);
+  const [items, setItems] = useState<Material[]>([]);
   const [currentPlayingIndex, setCurrentPlayingIndex] = useState<number | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false); // Add a loading state
 
   const onStateChange = useCallback((state: string) => {
     if (state === 'ended') {
@@ -34,19 +29,23 @@ export default function VideoCourseList() {
 
   useEffect(() => {
     const fetchThumbnails = async () => {
-      const thumbnailPromises = videos.map(async video => {
-        const thumbnail = await loadVideoThumbnail(video.attributes.videoUrl);
+      setIsLoading(true); // Set loading state to true before fetching thumbnails
+
+      const videoMaterials = materials.filter(
+        material => material.type === 'video'
+      );
+
+      const thumbnailPromises = videoMaterials.map(async material => {
+        const thumbnail = await loadVideoThumbnail(material.videoUrl || '');
         return {
-          id: video.id,
-          title: video.attributes.title,
-          desc: video.attributes.description,
+          ...material,
           thumbnail,
-          URL: video.attributes.videoUrl,
         };
       });
 
       const fetchedItems = await Promise.all(thumbnailPromises);
       setItems(fetchedItems);
+      setIsLoading(false); // Set loading state to false after fetching thumbnails
     };
 
     fetchThumbnails();
@@ -63,47 +62,77 @@ export default function VideoCourseList() {
       >
         Video Course
       </Text>
+
       <FlatList
         data={items}
-        renderItem={({ item, index }) =>
-          currentPlayingIndex === index ? (
-            <View
-              style={{
-                borderRadius: 9,
-                borderWidth: 2,
-                borderColor: '#f1f1f1',
-              }}
+        renderItem={({ item, index }) => (
+          <View>
+            <TouchableHighlight
+              onPress={() => router.navigate(`/video-course/${item.id}`)}
             >
-              <YoutubePlayer
-                height={actuatedNormalizeVertical(150)}
-                width={actuatedNormalize(240)}
-                play={true}
-                videoId={item.URL}
-                onChangeState={onStateChange}
-                contentScale={0.7}
+              <Image
+                source={{ uri: item.thumbnail || '' }}
+                style={{
+                  width: actuatedNormalize(240),
+                  height: actuatedNormalizeVertical(154),
+                  borderWidth: 2,
+                  borderColor: '#f1f1f1',
+                }}
+                resizeMode="cover"
               />
-            </View>
-          ) : (
-            <View>
-              <TouchableHighlight onPress={() => setCurrentPlayingIndex(index)}>
-                <Image
-                  source={{ uri: item.thumbnail }}
-                  style={{
-                    width: actuatedNormalize(240),
-                    height: actuatedNormalizeVertical(154),
-                    borderWidth: 2,
-                    borderColor: '#f1f1f1',
-                  }}
-                  resizeMode="cover"
-                />
-              </TouchableHighlight>
-            </View>
-          )
-        }
-        keyExtractor={(item, index) => index.toString()}
+            </TouchableHighlight>
+          </View>
+        )}
+        keyExtractor={item => item.id}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />
     </View>
   );
+}
+
+{
+  /* <FlatList
+  data={items}
+  renderItem={({ item, index }) =>
+    currentPlayingIndex === index ? (
+      <View
+        style={{
+          borderRadius: 9,
+          borderWidth: 2,
+          borderColor: '#f1f1f1',
+        }}
+      >
+        {item.type === 'video' && (
+          <YoutubePlayer
+            height={actuatedNormalizeVertical(150)}
+            width={actuatedNormalize(240)}
+            play={true}
+            videoId={item.videoUrl || ''}
+            onChangeState={onStateChange}
+            contentScale={0.7}
+          />
+        )}
+      </View>
+    ) : (
+      <View>
+        <TouchableHighlight onPress={() => setCurrentPlayingIndex(index)}>
+          <Image
+            source={{ uri: item.thumbnail || '' }}
+            style={{
+              width: actuatedNormalize(240),
+              height: actuatedNormalizeVertical(154),
+              borderWidth: 2,
+              borderColor: '#f1f1f1',
+            }}
+            resizeMode="cover"
+          />
+        </TouchableHighlight>
+      </View>
+    )
+  }
+  keyExtractor={item => item.id}
+  horizontal={true}
+  showsHorizontalScrollIndicator={false}
+/>; */
 }

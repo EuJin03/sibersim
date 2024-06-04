@@ -1,46 +1,23 @@
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  TouchableHighlight,
-  View,
-} from 'react-native';
+import { FlatList, Image, View } from 'react-native';
 import React from 'react';
-import { articles, slider } from '@/assets/seeds/material';
+import { materials } from '@/assets/seeds/material';
 import { Text, TouchableRipple } from 'react-native-paper';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
-import { router, useRouter } from 'expo-router';
-
-interface CourseItem {
-  id: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  duration: string;
-}
+import { useRouter } from 'expo-router';
+import { Material } from '@/constants/Types';
+import useRelativeTime from '@/hooks/useTimeFormat';
 
 export default function CourseList() {
   const router = useRouter();
-  const articleItems: CourseItem[] = articles.map(article => ({
-    id: article.id,
-    title: article.title,
-    description: article.description,
-    thumbnail: article.thumbnail,
-    duration: article.duration,
-  }));
+  const courseItems = materials.filter(material => material.type === 'course');
 
-  const courseHandler = (item: CourseItem) => {
+  const courseHandler = (item: Material) => {
+    const { id } = item;
     router.push({
-      pathname: `/course/${item.id}`,
-      params: {
-        title: item.title,
-        description: item.description,
-        thumbnail: item.thumbnail,
-        duration: item.duration,
-      },
+      pathname: `/course/${id}`,
     });
   };
 
@@ -60,7 +37,7 @@ export default function CourseList() {
         Advanced Course
       </Text>
       <FlatList
-        data={articleItems}
+        data={courseItems}
         renderItem={({ item }) => (
           <View
             style={{
@@ -86,12 +63,10 @@ export default function CourseList() {
                     numberOfLines={1}
                     ellipsizeMode="tail"
                   >
-                    {item.title.length > 36
-                      ? `${item.title.slice(0, 36)}...`
-                      : item.title}
+                    {item.title}
                   </Text>
                   <Text style={{ fontSize: 10, color: '#b1b1b1' }}>
-                    {item.duration}
+                    {useRelativeTime(item.publishedAt)}
                   </Text>
                 </View>
               </View>
