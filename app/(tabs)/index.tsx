@@ -1,11 +1,19 @@
 import { View, Text, ScrollView, RefreshControl, FlatList } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import PostListItem from '@/components/post';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { actuatedNormalize } from '@/constants/DynamicSize';
+import { useRouter } from 'expo-router';
 
 export default function blog() {
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const router = useRouter();
+
+  const callback = () => router.push('/simulation');
+
+  useEffect(() => {
+    setTimeout(callback, 500);
+  }, []);
 
   const onRefresh = () => {
     setRefreshing(true);

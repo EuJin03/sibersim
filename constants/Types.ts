@@ -7,6 +7,14 @@ interface User {
   phoneNum?: string;
   bios: string;
   isNewUser: boolean;
+  group?: string;
+}
+
+interface Result {
+  id?: string;
+  user: string;
+  comment: string;
+  templateId: string;
 }
 
 interface Group {
@@ -15,8 +23,8 @@ interface Group {
   description: string;
   members: { id: string }[];
   createdBy: string;
-  createdAt: string;
-  templates: Template[];
+  createdAt?: string;
+  invitationLink: string;
   results: Result[];
 }
 
@@ -67,13 +75,7 @@ interface Template {
   image: string;
   tag: string;
   template: string;
-}
-
-interface Result {
-  id?: string;
-  user: string;
-  comment: string;
-  templateId: string;
+  type: string;
 }
 
 interface Topic {

@@ -113,6 +113,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
           jobPosition: '',
           bios: '',
           isNewUser: isNewUser || false,
+          group: '',
         };
         const user = await addNewUser(newUser);
         // console.log('newUser', newUser);

@@ -9,7 +9,7 @@ import { PaperProvider } from 'react-native-paper';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { StatusBar } from 'expo-status-bar';
 import { AuthContextProvider } from '@/contexts/userContext';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { LightTheme, DarkTheme } from '@/hooks/useThemeColor';
 import { Colors } from '@/constants/Colors';
 import Avatar from '@/components/user/Avatar';
