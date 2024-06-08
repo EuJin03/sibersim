@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -30,8 +30,8 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+  console.log(usePathname());
   const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
-  console.log(colorScheme);
   const paperTheme =
     colorScheme === 'dark'
       ? { ...DarkTheme, colors: DarkTheme.colors }
@@ -83,7 +83,8 @@ export default function RootLayout() {
             options={{
               title: '',
               headerLeft: () => <Header />,
-              headerRight: () => <Avatar />,
+              headerRight: () =>
+                usePathname() === '/settings' ? null : <Avatar />,
             }}
           />
         </Stack>

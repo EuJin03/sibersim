@@ -9,7 +9,7 @@ export const materials: Material[] = [
     createdAt: '2023-01-12T09:15:00Z',
     updatedAt: '2023-01-12T09:15:00Z',
     publishedAt: '2023-01-12T09:15:00Z',
-    videoUrl: 'iyOunTA0b-s',
+    videoUrl: 'Yz0PnAkeRiI',
   },
   {
     type: 'course',
@@ -80,7 +80,7 @@ export const materials: Material[] = [
     createdAt: '2023-03-05T11:20:00Z',
     updatedAt: '2023-03-05T11:20:00Z',
     publishedAt: '2023-03-05T11:20:00Z',
-    videoUrl: 'iyOunTA0b-s',
+    videoUrl: 'aO858HyFbKI',
   },
   {
     type: 'course',
@@ -151,7 +151,7 @@ export const materials: Material[] = [
     createdAt: '2022-11-15T18:00:00Z',
     updatedAt: '2022-11-15T18:00:00Z',
     publishedAt: '2022-11-15T18:00:00Z',
-    videoUrl: 'iyOunTA0b-s',
+    videoUrl: 'GSU1Ue_7Kb0',
   },
   {
     type: 'course',
@@ -222,7 +222,7 @@ export const materials: Material[] = [
     createdAt: '2023-05-01T14:45:00Z',
     updatedAt: '2023-05-01T14:45:00Z',
     publishedAt: '2023-05-01T14:45:00Z',
-    videoUrl: 'iyOunTA0b-s',
+    videoUrl: 'GqAvw_dm20w',
   },
   {
     type: 'course',
@@ -293,7 +293,7 @@ export const materials: Material[] = [
     createdAt: '2023-02-20T16:30:00Z',
     updatedAt: '2023-02-20T16:30:00Z',
     publishedAt: '2023-02-20T16:30:00Z',
-    videoUrl: 'iyOunTA0b-s',
+    videoUrl: 'eizn9TC68E8',
   },
   {
     type: 'course',
@@ -364,7 +364,7 @@ export const materials: Material[] = [
     createdAt: '2023-06-01T10:15:00Z',
     updatedAt: '2023-06-01T10:15:00Z',
     publishedAt: '2023-06-01T10:15:00Z',
-    videoUrl: 'iyOunTA0b-s',
+    videoUrl: 'XBkzBrXlle0',
   },
   {
     type: 'course',

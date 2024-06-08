@@ -16,8 +16,12 @@ export default function Blog() {
           backgroundColor: '#ffffff',
           borderRadius: 9,
           marginTop: actuatedNormalizeVertical(16),
+          height: actuatedNormalizeVertical(50),
         }}
         elevation={1}
+        inputStyle={{
+          minHeight: 0, // Add this
+        }}
       />
     </>
   );

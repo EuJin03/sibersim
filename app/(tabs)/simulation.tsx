@@ -89,28 +89,28 @@ export default function simulation() {
           </Text>
         </View> */}
 
-        {groupResult.map(result => {
-          const template = templates.find(
-            template => template.template === result.templateId
-          );
-          if (!template) {
-            return null; // or handle the case when template is undefined
-          }
-          return (
-            <View
-              style={{
-                paddingHorizontal: actuatedNormalize(10),
-              }}
-            >
+        <View
+          style={{
+            paddingHorizontal: actuatedNormalize(10),
+          }}
+        >
+          {groupResult.map(result => {
+            const template = templates.find(
+              template => template.template === result.templateId
+            );
+            if (!template) {
+              return null; // or handle the case when template is undefined
+            }
+            return (
               <ResultCard
                 key={useId()}
                 userInfo={result.userResults}
                 template={template}
                 groupInfo={groupInfo}
               />
-            </View>
-          );
-        })}
+            );
+          })}
+        </View>
       </ScrollView>
     </View>
   );

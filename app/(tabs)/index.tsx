@@ -11,7 +11,7 @@ export default function blog() {
 
   useEffect(() => {
     setTimeout(() => {
-      router.push('/simulation');
+      router.push('/settings');
     }, 500);
   });
 

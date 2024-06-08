@@ -19,6 +19,7 @@ import {
 import { IconButton, TouchableRipple } from 'react-native-paper';
 import { Colors } from '@/hooks/useThemeColor';
 import useRelativeTime from '@/hooks/useTimeFormat';
+import ResultModal from './ResultModal';
 
 export default function ResultCard({
   template,
@@ -29,10 +30,16 @@ export default function ResultCard({
   userInfo: Result[];
   groupInfo: Group;
 }) {
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [imageModal, setImageModal] = useState<boolean>(false);
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
+  const [resultModal, setResultModal] = useState<boolean>(false);
+
+  const toggleSelectResultModal = () => {
+    setResultModal(!resultModal);
+  };
+
+  const toggleImageModal = () => {
+    setImageModal(!imageModal);
   };
 
   return (
@@ -60,7 +67,14 @@ export default function ResultCard({
         elevation: 4,
       }}
     >
-      <Pressable onPress={toggleModal}>
+      <ResultModal
+        isVisible={resultModal}
+        toggleModal={toggleSelectResultModal}
+        userInfo={userInfo}
+        groupInfo={groupInfo}
+        template={template}
+      />
+      <Pressable onPress={toggleImageModal}>
         <Image
           source={{
             uri: 'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/google-sign-in-template.jpg?alt=media&token=51d7b17e-70a6-4cb9-9cfb-69868e224f6b',
@@ -75,14 +89,15 @@ export default function ResultCard({
         />
       </Pressable>
       <Modal
-        visible={modalVisible}
-        onRequestClose={toggleModal}
+        visible={imageModal}
+        onRequestClose={toggleImageModal}
         style={{
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
         }}
+        animationType="fade"
       >
-        <TouchableOpacity onPress={toggleModal}>
+        <TouchableOpacity onPress={toggleImageModal}>
           <Image
             source={{
               uri: 'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/google-sign-in-template.jpg?alt=media&token=51d7b17e-70a6-4cb9-9cfb-69868e224f6b',
@@ -98,7 +113,7 @@ export default function ResultCard({
       </Modal>
       <TouchableRipple
         style={{ width: actuatedNormalize(238) }}
-        onPress={() => console.log('press')}
+        onPress={() => toggleSelectResultModal()}
       >
         <View
           style={{

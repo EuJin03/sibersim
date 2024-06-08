@@ -38,8 +38,8 @@ export default function HomeScreen() {
       >
         <SearchBar />
         <Slider />
-        <VideoCourseList />
         <CourseList />
+        <VideoCourseList />
       </ScrollView>
     </>
   );

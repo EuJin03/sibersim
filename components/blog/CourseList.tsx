@@ -34,7 +34,7 @@ export default function CourseList() {
           marginLeft: actuatedNormalize(3),
         }}
       >
-        Advanced Course
+        Interactive Course
       </Text>
       <FlatList
         data={courseItems}
