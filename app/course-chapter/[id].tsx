@@ -4,6 +4,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  useColorScheme,
 } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
@@ -19,7 +20,7 @@ import { materials } from '@/assets/seeds/material';
 import { Material, Topic } from '@/constants/Types';
 
 export default function CourseChapter() {
-  const colorScheme = 'light';
+  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   const { id, topicId } = useLocalSearchParams();
   let chapterRef = useRef<FlatList | null>(null);
   const router = useRouter();

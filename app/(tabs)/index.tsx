@@ -9,11 +9,11 @@ export default function blog() {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const router = useRouter();
 
-  const callback = () => router.push('/simulation');
-
   useEffect(() => {
-    setTimeout(callback, 500);
-  }, []);
+    setTimeout(() => {
+      router.push('/simulation');
+    }, 500);
+  });
 
   const onRefresh = () => {
     setRefreshing(true);

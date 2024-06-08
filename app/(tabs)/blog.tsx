@@ -13,7 +13,7 @@ import { actuatedNormalize } from '@/constants/DynamicSize';
 import { useState } from 'react';
 
 export default function HomeScreen() {
-  const colorScheme = 'light';
+  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   const { dbUser, signOut } = useAuth();
 
   const [refreshing, setRefreshing] = useState<boolean>(false);

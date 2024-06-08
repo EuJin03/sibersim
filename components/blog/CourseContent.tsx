@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
 import React from 'react';
 import {
   actuatedNormalize,
@@ -7,7 +13,7 @@ import {
 import { Text } from 'react-native-paper';
 import MUI from '@expo/vector-icons/MaterialCommunityIcons';
 import { Colors } from '@/hooks/useThemeColor';
-import { Stack, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { Topic } from '@/constants/Types';
 
 export default function CourseContent({
@@ -17,7 +23,7 @@ export default function CourseContent({
   courseId: string;
   courseTopics: Topic[];
 }) {
-  const colorScheme = 'light';
+  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   const router = useRouter();
 
   return (

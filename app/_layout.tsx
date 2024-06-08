@@ -5,8 +5,7 @@ import React, { useEffect } from 'react';
 import 'react-native-reanimated';
 import * as NavigationBar from 'expo-navigation-bar';
 import { PaperProvider } from 'react-native-paper';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { AuthContextProvider } from '@/contexts/userContext';
 import MaterialIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -31,7 +30,7 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme() === 'dark' ? 'light' : 'dark';
+  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   console.log(colorScheme);
   const paperTheme =
     colorScheme === 'dark'
@@ -43,7 +42,7 @@ export default function RootLayout() {
       colorScheme === 'dark' ? '#000000' : '#ffffff'
     );
     NavigationBar.setButtonStyleAsync(
-      colorScheme === 'dark' ? 'light' : 'dark'
+      colorScheme === 'dark' ? 'dark' : 'light'
     );
   }, [colorScheme]);
 
