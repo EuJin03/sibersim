@@ -92,9 +92,6 @@ export default function CourseChapter() {
               </Text>
               <Text variant="bodySmall">{item.description}</Text>
               <Text variant="bodySmall">{item.description}</Text>
-
-              <Text variant="bodySmall">{item.description}</Text>
-
               <Text variant="bodySmall">{item.description}</Text>
             </ScrollView>
 

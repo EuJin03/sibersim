@@ -19,7 +19,7 @@ export default function VideoCourseList() {
   const [currentPlayingIndex, setCurrentPlayingIndex] = useState<number | null>(
     null
   );
-  const [isLoading, setIsLoading] = useState(false); // Add a loading state
+  const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
   const onStateChange = useCallback((state: string) => {
     if (state === 'ended') {
@@ -29,8 +29,6 @@ export default function VideoCourseList() {
 
   useEffect(() => {
     const fetchThumbnails = async () => {
-      setIsLoading(true); // Set loading state to true before fetching thumbnails
-
       const videoMaterials = materials.filter(
         material => material.type === 'video'
       );
@@ -62,19 +60,22 @@ export default function VideoCourseList() {
       >
         Video Course
       </Text>
-
       <FlatList
         data={items}
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <View>
             <TouchableHighlight
               onPress={() => router.navigate(`/video-course/${item.id}`)}
+              style={{
+                width: actuatedNormalize(240),
+                height: actuatedNormalize(138),
+              }}
             >
               <Image
                 source={{ uri: item.thumbnail || '' }}
                 style={{
                   width: actuatedNormalize(240),
-                  height: actuatedNormalizeVertical(154),
+                  height: actuatedNormalize(138),
                   borderWidth: 2,
                   borderColor: '#f1f1f1',
                 }}

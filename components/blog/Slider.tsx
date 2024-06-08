@@ -46,7 +46,7 @@ export default function Slider() {
                 }}
                 style={{
                   width: Dimensions.get('window').width - actuatedNormalize(39),
-                  height: actuatedNormalizeVertical(150),
+                  height: actuatedNormalizeVertical(160),
                   borderColor: '#f1f1f1',
                   borderWidth: 2,
                   borderRadius: 10,
