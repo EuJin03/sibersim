@@ -12,7 +12,7 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout({}) {
-  const colorScheme = 'light';
+  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
 
   return (
     <Tabs

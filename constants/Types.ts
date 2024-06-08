@@ -15,15 +15,14 @@ interface Result {
   user: string;
   comment: string;
   templateId: string;
+  username: string;
 }
 
 interface Group {
   id?: string;
   name: string;
   description: string;
-  members: { id: string }[];
-  createdBy: string;
-  createdAt?: string;
+  members: string[];
   invitationLink: string;
   results: Result[];
 }
