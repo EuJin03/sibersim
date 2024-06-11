@@ -21,6 +21,7 @@ import { Comment, Post } from '@/constants/Types';
 interface PostsState {
   posts: Post[];
   postDetail: Post | null;
+  postLoading: boolean;
   loading: boolean;
   error: Error | null;
   lastVisible: any;
@@ -35,7 +36,7 @@ interface PostsState {
   submitComment: (postId: string, commentData: Comment) => Promise<void>;
   upvoteComment: (
     postId: string,
-    commentId: string,
+    commentCreatedAt: string,
     userId: string
   ) => Promise<void>;
 }
@@ -43,6 +44,7 @@ interface PostsState {
 const usePosts = create<PostsState>((set, get) => ({
   posts: [],
   postDetail: null,
+  postLoading: false,
   loading: false,
   error: null,
   lastVisible: null,
@@ -62,7 +64,6 @@ const usePosts = create<PostsState>((set, get) => ({
         id: doc.id,
         ...doc.data(),
       })) as Post[];
-      console.log(posts);
       set({
         posts,
         loading: false,
@@ -122,47 +123,50 @@ const usePosts = create<PostsState>((set, get) => ({
 
   likePost: async (postId, userId) => {
     try {
-      const db = getFirestore();
-      const postRef = doc(db, 'posts', postId);
       const post = get().posts.find(post => post.id === postId);
 
       if (post) {
         const upvoteArray = post.upvote || []; // Use an empty array if upvote is undefined
+        let updatedUpvoteArray = [];
 
         if (upvoteArray.includes(userId)) {
           // Remove userId from upvote array
-          const updatedUpvoteArray = upvoteArray.filter(id => id !== userId);
-
-          await updateDoc(postRef, {
-            upvote: updatedUpvoteArray,
-          });
-
-          set(state => ({
-            posts: state.posts.map(post =>
-              post.id === postId
-                ? { ...post, upvote: updatedUpvoteArray }
-                : post
-            ),
-          }));
+          updatedUpvoteArray = upvoteArray.filter(id => id !== userId);
         } else {
           // Add userId to upvote array
-          const updatedUpvoteArray = [...upvoteArray, userId];
-
-          await updateDoc(postRef, {
-            upvote: updatedUpvoteArray,
-          });
-
-          set(state => ({
-            posts: state.posts.map(post =>
-              post.id === postId
-                ? { ...post, upvote: updatedUpvoteArray }
-                : post
-            ),
-          }));
+          updatedUpvoteArray = [...upvoteArray, userId];
         }
+
+        // Update the Zustand state first
+        set(state => ({
+          posts: state.posts.map(post =>
+            post.id === postId ? { ...post, upvote: updatedUpvoteArray } : post
+          ),
+          postDetail:
+            state.postDetail?.id === postId
+              ? { ...state.postDetail, upvote: updatedUpvoteArray }
+              : state.postDetail,
+        }));
+
+        // Update the server after updating the Zustand state
+        const db = getFirestore();
+        const postRef = doc(db, 'posts', postId);
+        await updateDoc(postRef, {
+          upvote: updatedUpvoteArray,
+        });
       }
     } catch (error) {
       console.error('Error liking post:', error);
+      // Revert the Zustand state changes in case of an error
+      set(state => ({
+        posts: state.posts.map(post =>
+          post.id === postId ? { ...post, upvote: post.upvote || [] } : post
+        ),
+        postDetail:
+          state.postDetail?.id === postId
+            ? { ...state.postDetail, upvote: state.postDetail.upvote || [] }
+            : state.postDetail,
+      }));
     }
   },
 
@@ -176,7 +180,13 @@ const usePosts = create<PostsState>((set, get) => ({
           id: postSnapshot.id,
           ...(postSnapshot.data() as Post),
         };
-        set({ postDetail: postData, loading: false });
+        set(state => ({
+          posts: state.posts.map(post =>
+            post.id === postId ? postData : post
+          ),
+          postDetail: postData,
+          loading: false,
+        }));
       } else {
         set({ postDetail: null, loading: false });
       }
@@ -187,6 +197,7 @@ const usePosts = create<PostsState>((set, get) => ({
 
   submitComment: async (postId, commentData) => {
     try {
+      set({ postLoading: true, error: null });
       const db = getFirestore();
       const postRef = doc(db, 'posts', postId);
 
@@ -207,7 +218,11 @@ const usePosts = create<PostsState>((set, get) => ({
                 comments: [
                   ...post.comments,
                   { ...commentData, createdAt: new Date().toISOString() },
-                ],
+                ].sort(
+                  (a, b) =>
+                    new Date(b.createdAt ?? '').getTime() -
+                    new Date(a.createdAt ?? '').getTime()
+                ), // Sort comments by createdAt in descending order
               }
             : post
         ),
@@ -218,23 +233,31 @@ const usePosts = create<PostsState>((set, get) => ({
                 comments: [
                   ...state.postDetail.comments,
                   { ...commentData, createdAt: new Date().toISOString() },
-                ],
+                ].sort(
+                  (a, b) =>
+                    new Date(b.createdAt ?? '').getTime() -
+                    new Date(a.createdAt ?? '').getTime()
+                ), // Sort comments by createdAt in descending order
               }
             : state.postDetail,
       }));
     } catch (error) {
       console.error('Error submitting comment:', error);
+    } finally {
+      set({ postLoading: false, error: null });
     }
   },
 
-  upvoteComment: async (postId, commentId, userId) => {
+  upvoteComment: async (postId, commentCreatedAt, userId) => {
     try {
       const db = getFirestore();
       const postRef = doc(db, 'posts', postId);
       const post = get().posts.find(post => post.id === postId);
 
       if (post) {
-        const comment = post.comments.find(comment => comment.id === commentId);
+        const comment = post.comments.find(
+          comment => comment.createdAt === commentCreatedAt
+        );
 
         if (comment) {
           const upvoteArray = comment.upvote || []; // Use an empty array if upvote is undefined
@@ -245,7 +268,7 @@ const usePosts = create<PostsState>((set, get) => ({
 
             await updateDoc(postRef, {
               comments: post.comments.map(comment =>
-                comment.id === commentId
+                comment.createdAt === commentCreatedAt
                   ? { ...comment, upvote: updatedUpvoteArray }
                   : comment
               ),
@@ -256,11 +279,17 @@ const usePosts = create<PostsState>((set, get) => ({
                 post.id === postId
                   ? {
                       ...post,
-                      comments: post.comments.map(comment =>
-                        comment.id === commentId
-                          ? { ...comment, upvote: updatedUpvoteArray }
-                          : comment
-                      ),
+                      comments: post.comments
+                        .map(comment =>
+                          comment.createdAt === commentCreatedAt
+                            ? { ...comment, upvote: updatedUpvoteArray }
+                            : comment
+                        )
+                        .sort(
+                          (a, b) =>
+                            new Date(b.createdAt ?? '').getTime() -
+                            new Date(a.createdAt ?? '').getTime()
+                        ), // Sort comments by createdAt in descending order
                     }
                   : post
               ),
@@ -270,11 +299,17 @@ const usePosts = create<PostsState>((set, get) => ({
             const updatedUpvoteArray = [...upvoteArray, userId];
 
             await updateDoc(postRef, {
-              comments: post.comments.map(comment =>
-                comment.id === commentId
-                  ? { ...comment, upvote: updatedUpvoteArray }
-                  : comment
-              ),
+              comments: post.comments
+                .map(comment =>
+                  comment.createdAt === commentCreatedAt
+                    ? { ...comment, upvote: updatedUpvoteArray }
+                    : comment
+                )
+                .sort(
+                  (a, b) =>
+                    new Date(b.createdAt ?? '').getTime() -
+                    new Date(a.createdAt ?? '').getTime()
+                ),
             });
 
             set(state => ({
@@ -282,11 +317,17 @@ const usePosts = create<PostsState>((set, get) => ({
                 post.id === postId
                   ? {
                       ...post,
-                      comments: post.comments.map(comment =>
-                        comment.id === commentId
-                          ? { ...comment, upvote: updatedUpvoteArray }
-                          : comment
-                      ),
+                      comments: post.comments
+                        .map(comment =>
+                          comment.createdAt === commentCreatedAt
+                            ? { ...comment, upvote: updatedUpvoteArray }
+                            : comment
+                        )
+                        .sort(
+                          (a, b) =>
+                            new Date(b.createdAt ?? '').getTime() -
+                            new Date(a.createdAt ?? '').getTime()
+                        ), // Sort comments by createdAt in descending order
                     }
                   : post
               ),

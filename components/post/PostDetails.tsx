@@ -58,6 +58,7 @@ function FooterButton({ text, icon }: FooterButtonProp) {
 export default function PostDetail({ post }: PostDetailProps) {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isLikeLoading, setIsLikeLoading] = useState<boolean>(false);
   const { dbUser } = useAuth();
   const { likePost } = usePosts();
 
@@ -209,7 +210,9 @@ export default function PostDetail({ post }: PostDetailProps) {
         {/* Footer */}
         <View style={styles.footer}>
           <TouchableOpacity
-            onPress={() => likePost(post.id ?? '', dbUser?.id ?? '')}
+            onPress={() => {
+              likePost(post.id ?? '', dbUser?.id ?? '');
+            }}
             style={{
               flexDirection: 'row',
               alignItems: 'center',

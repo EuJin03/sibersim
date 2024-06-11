@@ -117,9 +117,8 @@ export default function Blog() {
                   style={{
                     borderRadius: 60,
                     borderWidth: 1,
-                    borderColor: '#f1f1f1',
+                    borderColor: '#ffffff',
                     padding: actuatedNormalize(5),
-                    backgroundColor: '#f1f1f1',
                   }}
                 >
                   <Icon
