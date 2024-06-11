@@ -58,6 +58,7 @@ function FooterButton({ text, icon }: FooterButtonProp) {
 export default function PostListItem({ post }: PostListItemProps) {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isLikeLoading, setIsLikeLoading] = useState<boolean>(false);
   const { dbUser } = useAuth();
   const { likePost } = usePosts();
 
@@ -69,7 +70,7 @@ export default function PostListItem({ post }: PostListItemProps) {
     setSelectedImage(null);
   };
 
-  if (!post) return router.back();
+  if (!post) return <View></View>;
 
   return (
     <View style={styles.container}>
@@ -216,7 +217,9 @@ export default function PostListItem({ post }: PostListItemProps) {
         {/* Footer */}
         <View style={styles.footer}>
           <TouchableOpacity
-            onPress={() => likePost(post.id ?? '', dbUser?.id ?? '')}
+            onPress={() => {
+              likePost(post.id ?? '', dbUser?.id ?? '');
+            }}
             style={{
               flexDirection: 'row',
               alignItems: 'center',

@@ -110,7 +110,7 @@ export default function settings() {
             size={actuatedNormalize(60)}
             source={{
               uri:
-                dbUser?.profilePicture ||
+                dbUser?.profilePicture ??
                 'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
             }}
           />
@@ -118,7 +118,7 @@ export default function settings() {
             icon="pencil"
             iconColor={Colors.light.secondary}
             size={12}
-            onPress={() => console.log('Pressed')}
+            onPress={() => router.navigate('/edit-profile')}
             style={{
               position: 'absolute',
               bottom: actuatedNormalize(-8),
