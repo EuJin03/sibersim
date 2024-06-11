@@ -22,7 +22,7 @@ import { Colors } from '@/hooks/useThemeColor';
 import { useAuth } from '@/contexts/userContext';
 import usePosts from '@/hooks/usePosts';
 
-type PostListItemProps = {
+type PostDetailProps = {
   post: Post;
 };
 
@@ -55,7 +55,7 @@ function FooterButton({ text, icon }: FooterButtonProp) {
   );
 }
 
-export default function PostListItem({ post }: PostListItemProps) {
+export default function PostDetail({ post }: PostDetailProps) {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { dbUser } = useAuth();
@@ -69,7 +69,7 @@ export default function PostListItem({ post }: PostListItemProps) {
     setSelectedImage(null);
   };
 
-  if (!post) return router.back();
+  if (!post) return <View></View>;
 
   return (
     <View style={styles.container}>
@@ -80,25 +80,18 @@ export default function PostListItem({ post }: PostListItemProps) {
       >
         <Link href={`/posts/${post.id}`} asChild>
           <Pressable>
+            {/* Header */}
             <View style={styles.header}>
-              <Pressable
-                onPressOut={() => router.navigate(`/posts/${post.id}`)}
-              >
-                <Image
-                  source={{
-                    uri: post?.authorImage,
-                  }}
-                  style={styles.userImage}
-                />
-              </Pressable>
+              <Image
+                source={{
+                  uri: post?.authorImage,
+                }}
+                style={styles.userImage}
+              />
               <View>
-                <Pressable
-                  onPressOut={() => router.navigate(`/posts/${post.id}`)}
-                >
-                  <Text style={styles.userName} variant="bodyMedium">
-                    {post.postedBy}
-                  </Text>
-                </Pressable>
+                <Text style={styles.userName} variant="bodyMedium">
+                  {post.postedBy}
+                </Text>
                 <Text
                   style={{ fontSize: actuatedNormalize(10), color: '#121212' }}
                 >
@@ -204,9 +197,9 @@ export default function PostListItem({ post }: PostListItemProps) {
             }}
           >
             <Icon size={16} source="thumb-up" color={Colors.light.primary} />
-            <Text style={{ fontSize: 12, color: '#696969' }}>{`${
-              post.upvote.length ?? 0
-            }`}</Text>
+            <Text
+              style={{ fontSize: 12, color: '#696969' }}
+            >{`${post.upvote.length}`}</Text>
           </View>
           <Text
             style={{ fontSize: 12, color: '#696969' }}
@@ -227,7 +220,7 @@ export default function PostListItem({ post }: PostListItemProps) {
               name={'thumbs-o-up'}
               size={14}
               color={
-                (post.upvote || []).find(id => id === dbUser?.id)
+                post.upvote.find(id => id === dbUser?.id)
                   ? Colors.light.primary
                   : '#909090'
               }
@@ -237,7 +230,7 @@ export default function PostListItem({ post }: PostListItemProps) {
                 marginLeft: 5,
                 fontWeight: '500',
                 fontSize: 12,
-                color: (post.upvote || []).find(id => id === dbUser?.id)
+                color: post.upvote.find(id => id === dbUser?.id)
                   ? Colors.light.primary
                   : '#909090',
               }}
@@ -245,9 +238,7 @@ export default function PostListItem({ post }: PostListItemProps) {
               Like
             </Text>
           </TouchableOpacity>
-          <Pressable onPress={() => router.navigate(`/posts/${post.id}`)}>
-            <FooterButton text={`Comment`} icon="comment-o" />
-          </Pressable>
+          <FooterButton text={`Comment`} icon="comment-o" />
           <FooterButton text="Share" icon="share" />
         </View>
       </View>
@@ -277,8 +268,6 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: actuatedNormalize(500),
     alignSelf: 'center',
-
-    marginBottom: actuatedNormalizeVertical(5),
   },
 
   // Header

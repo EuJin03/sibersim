@@ -3,6 +3,7 @@ import { Material } from '@/constants/Types';
 export const materials: Material[] = [
   {
     type: 'video',
+    tags: ['Cybersecurity', 'Phishing'],
     id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
     title: 'Phishing Attacks: Recognize and Respond',
     description: `Phishing attacks are a persistent threat to individuals and organizations.\nIn this video, you'll learn:\n- How to identify common phishing techniques\n- Steps to take if you've fallen victim to a phishing attack\n- Best practices for preventing future phishing incidents`,
@@ -13,6 +14,7 @@ export const materials: Material[] = [
   },
   {
     type: 'course',
+    tags: ['Cybersecurity', 'Phishing'],
     id: '3419e505-a281-4e5e-9c67-82f5a9d7524a',
     title: 'Cybersecurity Fundamentals for Beginners',
     description: `This course is designed for individuals with little to no prior knowledge of cybersecurity.\nYou will learn:\n- The basics of cyber threats and attack vectors\n- Essential cybersecurity principles and best practices\n- How to protect your personal and professional digital assets`,
@@ -74,6 +76,7 @@ export const materials: Material[] = [
   },
   {
     type: 'video',
+    tags: ['Cybersecurity', 'Phishing'],
     id: 'ae70c38c-8f29-4217-8f99-de1ac8e05e1e',
     title: 'Secure Browsing: Protecting Your Privacy Online',
     description: `In this video, you'll discover:\n- The risks associated with online browsing\n- How to configure your browser for enhanced privacy and security\n- Tips for safely browsing the web and avoiding common threats`,
@@ -84,11 +87,12 @@ export const materials: Material[] = [
   },
   {
     type: 'course',
+    tags: ['Cybersecurity', 'Phishing'],
     id: '9a8c8b4a-8d41-4b57-962b-c6c5ecd19554',
     title: 'Phishing Awareness and Prevention',
     description: `Phishing attacks are a significant threat to individuals and organizations alike.\nIn this course, you'll learn:\n- How to recognize various types of phishing attacks\n- Strategies for avoiding and mitigating phishing threats\n- Best practices for reporting suspected phishing incidents`,
     thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/phishing.jpg?alt=media&token=138cd671-3a91-43ad-b2d8-2dc1a5b56735',
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fphishing.jpg?alt=media&token=ed4cc2de-8801-4a66-b854-98952949a976',
     createdAt: '2023-04-20T10:30:00Z',
     updatedAt: '2023-04-20T10:30:00Z',
     publishedAt: '2023-04-20T10:30:00Z',
@@ -145,6 +149,7 @@ export const materials: Material[] = [
   },
   {
     type: 'video',
+    tags: ['Cybersecurity', 'Phishing'],
     id: '0cac9dab-2fe0-4a8c-9d48-5de4cff6918b',
     title: 'Social Engineering: Understanding the Human Factor',
     description: `Social engineering attacks exploit human psychology and behavior.\nThis video will cover:\n- Common social engineering techniques used by attackers\n- How to recognize and respond to social engineering attempts\n- Best practices for protecting against these types of attacks`,
@@ -155,6 +160,7 @@ export const materials: Material[] = [
   },
   {
     type: 'course',
+    tags: ['Cybersecurity', 'Phishing'],
     id: 'f2e6d7e9-96b0-4c1f-8b6b-8f6c3d4e6c5a',
     title: 'Cybersecurity for Small Businesses',
     description: `As a small business owner, protecting your digital assets is crucial.\nThis course will teach you:\n- Common cyber threats targeting small businesses\n- Essential cybersecurity practices and controls\n- How to develop and implement a cybersecurity strategy`,
@@ -216,6 +222,7 @@ export const materials: Material[] = [
   },
   {
     type: 'video',
+    tags: ['Cybersecurity', 'Phishing'],
     id: 'b48f0c8e-696f-4f80-9fb8-a0e2eb04acf4',
     title: 'Secure Remote Work: Tips for Employees and Organizations',
     description: `With the rise of remote work, maintaining cybersecurity is more important than ever.\nIn this video, you'll learn:\n- Best practices for secure remote access and collaboration\n- How to protect sensitive data while working remotely\n- Organizational policies and controls for remote workforce security`,
@@ -226,6 +233,7 @@ export const materials: Material[] = [
   },
   {
     type: 'course',
+    tags: ['Cybersecurity', 'Phishing'],
     id: '1d1458b8-9b9f-4f6b-9d49-e5e4c92f8d2b',
     title: 'Web Application Security Essentials',
     description: `Web applications are a common target for cyber attacks.\nThis course will teach you:\n- Common web application vulnerabilities and attacks\n- Secure coding practices and secure software development lifecycle (SDLC)\n- Web application security testing and remediation techniques`,
@@ -287,6 +295,7 @@ export const materials: Material[] = [
   },
   {
     type: 'video',
+    tags: ['Cybersecurity', 'Phishing'],
     id: '8b6af7f0-c8ff-4c45-9c4e-d8f6f92df7c6',
     title: 'Malware and Ransomware: Prevention and Response',
     description: `Malware and ransomware attacks can have devastating consequences.\nIn this video, you'll learn:\n- How malware and ransomware work and their potential impacts\n- Best practices for preventing and mitigating these threats\n- Steps to take if your system or organization is affected`,
@@ -297,6 +306,7 @@ export const materials: Material[] = [
   },
   {
     type: 'course',
+    tags: ['Cybersecurity', 'Phishing'],
     id: 'beb00708-f0fb-4aab-9a2b-c5f4e4d73e7d',
     title: 'Cloud Security Fundamentals',
     description: `As more organizations migrate to cloud environments, cloud security has become a critical concern.\nThis course will cover:\n- Common cloud security risks and challenges\n- Best practices for securing cloud infrastructure and services\n- Cloud security tools and technologies`,
@@ -358,6 +368,7 @@ export const materials: Material[] = [
   },
   {
     type: 'video',
+    tags: ['Cybersecurity', 'Phishing'],
     id: 'f7d59fdb-5de5-4c24-8ace-d1518573abb6',
     title: 'Phishing Simulation: A Hands-On Experience',
     description: `This interactive video will simulate a phishing attack scenario.\nYou'll have the opportunity to:\n- Identify potential phishing indicators and red flags\n- Practice responding appropriately to suspected phishing attempts\n- Learn from real-world examples and case studies`,
@@ -368,11 +379,12 @@ export const materials: Material[] = [
   },
   {
     type: 'course',
+    tags: ['Cybersecurity', 'Phishing'],
     id: '4c8d6a2b-ef50-4940-8a7f-92ac9dca66b1',
     title: 'Mobile Device Security',
     description: `With the widespread use of mobile devices, securing these devices is crucial.\nIn this course, you'll learn:\n- Common mobile device security risks and threats\n- Best practices for securing mobile devices and apps\n- Mobile device management and security controls`,
     thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/phishing.jpg?alt=media&token=138cd671-3a91-43ad-b2d8-2dc1a5b56735',
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fphishing.jpg?alt=media&token=ed4cc2de-8801-4a66-b854-98952949a976',
     createdAt: '2022-12-15T14:30:00Z',
     updatedAt: '2022-12-15T14:30:00Z',
     publishedAt: '2022-12-15T14:30:00Z',

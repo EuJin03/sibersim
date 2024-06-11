@@ -16,6 +16,7 @@ interface Result {
   comment: string;
   templateId: string;
   username: string;
+  updatedAt?: string;
 }
 
 interface Group {
@@ -50,21 +51,27 @@ interface Blog {
 
 interface Post {
   id?: string;
-  title: string;
   content: string;
-  image?: string;
-  upvote: number;
+  image?: string[];
+  upvote: string[];
   postedBy: string;
-  commentsId: string[];
-  createdAt?: string;
-  updatedAt?: string;
+  authorId: string;
+  comments: Comment[];
+  createdAt: string;
+  updatedAt: string;
+  authorJob: string;
+  authorImage: string;
 }
 
 interface Comment {
   id?: string;
   content: string;
   postedBy: string;
-  upvote: number;
+  authorId: string;
+  upvote: string[];
+  authorJob: string;
+  authorImage: string;
+  createdAt?: string;
 }
 
 interface Template {
@@ -103,6 +110,7 @@ interface Material {
   videoUrl?: string;
   thumbnail?: string;
   topic?: Topic[];
+  tags?: string[];
 }
 
 export type {

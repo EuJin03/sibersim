@@ -42,7 +42,7 @@ export default function GroupCardSkeleton({
     >
       <Card.Cover
         source={{
-          uri: 'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/phishing.jpg?alt=media&token=138cd671-3a91-43ad-b2d8-2dc1a5b56735',
+          uri: 'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fphishing.jpg?alt=media&token=ed4cc2de-8801-4a66-b854-98952949a976',
         }}
         style={{
           height: actuatedNormalizeVertical(160),

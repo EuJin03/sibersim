@@ -1,29 +1,21 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useRouter } from 'expo-router';
+import { usePathname, useRouter } from 'expo-router';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { User } from '@/constants/Types';
-import useUsersStore from '@/hooks/useUsers';
-
-// Initialize Firebase (replace with your Firebase configuration)
-const firebaseConfig = {
-  apiKey: process.env.EXPO_PUBLIC_FIREBASE_APIKEY,
-  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTHDOMAIN,
-  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECTID,
-  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGEBUCKET,
-  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGINGSENDERID,
-  appId: process.env.EXPO_PUBLIC_FIREBASE_APPID,
-};
-
-firebase.initializeApp(firebaseConfig);
+import { firebase, auth } from '@/firebase';
+import useUsersStore, { UserState } from '@/hooks/useUsers';
 
 interface AuthType {
   authUser: firebase.User | null;
-  dbUser: User | null;
+  dbUser: UserState['dbUser'];
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
+  fetchUpdatedDbUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthType>({
@@ -31,6 +23,7 @@ const AuthContext = createContext<AuthType>({
   dbUser: null,
   signIn: async () => {},
   signOut: async () => {},
+  fetchUpdatedDbUser: async () => {},
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -38,49 +31,46 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [authUser, setAuthUser] = useState<firebase.User | null>(null);
-  const [dbUser, setDbUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const { getUserByEmail, addNewUser } = useUsersStore();
+  const {
+    addNewUser,
+    getUserByEmail,
+    dbUser,
+    setDbUser,
+    removeDbUser,
+    getUserById,
+  } = useUsersStore();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleRouting = async () => {
-      if (authUser) {
-        if (!dbUser) {
-          router.replace('/login');
-        }
-
-        if (dbUser && dbUser.isNewUser) {
+      if (dbUser) {
+        if (dbUser.isNewUser && pathname === '/login') {
           router.replace('/setup');
-        }
-
-        if (dbUser && !dbUser.isNewUser) {
-          router.replace('/(tabs)');
+        } else {
+          if (pathname === '/login') {
+            router.replace('/(tabs)');
+          } else {
+            router.replace(pathname);
+          }
         }
       } else {
         router.replace('/login');
       }
     };
 
-    if (!isLoading) {
-      handleRouting();
-    }
-  }, [dbUser, router, isLoading]);
+    handleRouting();
+  }, [dbUser, router]);
 
   useEffect(() => {
     const loadUserFromStorage = async () => {
       try {
-        const storedAuthUser = await AsyncStorage.getItem('authUser');
         const storedUser = await AsyncStorage.getItem('dbUser');
         if (storedUser) {
-          setAuthUser(storedAuthUser ? JSON.parse(storedAuthUser) : null);
           setDbUser(JSON.parse(storedUser));
         }
       } catch (error) {
         console.error('Error loading user from storage:', error);
-      } finally {
-        setIsLoading(false); // Set loading to false after checking for stored user
       }
     };
 
@@ -95,39 +85,35 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log('userInfo', userInfo);
       const credential = firebase.auth.GoogleAuthProvider.credential(
         userInfo.idToken
       );
-      const result = await firebase.auth().signInWithCredential(credential);
+      const result = await auth.signInWithCredential(credential);
       const authUser = result.user;
       const isNewUser = result.additionalUserInfo?.isNewUser;
-      setAuthUser(authUser);
-      await AsyncStorage.setItem('authUser', JSON.stringify(authUser));
 
       if (isNewUser) {
-        const newUser: User = {
+        const newUser = {
           email: authUser?.email || '',
           displayName: authUser?.displayName || '',
           profilePicture: authUser?.photoURL || '',
           jobPosition: '',
           bios: '',
-          isNewUser: isNewUser || false,
+          isNewUser: isNewUser || true,
           group: '',
         };
         const user = await addNewUser(newUser);
-        // console.log('newUser', newUser);
-        setDbUser(newUser);
         await AsyncStorage.setItem('dbUser', JSON.stringify(user));
       } else {
         const user = await getUserByEmail(authUser?.email || '');
-        setDbUser(user);
         await AsyncStorage.setItem('dbUser', JSON.stringify(user));
+      }
+
+      if (router.canGoBack()) {
+        router.dismissAll();
       }
     } catch (error) {
       console.error('Error signing in:', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -136,20 +122,35 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       await firebase.auth().signOut();
-      setAuthUser(null);
-      setDbUser(null);
-      await AsyncStorage.removeItem('authUser');
+      removeDbUser();
       await AsyncStorage.removeItem('dbUser');
+      if (router.canGoBack()) {
+        router.dismissAll();
+      }
+      router.replace('/login');
     } catch (error) {
       console.error('Error signing out:', error);
+      if (router.canGoBack()) {
+        router.dismissAll();
+      }
+      router.replace('/login');
     }
   };
 
+  const fetchUpdatedDbUser = useCallback(async () => {
+    if (dbUser) {
+      const updatedUser = await getUserById(dbUser?.id ?? '');
+      setDbUser(updatedUser);
+      await AsyncStorage.setItem('dbUser', JSON.stringify(updatedUser));
+    }
+  }, [dbUser, getUserById, setDbUser]);
+
   const authContext: AuthType = {
-    authUser,
+    authUser: dbUser ? ({ uid: dbUser.id } as firebase.User) : null,
     dbUser,
     signIn,
     signOut,
+    fetchUpdatedDbUser,
   };
 
   return (

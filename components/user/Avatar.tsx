@@ -1,4 +1,6 @@
 import { Colors } from '@/constants/Colors';
+import { useAuth } from '@/contexts/userContext';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 import {
@@ -8,9 +10,11 @@ import {
 } from 'react-native-paper';
 
 export default function Avatar() {
+  const router = useRouter();
+  const { dbUser } = useAuth();
   return (
     <TouchableRipple
-      onPress={() => console.log('Pressed')}
+      onPress={() => router.navigate('/settings')}
       rippleColor="#fff"
       borderless={true}
       style={{
@@ -26,7 +30,11 @@ export default function Avatar() {
       >
         <PaperAvatar.Image
           size={32}
-          source={require('@/assets/images/10221134.jpg')}
+          source={{
+            uri:
+              dbUser?.profilePicture ||
+              'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam%20icon.png?alt=media&token=126c681e-09b2-40ce-8407-3d735fc13041',
+          }}
         />
       </View>
     </TouchableRipple>

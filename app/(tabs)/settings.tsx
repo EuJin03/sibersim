@@ -1,15 +1,34 @@
-import { View, Text, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import React from 'react';
-import { Avatar, Button, IconButton, List } from 'react-native-paper';
+import {
+  Avatar,
+  Button,
+  Divider,
+  Icon,
+  IconButton,
+  List,
+  TouchableRipple,
+} from 'react-native-paper';
 import { useAuth } from '@/contexts/userContext';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
 import { Colors } from '@/hooks/useThemeColor';
+import { useNavigation, useRouter } from 'expo-router';
 
 export default function settings() {
   const { dbUser, signOut } = useAuth();
+  const router = useRouter();
+  const navigation = useNavigation();
 
   const [expanded, setExpanded] = React.useState(true);
 
@@ -62,20 +81,22 @@ export default function settings() {
               flexWrap: 'wrap',
             }}
           >
-            <Text
-              style={{
-                color: '#ffffff',
-                fontSize: actuatedNormalize(11),
-                marginTop: actuatedNormalizeVertical(8),
-                paddingHorizontal: actuatedNormalize(8),
-                paddingVertical: actuatedNormalize(3),
-                borderRadius: 13,
-                borderColor: '#f1f1f1',
-                borderWidth: 1,
-              }}
-            >
-              {dbUser?.jobPosition}
-            </Text>
+            {dbUser?.jobPosition && (
+              <Text
+                style={{
+                  color: '#ffffff',
+                  fontSize: actuatedNormalize(11),
+                  marginTop: actuatedNormalizeVertical(8),
+                  paddingHorizontal: actuatedNormalize(8),
+                  paddingVertical: actuatedNormalize(3),
+                  borderRadius: 13,
+                  borderColor: '#f1f1f1',
+                  borderWidth: 1,
+                }}
+              >
+                {dbUser?.jobPosition}
+              </Text>
+            )}
           </View>
         </View>
         <View
@@ -110,20 +131,82 @@ export default function settings() {
         </View>
       </View>
 
-      <List.Section title="Accordions">
-        <List.Item title="First item" />
-        <List.Item title="Second item" onPress={() => console.log('ress')} />
-
-        <List.Accordion
-          title="Controlled Accordion"
-          left={props => <List.Icon {...props} icon="folder" />}
-          expanded={expanded}
-          onPress={handlePress}
+      <View style={{ padding: actuatedNormalize(20) }}>
+        <Text
+          style={{
+            color: '#000000',
+            fontSize: actuatedNormalize(16),
+            fontWeight: 600,
+          }}
         >
-          <List.Item title="First item" />
-          <List.Item title="Second item" />
-        </List.Accordion>
-      </List.Section>
+          Additional Features
+        </Text>
+        <View>
+          <TouchableRipple onPress={() => console.log('jeee')}>
+            <View style={style.accordion}>
+              <Icon source="exclamation-thick" size={18} />
+              <Text>Report Suspicious Activities</Text>
+            </View>
+          </TouchableRipple>
+          <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
+          <TouchableRipple onPress={() => console.log('jeee')}>
+            <View style={style.accordion}>
+              <Icon source="email-alert-outline" size={18} />
+              <Text>Scan your Phone Number</Text>
+            </View>
+          </TouchableRipple>
+          <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
+          <TouchableRipple onPress={() => console.log('jeee')}>
+            <View style={style.accordion}>
+              <Icon source="phone-alert-outline" size={18} />
+              <Text>Scan your Email Address</Text>
+            </View>
+          </TouchableRipple>
+          <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
+          <TouchableRipple onPress={() => console.log('jeee')}>
+            <View style={style.accordion}>
+              <Icon source="alert-circle-outline" size={18} />
+              <Text>Provide Feedback</Text>
+            </View>
+          </TouchableRipple>
+          <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
+          <TouchableRipple
+            onPress={() =>
+              Alert.alert('Signing Out', 'Are you sure you want to sign out?', [
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                { text: 'OK', onPress: () => signOut() },
+              ])
+            }
+          >
+            <View style={style.accordion}>
+              <Icon source="logout" size={18} />
+              <Text>Sign Out</Text>
+            </View>
+          </TouchableRipple>
+          <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
+        </View>
+      </View>
     </View>
   );
 }
+
+const style = StyleSheet.create({
+  accordion: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: actuatedNormalize(10),
+    paddingVertical: actuatedNormalizeVertical(20),
+
+    paddingHorizontal: actuatedNormalize(2),
+  },
+  divider: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#f1f1f1',
+  },
+});
