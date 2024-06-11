@@ -10,7 +10,7 @@ import { useRouter } from 'expo-router';
 import { Material } from '@/constants/Types';
 import useRelativeTime from '@/hooks/useTimeFormat';
 
-export default function CourseList() {
+export default function CourseList({}) {
   const router = useRouter();
   const courseItems = materials.filter(material => material.type === 'course');
 
@@ -34,7 +34,7 @@ export default function CourseList() {
           marginLeft: actuatedNormalize(3),
         }}
       >
-        Interactive Course
+        Recommended Course
       </Text>
       <FlatList
         data={courseItems}
