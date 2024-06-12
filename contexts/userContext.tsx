@@ -138,7 +138,6 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const fetchUpdatedDbUser = useCallback(async () => {
-    console.log('oijoidoiasjdioasd');
     if (dbUser?.id) {
       const userId = dbUser.id;
       // Check if userId is a valid document ID

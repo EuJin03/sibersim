@@ -12,6 +12,7 @@ import {
   getDocs,
   query,
   where,
+  serverTimestamp,
 } from 'firebase/firestore';
 import { generateUUID } from '@/hooks/useUuid';
 import useUserStore from '@/hooks/useUsers';
@@ -37,7 +38,9 @@ export interface GroupState {
   fetchResults: (invitationLink: string) => Promise<void>;
   addResult: (
     invitationLink: string,
-    resultData: Omit<Result, 'id'>
+    templateId: string,
+    members: string[],
+    uniqueId: string
   ) => Promise<void>;
 }
 
@@ -317,7 +320,7 @@ const useGroupStore = create<GroupState>((set, get) => ({
     }
   },
 
-  addResult: async (invitationLink, resultData) => {
+  addResult: async (invitationLink, templateId, members, uniqueId) => {
     try {
       set({ loading: true, error: null });
       const groupsCollection = collection(getFirestore(), 'groups');
@@ -333,15 +336,36 @@ const useGroupStore = create<GroupState>((set, get) => ({
 
       const groupDoc = groupSnapshot.docs[0];
       const groupDocRef = doc(groupsCollection, groupDoc.id);
+      const groupData = groupDoc.data() as Group;
+
+      const updatedResults = await Promise.all(
+        members.map(async userId => {
+          const userDocRef = doc(getFirestore(), 'users', userId);
+          const docSnapshot = await getDoc(userDocRef);
+
+          const userData = {
+            id: docSnapshot.id,
+            ...(docSnapshot.data() as User),
+          };
+          return {
+            comment: 'User manage to not click the phishing link yet',
+            templateId: templateId,
+            user: userId,
+            username: userData.displayName,
+            updatedAt: new Date().toISOString(),
+            id: uniqueId,
+          };
+        })
+      );
 
       await updateDoc(groupDocRef, {
-        results: arrayUnion(resultData),
+        results: updatedResults,
       });
 
       const updatedGroupData = {
         id: groupDoc.id,
-        ...(groupDoc.data() as Group),
-        results: [...(groupDoc.data() as Group).results, resultData],
+        ...groupData,
+        results: updatedResults,
       };
 
       set(state => ({
@@ -354,7 +378,7 @@ const useGroupStore = create<GroupState>((set, get) => ({
             : state.groupDetail,
         results:
           state.groupDetail?.invitationLink === invitationLink
-            ? [...state.results, resultData]
+            ? updatedResults
             : state.results,
         loading: false,
       }));

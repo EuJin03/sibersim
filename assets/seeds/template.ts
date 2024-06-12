@@ -11,6 +11,7 @@ export const templates: Template[] = [
     tag: 'Phishing',
     template: `template_3xj7cw3`,
     type: 'Email',
+    service: 'The Gmail Team',
   },
   {
     id: '2b762414-38d7-4c0d-9d55-0c9331ec1f29',
@@ -22,5 +23,6 @@ export const templates: Template[] = [
     tag: 'Phishing',
     template: `template_ytl3a66`,
     type: 'Email',
+    service: 'The Gmail Team',
   },
 ];
