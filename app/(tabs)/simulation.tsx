@@ -1,6 +1,7 @@
 import { View, Dimensions, ScrollView, RefreshControl } from 'react-native';
-import React, { useId, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useAuth } from '@/contexts/userContext';
+import useGroupStore from '@/hooks/useGroup';
 
 import JoinGroup from '@/components/simulation/JoinGroup';
 import AdminGroup from '@/components/simulation/AdminGroup';
@@ -9,18 +10,14 @@ import {
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
 import SelectTemplate from '@/components/simulation/SelectTemplate';
-import { Divider, IconButton, Text } from 'react-native-paper';
-import { groups } from '@/assets/seeds/group';
+import { IconButton, Text } from 'react-native-paper';
 import { templates } from '@/assets/seeds/template';
 import ResultCard from '@/components/simulation/ResultCard';
 import { GroupResult, groupTemplate } from '@/utils/groupTemplate';
-import { Group } from '@/constants/Types';
 
 export default function simulation() {
   const { dbUser, fetchUpdatedDbUser } = useAuth();
-  console.log(dbUser);
-
-  const groupId = dbUser?.group || '';
+  const { groupDetail, getGroupByInvitationLink } = useGroupStore();
 
   const [templateModalVisible, setTemplateModalVisible] =
     useState<boolean>(false);
@@ -32,23 +29,24 @@ export default function simulation() {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
+    await fetchUpdatedDbUser();
     try {
-      await fetchUpdatedDbUser();
+      if (dbUser?.group) {
+        await getGroupByInvitationLink(dbUser.group);
+      }
     } catch (error) {
-      console.error('Error fetching updated dbUser:', error);
+      console.error('Error fetching updated dbUser and group:', error);
     }
     setRefreshing(false);
-  }, [fetchUpdatedDbUser]);
+  }, [getGroupByInvitationLink, dbUser?.group]);
 
-  const groupResult: GroupResult[] = dbUser?.group
-    ? groupTemplate(groups[1])
+  const groupResult: GroupResult[] = groupDetail
+    ? groupTemplate(groupDetail)
     : [];
-  const groupInfo: Group = dbUser?.group ? groups[1] : ({} as Group);
-  const adminId = groupInfo.members?.[0] || '';
 
   return (
     <View style={{ height: '100%' }}>
-      {dbUser && adminId === dbUser.id && (
+      {dbUser && groupDetail?.members?.[0] === dbUser.id && (
         <IconButton
           onPress={() => toggleSelectTemplateModal()}
           icon="book-plus-outline"
@@ -68,18 +66,18 @@ export default function simulation() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {dbUser && groupId === '' ? (
-          <JoinGroup />
+        {dbUser && dbUser.group === '' ? (
+          <JoinGroup onJoinGroup={onRefresh} />
         ) : (
-          <AdminGroup groupId={groupId} />
+          <AdminGroup groupId={dbUser?.group ?? ''} onLeaveGroup={onRefresh} />
         )}
         <SelectTemplate
           isVisible={templateModalVisible}
           toggleModal={toggleSelectTemplateModal}
-          groupId={groupId}
+          groupId={dbUser?.group || ''}
         />
 
-        {dbUser?.group !== '' && groupResult.length === 0 ? (
+        {dbUser?.group && groupResult.length === 0 ? (
           <View
             style={{
               display: 'flex',
@@ -97,13 +95,13 @@ export default function simulation() {
                 fontSize: actuatedNormalize(12),
               }}
             >
-              {dbUser?.id === adminId
+              {dbUser?.id === groupDetail?.members?.[0]
                 ? 'No result found. Please create a phishing campaign to view the result.'
                 : 'No result found. Please ask the admin to launch a new phishing campaign.'}
             </Text>
           </View>
         ) : (
-          dbUser?.group !== '' && (
+          dbUser?.group && (
             <View style={{ paddingHorizontal: actuatedNormalize(10) }}>
               <Text
                 style={{
@@ -127,7 +125,7 @@ export default function simulation() {
                     key={result.templateId}
                     userInfo={result.userResults}
                     template={template}
-                    groupInfo={groupInfo}
+                    groupInfo={groupDetail!}
                   />
                 );
               })}

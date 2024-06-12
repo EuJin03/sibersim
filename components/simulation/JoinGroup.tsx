@@ -1,20 +1,36 @@
-import { View, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
-import { IconButton, Searchbar, Text, Tooltip } from 'react-native-paper';
+import { IconButton, Searchbar, Text } from 'react-native-paper';
 import CreateGroup from './CreateGroup';
-import * as Clipboard from 'expo-clipboard';
+import useGroupStore from '@/hooks/useGroup';
+import { useAuth } from '@/contexts/userContext';
 
-export default function JoinGroup() {
+export default function JoinGroup({
+  onJoinGroup,
+}: {
+  onJoinGroup: () => void;
+}) {
+  const { dbUser } = useAuth();
   const [searchQuery, setSearchQuery] = useState<string>('');
-
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const { joinGroup, loading } = useGroupStore();
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+
+  const handleJoinGroup = async () => {
+    try {
+      await joinGroup(searchQuery, dbUser?.id ?? '');
+      setSearchQuery('');
+      onJoinGroup();
+    } catch (error) {
+      console.error('Error joining group:', error);
+    }
   };
 
   return (
@@ -34,8 +50,10 @@ export default function JoinGroup() {
           }}
           showDivider={true}
           inputStyle={{
-            minHeight: 0, // Add this
+            minHeight: 0,
           }}
+          onSubmitEditing={handleJoinGroup}
+          loading={loading}
         />
         <View>
           <IconButton
