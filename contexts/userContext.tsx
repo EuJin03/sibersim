@@ -138,10 +138,21 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const fetchUpdatedDbUser = useCallback(async () => {
-    if (dbUser) {
-      const updatedUser = await getUserById(dbUser?.id ?? '');
-      setDbUser(updatedUser);
-      await AsyncStorage.setItem('dbUser', JSON.stringify(updatedUser));
+    console.log('oijoidoiasjdioasd');
+    if (dbUser?.id) {
+      const userId = dbUser.id;
+      // Check if userId is a valid document ID
+      if (typeof userId === 'string' && !userId.includes('/')) {
+        const updatedUser = await getUserById(userId);
+        if (updatedUser) {
+          setDbUser(updatedUser);
+          await AsyncStorage.setItem('dbUser', JSON.stringify(updatedUser));
+        } else {
+          console.warn('User not found with ID:', userId);
+        }
+      } else {
+        console.warn('Invalid user ID:', userId);
+      }
     }
   }, [dbUser, getUserById, setDbUser]);
 

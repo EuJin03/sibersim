@@ -1,13 +1,15 @@
-import { View, Alert, Modal, Pressable, Text, ScrollView } from 'react-native';
 import React, { useState } from 'react';
+import { View, Alert, Modal, ScrollView, Text } from 'react-native';
 import { generateUUID } from '@/hooks/useUuid';
 import GroupCardSkeleton from './GroupCardSkeleton';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
-import { Button, IconButton, TextInput } from 'react-native-paper';
+import { Button, IconButton, TextInput, Snackbar } from 'react-native-paper';
 import { Colors } from '@/hooks/useThemeColor';
+import useGroupStore from '@/hooks/useGroup';
+import { useAuth } from '@/contexts/userContext';
 
 interface GroupCardSkeletonProps {
   invitationLink: string;
@@ -16,13 +18,15 @@ interface GroupCardSkeletonProps {
   avatar?: string;
 }
 
+interface CreateGroupProps {
+  isVisible: boolean;
+  toggleModal: () => void;
+}
+
 export default function CreateGroup({
   isVisible,
   toggleModal,
-}: {
-  isVisible: boolean;
-  toggleModal: () => void;
-}) {
+}: CreateGroupProps) {
   const [groupInfo, setGroupInfo] = useState<GroupCardSkeletonProps>({
     invitationLink: generateUUID(8),
     name: 'Group Name',
@@ -31,8 +35,27 @@ export default function CreateGroup({
       'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fphishing.jpg?alt=media&token=ed4cc2de-8801-4a66-b854-98952949a976',
   });
 
+  const { createGroup, loading } = useGroupStore();
+  const { dbUser } = useAuth();
+
   const handleGroupInfoChange = (newGroupInfo: GroupCardSkeletonProps) => {
     setGroupInfo(newGroupInfo);
+  };
+
+  const handleCreateGroup = async () => {
+    if (dbUser) {
+      await createGroup(
+        {
+          name: groupInfo.name,
+          description: groupInfo.description,
+          members: [],
+          invitationLink: groupInfo.invitationLink,
+          results: [],
+        },
+        dbUser?.id ?? ''
+      );
+      toggleModal();
+    }
   };
 
   return (
@@ -109,7 +132,8 @@ export default function CreateGroup({
             borderRadius: 0,
             borderColor: Colors.light.primary,
           }}
-          onPress={() => toggleModal()}
+          onPress={handleCreateGroup}
+          loading={loading}
         >
           Create Group
         </Button>
