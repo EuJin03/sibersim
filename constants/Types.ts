@@ -82,6 +82,7 @@ interface Template {
   tag: string;
   template: string;
   type: string;
+  service: string;
 }
 
 interface Topic {

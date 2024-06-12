@@ -15,14 +15,16 @@ export const groups: Group[] = [
     ],
     results: [
       {
-        comment: 'User clicked the phishing link',
+        id: 'idjxoi1',
+        comment: 'User manage to not click the phishing link yet',
         templateId: 'template_3xj7cw3',
         user: 'jphCo78o3ECnkdlCr7C6',
         username: 'Eugene Tin',
         updatedAt: '2023-04-20T10:30:00Z',
       },
       {
-        comment: 'User clicked the phishing link',
+        id: 'idjxoi1',
+        comment: 'User manage to not click the phishing link yet',
         templateId: 'template_3xj7cw3',
         user: 'jphCo78o3ECnkdlCr7C6',
         username: 'Eugene Tin',

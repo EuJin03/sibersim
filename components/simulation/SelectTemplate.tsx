@@ -59,7 +59,12 @@ export default function SelectTemplate({
           />
         </View>
         {templates.map((template, index) => (
-          <PhishingCard key={template.id} template={template} />
+          <PhishingCard
+            key={template.id}
+            template={template}
+            groupId={groupId}
+            toggleModal={toggleModal}
+          />
         ))}
         {/* <Button
           mode="outlined"
