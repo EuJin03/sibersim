@@ -38,7 +38,7 @@ export default function PhishingCard({
             email: user.email,
             userId: userId,
             groupId: groupId,
-            userResultId: uniqueId,
+            uniqueId: uniqueId,
           };
           await handleEmail({ params });
         }
