@@ -42,6 +42,7 @@ export interface GroupState {
     members: string[],
     uniqueId: string
   ) => Promise<void>;
+  resetState: () => void;
 }
 
 const useGroupStore = create<GroupState>((set, get) => ({
@@ -353,7 +354,7 @@ const useGroupStore = create<GroupState>((set, get) => ({
             user: userId,
             username: userData.displayName,
             updatedAt: new Date().toISOString(),
-            id: uniqueId,
+            id: generateUUID(10),
           };
         })
       );
@@ -386,6 +387,16 @@ const useGroupStore = create<GroupState>((set, get) => ({
       console.error('Error adding result:', error);
       set({ error: error as Error, loading: false });
     }
+  },
+
+  resetState: () => {
+    set({
+      groups: [],
+      groupDetail: null,
+      results: [],
+      loading: false,
+      error: null,
+    });
   },
 }));
 

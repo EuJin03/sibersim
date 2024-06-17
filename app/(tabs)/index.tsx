@@ -29,6 +29,12 @@ export default function Blog() {
     usePosts();
 
   useEffect(() => {
+    setTimeout(() => {
+      router.push('/single_post');
+    }, 500);
+  }, []);
+
+  useEffect(() => {
     fetchPosts();
   }, []);
 

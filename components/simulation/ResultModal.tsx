@@ -14,7 +14,7 @@ import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
-import { Card, IconButton } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import { Colors } from '@/hooks/useThemeColor';
 import CourseList from '../blog/CourseList';
 
@@ -80,7 +80,7 @@ export default function ResultModal({
             <Text style={styles.groupName}>{groupInfo.name}</Text>
             <Text style={styles.membersLabel}>Group Members</Text>
             {userInfo.map(member => (
-              <View key={useId()} style={styles.memberContainer}>
+              <View key={member.user} style={styles.memberContainer}>
                 <Text style={styles.username}>{member.username}</Text>
                 <Text
                   style={[

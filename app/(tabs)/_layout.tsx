@@ -53,9 +53,9 @@ export default function TabLayout({}) {
       <Tabs.Screen
         name="single_post"
         options={{
-          title: 'New Post',
+          title: 'Blogs',
           tabBarIcon: ({ color }: { color: string }) => (
-            <TabBarIcon name="plus-square-o" color={color} />
+            <TabBarIcon name="newspaper-o" color={color} />
           ),
         }}
       />

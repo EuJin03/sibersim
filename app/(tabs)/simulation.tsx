@@ -1,5 +1,5 @@
 import { View, Dimensions, ScrollView, RefreshControl } from 'react-native';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '@/contexts/userContext';
 import useGroupStore from '@/hooks/useGroup';
 
@@ -26,6 +26,20 @@ export default function simulation() {
   const toggleSelectTemplateModal = () => {
     setTemplateModalVisible(!templateModalVisible);
   };
+
+  useEffect(() => {
+    const fetch = async () => {
+      await fetchUpdatedDbUser();
+      try {
+        if (dbUser?.group) {
+          await getGroupByInvitationLink(dbUser.group);
+        }
+      } catch (error) {
+        console.error('Error fetching updated dbUser and group:', error);
+      }
+    };
+    fetch();
+  }, []);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);

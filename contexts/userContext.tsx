@@ -9,6 +9,8 @@ import { usePathname, useRouter } from 'expo-router';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { firebase, auth } from '@/firebase';
 import useUsersStore, { UserState } from '@/hooks/useUsers';
+import useGroupStore from '@/hooks/useGroup';
+import { ActivityIndicator, Dimensions } from 'react-native';
 
 interface AuthType {
   authUser: firebase.User | null;
@@ -41,26 +43,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   } = useUsersStore();
   const router = useRouter();
   const pathname = usePathname();
-
-  useEffect(() => {
-    const handleRouting = async () => {
-      if (dbUser) {
-        if (dbUser.isNewUser && pathname === '/login') {
-          router.replace('/setup');
-        } else {
-          if (pathname === '/login') {
-            router.replace('/(tabs)');
-          } else {
-            router.replace(pathname);
-          }
-        }
-      } else {
-        router.replace('/login');
-      }
-    };
-
-    handleRouting();
-  }, [dbUser, router]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
     const loadUserFromStorage = async () => {
@@ -69,8 +52,10 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
         if (storedUser) {
           setDbUser(JSON.parse(storedUser));
         }
+        setIsLoading(false);
       } catch (error) {
         console.error('Error loading user from storage:', error);
+        setIsLoading(false);
       }
     };
 
@@ -80,6 +65,26 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
     });
   }, []);
+
+  useEffect(() => {
+    const handleRouting = async () => {
+      if (!isLoading) {
+        if (dbUser) {
+          if (dbUser.isNewUser && pathname === '/login') {
+            router.replace('/setup');
+          } else {
+            if (pathname === '/login') {
+              router.replace('/(tabs)');
+            }
+          }
+        } else {
+          router.replace('/login');
+        }
+      }
+    };
+
+    handleRouting();
+  }, [dbUser, isLoading, router]);
 
   const signIn = async () => {
     try {
@@ -124,6 +129,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       await firebase.auth().signOut();
       removeDbUser();
       await AsyncStorage.removeItem('dbUser');
+      useGroupStore.getState().resetState();
       if (router.canGoBack()) {
         router.dismissAll();
       }
@@ -162,6 +168,12 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     signOut,
     fetchUpdatedDbUser,
   };
+
+  if (isLoading) {
+    return (
+      <ActivityIndicator style={{ height: Dimensions.get('screen').height }} />
+    ); // Render a loading screen or placeholder while the authentication state is being determined
+  }
 
   return (
     <AuthContext.Provider value={authContext}>{children}</AuthContext.Provider>

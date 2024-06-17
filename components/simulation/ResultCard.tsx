@@ -33,6 +33,12 @@ export default function ResultCard({
   const [imageModal, setImageModal] = useState<boolean>(false);
   const [resultModal, setResultModal] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (pathname === '/simulation') {
+      setResultModal(false);
+    }
+  }, [pathname]);
+
   const toggleSelectResultModal = () => {
     setResultModal(!resultModal);
   };
@@ -40,12 +46,6 @@ export default function ResultCard({
   const toggleImageModal = () => {
     setImageModal(!imageModal);
   };
-
-  useEffect(() => {
-    if (pathname === '/simulation') {
-      setResultModal(false);
-    }
-  }, [pathname]);
 
   return (
     <View style={styles.container}>
@@ -103,7 +103,7 @@ export default function ResultCard({
               {userInfo.map((user, index) => {
                 if (index < 4) {
                   return (
-                    <Text key={useId()} style={styles.participantName}>
+                    <Text key={user.user} style={styles.participantName}>
                       {user.username}
                     </Text>
                   );
