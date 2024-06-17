@@ -61,7 +61,7 @@ export const blogs: Blog[] = [
     image:
       'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/reporting%20cyber%20scams%20to%20authorities.png?alt=media&token=d3a6064c-2ec9-44bb-82e3-4e2eb56c824e',
     authorId: 'ldKmMplvgIZtjUczSZiF',
-    slug: 'the-rise-of-cybercrime-in-malaysia',
+    slug: 'reporting-cyber-scams-to-authorities',
     author: 'Eugene Tin',
     authorImage:
       'https://lh3.googleusercontent.com/a/ACg8ocKNOtFCLBpTcmsTQNkiqsIlNeh_sIX3kQVQR4Xd6iLIPkdFxw=s96-c',

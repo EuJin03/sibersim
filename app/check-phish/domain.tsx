@@ -10,6 +10,7 @@ import {
 import { useForm, Controller, FieldErrors } from 'react-hook-form';
 import axios from 'axios';
 import { Stack } from 'expo-router';
+import Avatar from '@/components/user/Avatar';
 
 interface FormData {
   url: string;
@@ -54,7 +55,7 @@ const ScanUrlPage = () => {
 
   return (
     <>
-      <Stack.Screen options={{ title: '' }} />
+      <Stack.Screen options={{ title: '', headerRight: () => <Avatar /> }} />
       <View style={styles.container}>
         <Text style={styles.title}>Scan URL</Text>
 
