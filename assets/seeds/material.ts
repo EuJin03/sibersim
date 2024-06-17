@@ -19,7 +19,7 @@ export const materials: Material[] = [
     title: 'Cybersecurity Fundamentals for Beginners',
     description: `This course is designed for individuals with little to no prior knowledge of cybersecurity.\nYou will learn:\n- The basics of cyber threats and attack vectors\n- Essential cybersecurity principles and best practices\n- How to protect your personal and professional digital assets`,
     thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
     createdAt: '2022-08-20T14:30:00Z',
     updatedAt: '2022-08-20T14:30:00Z',
     publishedAt: '2022-08-20T14:30:00Z',
@@ -165,7 +165,7 @@ export const materials: Material[] = [
     title: 'Cybersecurity for Small Businesses',
     description: `As a small business owner, protecting your digital assets is crucial.\nThis course will teach you:\n- Common cyber threats targeting small businesses\n- Essential cybersecurity practices and controls\n- How to develop and implement a cybersecurity strategy`,
     thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
     createdAt: '2023-03-10T08:00:00Z',
     updatedAt: '2023-03-10T08:00:00Z',
     publishedAt: '2023-03-10T08:00:00Z',
@@ -238,7 +238,7 @@ export const materials: Material[] = [
     title: 'Web Application Security Essentials',
     description: `Web applications are a common target for cyber attacks.\nThis course will teach you:\n- Common web application vulnerabilities and attacks\n- Secure coding practices and secure software development lifecycle (SDLC)\n- Web application security testing and remediation techniques`,
     thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
     createdAt: '2022-09-25T09:15:00Z',
     updatedAt: '2022-09-25T09:15:00Z',
     publishedAt: '2022-09-25T09:15:00Z',
@@ -311,7 +311,7 @@ export const materials: Material[] = [
     title: 'Cloud Security Fundamentals',
     description: `As more organizations migrate to cloud environments, cloud security has become a critical concern.\nThis course will cover:\n- Common cloud security risks and challenges\n- Best practices for securing cloud infrastructure and services\n- Cloud security tools and technologies`,
     thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
     createdAt: '2023-04-10T11:00:00Z',
     updatedAt: '2023-04-10T11:00:00Z',
     publishedAt: '2023-04-10T11:00:00Z',

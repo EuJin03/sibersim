@@ -42,7 +42,7 @@ export default function Slider() {
                 source={{
                   uri:
                     item?.thumbnail ||
-                    'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
+                    'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
                 }}
                 style={{
                   width: Dimensions.get('window').width - actuatedNormalize(39),

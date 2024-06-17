@@ -48,7 +48,7 @@ export default function EditProfileScreen() {
           : dbUser?.jobPosition ?? 'SiberSim Member',
       profilePicture:
         dbUser?.profilePicture ||
-        'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
+        'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
       email: dbUser?.email || '',
       phoneNum: dbUser?.phoneNum == '' ? '+60' : dbUser?.phoneNum || '+60',
     },
@@ -119,7 +119,7 @@ export default function EditProfileScreen() {
               source={{
                 uri:
                   dbUser?.profilePicture ||
-                  'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
+                  'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
               }}
             />
             <IconButton

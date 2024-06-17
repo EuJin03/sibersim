@@ -24,9 +24,12 @@ import {
 } from '@/constants/DynamicSize';
 import { Colors } from '@/hooks/useThemeColor';
 import { useRouter } from 'expo-router';
+import useBlogStore from '@/hooks/useBlogs';
+import { blogs } from '@/assets/seeds/blog';
 
 export default function settings() {
   const { dbUser, signOut } = useAuth();
+  const { setSelectedBlog } = useBlogStore();
   const router = useRouter();
 
   const [expanded, setExpanded] = React.useState(true);
@@ -110,7 +113,7 @@ export default function settings() {
             source={{
               uri:
                 dbUser?.profilePicture ??
-                'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/10221134.jpg?alt=media&token=898ef675-72de-4b27-bb7c-342efb786b04',
+                'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
             }}
           />
           <IconButton
@@ -141,7 +144,19 @@ export default function settings() {
           Additional Features
         </Text>
         <View>
-          <TouchableRipple onPress={() => console.log('jeee')}>
+          <TouchableRipple
+            onPress={() => {
+              const selectedBlog = blogs.find(
+                blog => blog.id === '6af331b1-0956'
+              );
+              if (selectedBlog) {
+                setSelectedBlog(selectedBlog);
+              }
+              router.navigate({
+                pathname: `/blog-details/reporting-cyber-scams-to-authorities'`,
+              });
+            }}
+          >
             <View style={style.accordion}>
               <Icon source="exclamation-thick" size={18} />
               <Text>Report Suspicious Activities</Text>
