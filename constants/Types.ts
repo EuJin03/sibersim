@@ -36,6 +36,11 @@ interface Quiz {
   correctAnswer: string;
 }
 
+interface Content {
+  type: string;
+  value: string;
+}
+
 interface Blog {
   id?: string;
   title: string;
@@ -43,10 +48,12 @@ interface Blog {
   authorId: string;
   slug: string;
   author: string;
+  authorImage: string;
   date: string;
-  content: string[];
+  content: Content[];
   category: string;
   tags: string[];
+  estimatedTime: string;
 }
 
 interface Post {

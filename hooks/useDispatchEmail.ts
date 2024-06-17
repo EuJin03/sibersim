@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { generateUUID } from './useUuid';
 
 interface EmailParams {
   to_email: string;
@@ -20,13 +21,18 @@ export default async function handleEmail({ params }: { params: EmailParams }) {
     email: params.email,
     userId: params.userId,
     groupId: params.groupId,
-    url: `localhost:3001?templateId=${params.template}&userId=${params.userId}&groupId=${params.groupId}&uniqueId=${params.uniqueId}`,
+    url: `localhost:3001?templateId=${params.template}&userId=${
+      params.userId
+    }&groupId=${params.groupId}&uniqueId=${generateUUID(10)}`,
   };
 
   try {
-    const response = await axios.post('http://192.168.1.7:3001/send-email', {
-      params: sendParams,
-    });
+    const response = await axios.post(
+      'https://sibersim-store.onrender.com/send-email',
+      {
+        params: sendParams,
+      }
+    );
 
     console.log('Email sent successfully');
     console.log(response.data);

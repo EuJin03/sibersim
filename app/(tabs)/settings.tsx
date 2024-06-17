@@ -23,12 +23,11 @@ import {
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
 import { Colors } from '@/hooks/useThemeColor';
-import { useNavigation, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 export default function settings() {
   const { dbUser, signOut } = useAuth();
   const router = useRouter();
-  const navigation = useNavigation();
 
   const [expanded, setExpanded] = React.useState(true);
 
@@ -156,7 +155,9 @@ export default function settings() {
             </View>
           </TouchableRipple>
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
-          <TouchableRipple onPress={() => console.log('jeee')}>
+          <TouchableRipple
+            onPress={() => router.navigate('/check-phish/domain')}
+          >
             <View style={style.accordion}>
               <Icon source="phone-alert-outline" size={18} />
               <Text>Scan your Email Address</Text>

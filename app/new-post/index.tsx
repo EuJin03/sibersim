@@ -21,7 +21,7 @@ import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
-import { Button, Icon, Text } from 'react-native-paper';
+import { ActivityIndicator, Button, Icon, Text } from 'react-native-paper';
 import { Colors } from '@/hooks/useThemeColor';
 import usePosts from '@/hooks/usePosts';
 import { Post } from '@/constants/Types';
@@ -35,6 +35,7 @@ interface FormData {
 export default function NewPostScreen() {
   const [images, setImages] = useState<string[]>(['']);
   const [disableTouch, setDisableTouch] = useState<boolean>(false);
+  const [isUpload, setIsUpload] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { dbUser } = useAuth();
   const { addPost } = usePosts();
@@ -95,6 +96,7 @@ export default function NewPostScreen() {
   const pickImages = async () => {
     try {
       setDisableTouch(true);
+      setIsUpload(true);
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 1,
@@ -111,10 +113,12 @@ export default function NewPostScreen() {
       console.error(error);
     } finally {
       setDisableTouch(false);
+      setIsUpload(true);
     }
   };
 
   const uploadImagesToFirebase = async (imageUris: string[]) => {
+    console.log('hello i am here');
     const promises = imageUris.map(async uri => {
       const filename = `post/${Date.now()}-${Math.random()
         .toString(36)
@@ -185,11 +189,15 @@ export default function NewPostScreen() {
                               backgroundColor: '#f9f9f9',
                             }}
                           >
-                            <Icon
-                              source="image"
-                              size={28}
-                              color={Colors.light.secondary}
-                            />
+                            {isUpload ? (
+                              <ActivityIndicator />
+                            ) : (
+                              <Icon
+                                source="image"
+                                size={28}
+                                color={Colors.light.secondary}
+                              />
+                            )}
                             <Text>Add Image</Text>
                           </View>
                         </TouchableHighlight>
@@ -229,7 +237,15 @@ export default function NewPostScreen() {
                   </View>
                   <Text style={styles.mediaText}>Add media</Text>
                 </View>
-                <Icon source="plus" size={28} color={Colors.light.secondary} />
+                {isUpload ? (
+                  <ActivityIndicator />
+                ) : (
+                  <Icon
+                    source="plus"
+                    size={28}
+                    color={Colors.light.secondary}
+                  />
+                )}
               </View>
             </TouchableHighlight>
           )}
