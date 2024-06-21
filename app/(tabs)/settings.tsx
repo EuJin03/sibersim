@@ -101,7 +101,8 @@ export default function settings() {
             )}
           </View>
         </View>
-        <View
+        <Pressable
+          onPress={() => router.navigate('/edit-profile')}
           style={{
             borderRadius: 60,
             borderColor: '#ffffff',
@@ -130,7 +131,7 @@ export default function settings() {
               height: actuatedNormalize(20),
             }}
           />
-        </View>
+        </Pressable>
       </View>
 
       <View style={{ padding: actuatedNormalize(20) }}>

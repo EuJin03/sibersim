@@ -6,11 +6,15 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
+  Image,
+  Dimensions,
 } from 'react-native';
 import { useForm, Controller, FieldErrors } from 'react-hook-form';
 import axios from 'axios';
 import { Stack } from 'expo-router';
 import Avatar from '@/components/user/Avatar';
+import { actuatedNormalize } from '@/constants/DynamicSize';
+import { Colors } from '@/hooks/useThemeColor';
 
 interface FormData {
   url: string;
@@ -20,6 +24,9 @@ interface ScanResult {
   status: string;
   disposition: string;
   brand: string;
+  insights: string;
+  screenshot_path: string;
+  sha256: string;
   // Add other relevant fields from the scan result
 }
 
@@ -53,27 +60,37 @@ const ScanUrlPage = () => {
     setIsLoading(false);
   };
 
+  console.log(scanResult);
+
   return (
     <>
       <Stack.Screen options={{ title: '', headerRight: () => <Avatar /> }} />
       <View style={styles.container}>
-        <Text style={styles.title}>Scan URL</Text>
+        <View
+          style={{
+            backgroundColor: Colors.light.secondary,
+            padding: 20,
+            width: Dimensions.get('screen').width,
+          }}
+        >
+          <Text style={styles.title}>Scan URL</Text>
 
-        <Controller
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder="Enter URL"
-            />
-          )}
-          name="url"
-          rules={{ required: 'URL is required' }}
-          defaultValue=""
-        />
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder="https://example.com"
+              />
+            )}
+            name="url"
+            rules={{ required: 'URL is required' }}
+            defaultValue=""
+          />
+        </View>
 
         {errors.url && (
           <Text style={styles.errorText}>{errors.url.message}</Text>
@@ -82,6 +99,7 @@ const ScanUrlPage = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={handleSubmit(onSubmit)}
+          disabled={isLoading}
         >
           <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
@@ -96,6 +114,14 @@ const ScanUrlPage = () => {
                 <Text>Status: {scanResult.status}</Text>
                 <Text>Disposition: {scanResult.disposition}</Text>
                 <Text>Brand: {scanResult.brand}</Text>
+                <Image
+                  source={{ uri: scanResult.screenshot_path }}
+                  style={{
+                    width: actuatedNormalize(300),
+                    height: actuatedNormalize(200),
+                  }}
+                  resizeMode="contain"
+                />
                 {/* Display other relevant fields from the scan result */}
               </View>
             )}
@@ -111,7 +137,6 @@ const ScanUrlPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     alignItems: 'center',
   },
   title: {

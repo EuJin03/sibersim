@@ -5,7 +5,7 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
@@ -15,6 +15,8 @@ import MUI from '@expo/vector-icons/MaterialCommunityIcons';
 import { Colors } from '@/hooks/useThemeColor';
 import { useRouter } from 'expo-router';
 import { Topic } from '@/constants/Types';
+import useUsersStore from '@/hooks/useUsers';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function CourseContent({
   courseId,
@@ -25,6 +27,31 @@ export default function CourseContent({
 }) {
   const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   const router = useRouter();
+  const dbUser = useUsersStore(state => state.dbUser);
+  const [completedTopics, setCompletedTopics] = useState<string[]>([]);
+
+  const getUserProgress = useUsersStore(state => state.getUserProgress);
+
+  useEffect(() => {
+    const fetchUserProgress = async () => {
+      if (dbUser && dbUser.id) {
+        const progress = await getUserProgress(dbUser.id, courseId);
+        setCompletedTopics(progress.completedTopics);
+      }
+    };
+
+    fetchUserProgress();
+  }, [dbUser, courseId, getUserProgress]);
+
+  useEffect(() => {
+    if (dbUser && dbUser.progress && dbUser.progress[courseId]) {
+      setCompletedTopics(dbUser.progress[courseId].completedTopics);
+    }
+  }, [dbUser, courseId]);
+
+  const isTopicCompleted = (topicId: string) => {
+    return completedTopics.includes(topicId);
+  };
 
   return (
     <>
@@ -48,11 +75,15 @@ export default function CourseContent({
               <Text numberOfLines={1} style={style.contentTitle}>
                 {item.name}
               </Text>
-              <MUI
-                name="play-circle"
-                size={24}
-                color={Colors[colorScheme].secondary}
-              />
+              {isTopicCompleted(item.id) ? (
+                <MUI name="check-circle" color="green" size={24} />
+              ) : (
+                <MUI
+                  name="play-circle"
+                  size={24}
+                  color={Colors[colorScheme].secondary}
+                />
+              )}
             </TouchableOpacity>
           )}
         />

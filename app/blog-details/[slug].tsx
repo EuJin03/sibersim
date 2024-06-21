@@ -27,7 +27,16 @@ export default function BlogDetails() {
   return (
     <>
       <Stack.Screen options={{ title: '', headerRight: () => <Avatar /> }} />
-      <ScrollView style={{ flex: 1, padding: actuatedNormalize(16) }}>
+      <ScrollView
+        style={{
+          flex: 1,
+          paddingHorizontal: actuatedNormalize(26),
+          paddingTop: actuatedNormalize(16),
+        }}
+        contentContainerStyle={{
+          paddingBottom: actuatedNormalize(30),
+        }}
+      >
         <Image
           source={{ uri: selectedBlog.image }}
           style={{
@@ -151,7 +160,12 @@ export default function BlogDetails() {
                     }}
                   />
                   <Text
-                    style={{ fontSize: actuatedNormalize(13), lineHeight: 20 }}
+                    style={{
+                      fontSize: actuatedNormalize(13),
+                      lineHeight: 20,
+                      flex: 1,
+                      textAlign: 'justify',
+                    }}
                   >
                     {item.value}
                   </Text>

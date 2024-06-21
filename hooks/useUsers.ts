@@ -21,6 +21,19 @@ export interface UserState {
   addNewUser: (newUser: Omit<User, 'id'>) => Promise<User | null>;
   updateUser: (userId: string, updatedData: Partial<User>) => Promise<void>;
   getUserById: (userId: string) => Promise<User | null>;
+  updateUserProgress: (
+    userId: string,
+    courseId: string,
+    topicId: string,
+    lessonId: string
+  ) => Promise<void>;
+  getUserProgress: (
+    userId: string,
+    courseId: string
+  ) => Promise<{
+    completedTopics: string[];
+    completedLessons: string[];
+  }>;
 }
 
 const useUsersStore = create<UserState>((set, get) => ({
@@ -83,6 +96,69 @@ const useUsersStore = create<UserState>((set, get) => ({
       await AsyncStorage.setItem('dbUser', JSON.stringify(updatedUser));
     } catch (error) {
       console.error('Error updating user:', error);
+    }
+  },
+
+  updateUserProgress: async (
+    userId: string,
+    courseId: string,
+    topicId: string,
+    lessonId: string
+  ) => {
+    try {
+      const userDocRef = doc(getFirestore(), 'users', userId);
+      const docSnapshot = await getDoc(userDocRef);
+
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data() as User;
+        const progress = userData.progress || {};
+
+        if (!progress[courseId]) {
+          progress[courseId] = {
+            completedTopics: [],
+            completedLessons: [],
+          };
+        }
+
+        if (!progress[courseId].completedTopics.includes(topicId)) {
+          progress[courseId].completedTopics.push(topicId);
+        }
+
+        if (!progress[courseId].completedLessons.includes(lessonId)) {
+          progress[courseId].completedLessons.push(lessonId);
+        }
+
+        await updateDoc(userDocRef, { progress });
+        console.log('User progress updated successfully');
+
+        const updatedUser = { ...userData, progress };
+        set({ dbUser: updatedUser });
+        console.log('dbUser state updated:', updatedUser);
+      } else {
+        console.warn('User document does not exist');
+      }
+    } catch (error) {
+      console.error('Error updating user progress:', error);
+    }
+  },
+
+  getUserProgress: async (userId: string, courseId: string) => {
+    try {
+      const userDocRef = doc(getFirestore(), 'users', userId);
+      const docSnapshot = await getDoc(userDocRef);
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data() as User;
+        return (
+          userData.progress?.[courseId] || {
+            completedTopics: [],
+            completedLessons: [],
+          }
+        );
+      }
+      return { completedTopics: [], completedLessons: [] };
+    } catch (error) {
+      console.error('Error getting user progress:', error);
+      return { completedTopics: [], completedLessons: [] };
     }
   },
 }));

@@ -8,6 +8,12 @@ interface User {
   bios: string;
   isNewUser: boolean;
   group?: string;
+  progress?: {
+    [courseId: string]: {
+      completedTopics: string[];
+      completedLessons: string[];
+    };
+  };
 }
 
 interface Result {

@@ -18,6 +18,8 @@ import { Colors } from '@/hooks/useThemeColor';
 import LearningProgressBar from '@/components/blog/LearningProgressBar';
 import { materials } from '@/assets/seeds/material';
 import { Material, Topic } from '@/constants/Types';
+import useUsersStore from '@/hooks/useUsers';
+import { showMessage } from 'react-native-flash-message';
 
 export default function CourseChapter() {
   const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
@@ -30,24 +32,42 @@ export default function CourseChapter() {
   const topicLength = lesson?.length ?? 1;
 
   const [progress, setProgress] = useState<number>(1 / topicLength);
-  const onClickNext = (index: number) => {
+  const dbUser = useUsersStore(state => state.dbUser);
+  const updateUserProgress = useUsersStore(state => state.updateUserProgress);
+
+  const onClickNext = async (index: number) => {
     try {
-      if (index === topicLength - 1) {
+      if (dbUser && dbUser.id && id && lesson[index]) {
+        if (index === topicLength - 1) {
+          // @ts-ignores
+          await updateUserProgress(dbUser.id, id, topicId, lesson[index].id);
+          showMessage({
+            message: 'Congratulations!',
+            description: 'You have completed this topic.',
+            type: 'success',
+            duration: 3000,
+          });
+          router.back();
+          return;
+        }
+        // @ts-ignores
+        chapterRef.scrollToIndex({ animated: true, index: index + 1 });
+        setProgress((index + 2) / topicLength);
+        // @ts-ignores
+        await updateUserProgress(dbUser.id, id, topicId, lesson[index].id);
+      } else {
+        console.warn('User, course ID, or lesson data is missing');
+        // console.log('dbUser:', dbUser);
+        // console.log('id:', id);
+        // console.log('lesson:', lesson);
         router.back();
-        return;
       }
-      // @ts-ignores
-      chapterRef.scrollToIndex({ animated: true, index: index + 1 });
-      setProgress((index + 2) / topicLength);
     } catch (err) {
-      console.warn('Error: ', err);
+      console.warn('Error updating user progress:', err);
       router.back();
     }
   };
 
-  useEffect(() => {
-    console.log('TODO: add course chapter details');
-  }, []);
   return (
     <>
       <Stack.Screen
