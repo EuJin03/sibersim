@@ -16,16 +16,17 @@ import {
 import { Text } from 'react-native-paper';
 import { Colors } from '@/hooks/useThemeColor';
 import LearningProgressBar from '@/components/blog/LearningProgressBar';
-import { materials } from '@/assets/seeds/material';
 import { Material, Topic } from '@/constants/Types';
 import useUsersStore from '@/hooks/useUsers';
 import { showMessage } from 'react-native-flash-message';
+import useMaterialStore from '@/hooks/useMaterial';
 
 export default function CourseChapter() {
   const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   const { id, topicId } = useLocalSearchParams();
   let chapterRef = useRef<FlatList | null>(null);
   const router = useRouter();
+  const { materials } = useMaterialStore(state => state);
 
   const { topic } = materials.find(material => material.id === id) as Material;
   const { lesson } = topic?.find(topic => topic.id === topicId) as Topic;

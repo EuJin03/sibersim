@@ -1,6 +1,5 @@
 import { FlatList, Image, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { materials } from '@/assets/seeds/material';
 import { Text, TouchableRipple } from 'react-native-paper';
 import {
   actuatedNormalize,
