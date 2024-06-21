@@ -16,7 +16,6 @@ import { Colors } from '@/hooks/useThemeColor';
 import { useRouter } from 'expo-router';
 import { Topic } from '@/constants/Types';
 import useUsersStore from '@/hooks/useUsers';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function CourseContent({
   courseId,
