@@ -7,14 +7,17 @@ import {
 import { Text } from 'react-native-paper';
 import YoutubePlayer, { getYoutubeMeta } from 'react-native-youtube-iframe';
 import { Material } from '@/constants/Types';
-import { materials } from '@/assets/seeds/material';
 import { router } from 'expo-router';
 
 const loadVideoThumbnail = async (videoId: string) => {
   return (await getYoutubeMeta(videoId)).thumbnail_url;
 };
 
-export default function VideoCourseList() {
+export default function VideoCourseList({
+  videoItems,
+}: {
+  videoItems: Material[];
+}) {
   const [items, setItems] = useState<Material[]>([]);
   const [currentPlayingIndex, setCurrentPlayingIndex] = useState<number | null>(
     null
@@ -29,7 +32,7 @@ export default function VideoCourseList() {
 
   useEffect(() => {
     const fetchThumbnails = async () => {
-      const videoMaterials = materials.filter(
+      const videoMaterials = videoItems.filter(
         material => material.type === 'video'
       );
 

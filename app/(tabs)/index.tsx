@@ -13,26 +13,19 @@ import {
   RefreshControl,
   ActivityIndicator,
   View,
-  Pressable,
   TouchableOpacity,
   TextInput,
 } from 'react-native';
 import { Icon, Searchbar, Text, TouchableRipple } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { fuzzySearch } from '@/utils/fuzzySearch';
 
 export default function Blog() {
-  const pathname = usePathname();
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [search, setSearch] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const router = useRouter();
   const { posts, loading, error, hasMore, fetchPosts, fetchMorePosts } =
     usePosts();
-
-  useEffect(() => {
-    setTimeout(() => {
-      router.push('/single_post');
-    }, 500);
-  }, []);
 
   useEffect(() => {
     fetchPosts();
@@ -51,10 +44,8 @@ export default function Blog() {
   };
 
   const filteredPosts = useMemo(() => {
-    return posts.filter(post =>
-      post.content.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [posts, search]);
+    return fuzzySearch(searchQuery, posts, ['content']);
+  }, [posts, searchQuery]);
 
   return (
     <SafeAreaProvider>
@@ -64,7 +55,13 @@ export default function Blog() {
           renderItem={({ item }) => <PostListItem post={item} />}
           keyExtractor={item => item.id ?? Math.random().toString()}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor={'#ffffff'}
+              progressBackgroundColor={'#ffffff'}
+              colors={[Colors.light.secondary]}
+            />
           }
           onEndReached={loadMorePosts}
           onEndReachedThreshold={0.5}
@@ -104,8 +101,8 @@ export default function Blog() {
                     height: actuatedNormalize(40),
                     fontSize: actuatedNormalize(14),
                   }}
-                  value={search}
-                  onChangeText={setSearch}
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
                   placeholder="Search"
                   inlineImageLeft="search"
                 />

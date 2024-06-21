@@ -1,5 +1,13 @@
-import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
-import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
@@ -9,20 +17,32 @@ import { Searchbar } from 'react-native-paper';
 import { Blog } from '@/constants/Types';
 import useRelativeTime from '@/hooks/useTimeFormat';
 import useBlogStore from '@/hooks/useBlogs';
-import { useNavigation } from '@react-navigation/native';
 import { router } from 'expo-router';
 
 export default function blogpost() {
+  const { fetchBlogs, loading } = useBlogStore();
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
   const [search, setSearch] = useState<string>('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const blogs = useBlogStore(state => state.blogs);
   const setSelectedBlog = useBlogStore(state => state.setSelectedBlog);
-  const navigation = useNavigation();
 
   const uniqueTags = Array.from(new Set(blogs.flatMap(blog => blog.tags)));
 
   const handleTagPress = (tag: string) => {
     setSelectedTag(tag === selectedTag ? null : tag);
+  };
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchBlogs();
+    setRefreshing(false);
   };
 
   const renderTagItem = ({ item }: { item: string }) => {
@@ -187,27 +207,45 @@ export default function blogpost() {
           }}
         />
       </View>
-      <View style={{ marginVertical: actuatedNormalizeVertical(10) }}>
-        <FlatList
-          data={uniqueTags}
-          renderItem={renderTagItem}
-          keyExtractor={item => item}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingVertical: actuatedNormalize(10) }}
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          color={Colors.light.secondary}
+          style={{ marginTop: actuatedNormalizeVertical(60) }}
         />
-      </View>
+      ) : (
+        <>
+          <View style={{ marginVertical: actuatedNormalizeVertical(10) }}>
+            <FlatList
+              data={uniqueTags}
+              renderItem={renderTagItem}
+              keyExtractor={item => item}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingVertical: actuatedNormalize(10) }}
+            />
+          </View>
 
-      <FlatList
-        data={filteredBlogs}
-        renderItem={renderBlogItem}
-        keyExtractor={item => item.id ?? Math.random().toString()}
-        contentContainerStyle={{
-          paddingHorizontal: actuatedNormalize(10),
-          paddingVertical: actuatedNormalizeVertical(7),
-        }}
-        showsVerticalScrollIndicator={false}
-      />
+          <FlatList
+            data={filteredBlogs}
+            renderItem={renderBlogItem}
+            keyExtractor={item => item.id ?? Math.random().toString()}
+            contentContainerStyle={{
+              paddingHorizontal: actuatedNormalize(10),
+              paddingVertical: actuatedNormalizeVertical(7),
+            }}
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={[Colors.light.secondary]}
+                tintColor={Colors.light.secondary}
+              />
+            }
+          />
+        </>
+      )}
     </View>
   );
 }

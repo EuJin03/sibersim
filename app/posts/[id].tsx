@@ -12,8 +12,8 @@ import CommentCard from '@/components/post/CommentCard';
 import { View } from 'react-native';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { TouchableOpacity, TextInput } from 'react-native';
-import { Colors } from '@/constants/Colors';
 import { useAuth } from '@/contexts/userContext';
+import { Colors } from '@/hooks/useThemeColor';
 
 type FormData = {
   content: string;
@@ -86,6 +86,9 @@ export default function PostDetailsScreen() {
             <RefreshControl
               refreshing={loading}
               onRefresh={handlePostRefresh}
+              tintColor={'#ffffff'}
+              progressBackgroundColor={'#ffffff'}
+              colors={[Colors.light.secondary]}
             />
           }
           style={{ flexGrow: 1, marginBottom: actuatedNormalizeVertical(65) }}

@@ -11,11 +11,10 @@ import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
-import { materials } from '@/assets/seeds/material';
 import { Material } from '@/constants/Types';
 import { useRouter } from 'expo-router';
 
-export default function Slider() {
+export default function Slider({ materials }: { materials: Material[] }) {
   const router = useRouter();
   const [lessons, setLessons] = useState<Material[]>(
     materials.sort(

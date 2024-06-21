@@ -1,5 +1,5 @@
 import { FlatList, Image, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { materials } from '@/assets/seeds/material';
 import { Text, TouchableRipple } from 'react-native-paper';
 import {
@@ -9,10 +9,14 @@ import {
 import { useRouter } from 'expo-router';
 import { Material } from '@/constants/Types';
 import useRelativeTime from '@/hooks/useTimeFormat';
+import { client } from '@/utils/sanity';
 
-export default function CourseList({}) {
+export default function CourseList({
+  courseItems,
+}: {
+  courseItems: Material[];
+}) {
   const router = useRouter();
-  const courseItems = materials.filter(material => material.type === 'course');
 
   const courseHandler = (item: Material) => {
     const { id } = item;

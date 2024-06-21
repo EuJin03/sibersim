@@ -14,6 +14,7 @@ import { IconButton, Text } from 'react-native-paper';
 import { templates } from '@/assets/seeds/template';
 import ResultCard from '@/components/simulation/ResultCard';
 import { GroupResult, groupTemplate } from '@/utils/groupTemplate';
+import { Colors } from '@/hooks/useThemeColor';
 
 export default function simulation() {
   const { dbUser, fetchUpdatedDbUser } = useAuth();
@@ -77,7 +78,13 @@ export default function simulation() {
       <ScrollView
         style={{ width: Dimensions.get('window').width }}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={'#ffffff'}
+            progressBackgroundColor={'#ffffff'}
+            colors={[Colors.light.secondary]}
+          />
         }
       >
         {dbUser && dbUser.group === '' ? (

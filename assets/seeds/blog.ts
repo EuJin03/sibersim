@@ -22,7 +22,36 @@ export const blogs: Blog[] = [
       {
         type: 'text',
         value:
-          'To help you stay safe online, here are some tips to keep in mind...',
+          "As more and more people go online, it's crucial to be aware of the potential dangers and take steps to protect yourself. Here are some essential tips to help you stay safe while navigating the digital world.",
+      },
+      { type: 'subheader', value: 'Use Strong and Unique Passwords' },
+      {
+        type: 'text',
+        value:
+          "One of the most basic yet critical steps in maintaining online security is using strong and unique passwords for all your accounts. Avoid using easily guessable information like your birthday or pet's name, and opt for a combination of uppercase and lowercase letters, numbers, and special characters.",
+      },
+      { type: 'subheader', value: 'Enable Two-Factor Authentication' },
+      {
+        type: 'text',
+        value:
+          'Whenever possible, enable two-factor authentication (2FA) for your online accounts. This adds an extra layer of security by requiring a second form of verification, such as a code sent to your phone, in addition to your password.',
+      },
+      { type: 'subheader', value: 'Be Cautious of Phishing Attempts' },
+      {
+        type: 'text',
+        value:
+          "Phishing is a common tactic used by cybercriminals to trick you into revealing sensitive information. Be wary of unsolicited emails or messages asking you to click on links or provide personal details. Always verify the sender's identity and avoid clicking on suspicious links.",
+      },
+      { type: 'subheader', value: 'Keep Your Software Up to Date' },
+      {
+        type: 'text',
+        value:
+          'Regularly update your operating system, web browser, and other software to ensure you have the latest security patches. These updates often include fixes for known vulnerabilities that cybercriminals can exploit.',
+      },
+      {
+        type: 'text',
+        value:
+          'By following these tips and staying vigilant, you can greatly reduce your risk of falling victim to cyber threats. Remember, online safety is a shared responsibility, and it starts with each one of us taking proactive steps to protect ourselves and our digital assets.',
       },
     ],
     category: 'Cybersecurity Awareness',
@@ -49,7 +78,64 @@ export const blogs: Blog[] = [
       {
         type: 'text',
         value:
-          "In this blog post, we'll explore the different types of cybercrime prevalent in Malaysia and what you can do to protect yourself and your organization...",
+          'This alarming trend highlights the need for heightened awareness and proactive measures to combat the growing threat of cybercrime in the country.',
+      },
+      { type: 'subheader', value: 'Common Types of Cybercrime in Malaysia' },
+      {
+        type: 'bullet',
+        value:
+          'Phishing scams: Fraudulent emails or messages designed to trick individuals into revealing sensitive information or clicking on malicious links.',
+      },
+      {
+        type: 'bullet',
+        value:
+          'Malware attacks: The use of malicious software, such as viruses and ransomware, to compromise computer systems and steal data.',
+      },
+      {
+        type: 'bullet',
+        value:
+          'Online fraud: Scams involving fake online transactions, investments, or job opportunities to deceive victims and steal their money.',
+      },
+      {
+        type: 'bullet',
+        value:
+          'Hacking: Unauthorized access to computer systems or networks to steal data or disrupt operations.',
+      },
+      { type: 'subheader', value: 'Protecting Yourself and Your Organization' },
+      {
+        type: 'text',
+        value:
+          'To safeguard against cybercrime, it is essential to adopt a multi-layered approach to security. This includes:',
+      },
+      {
+        type: 'bullet',
+        value:
+          'Educating employees about cybersecurity best practices and potential threats.',
+      },
+      {
+        type: 'bullet',
+        value:
+          'Implementing strong authentication methods, such as two-factor authentication, for all user accounts.',
+      },
+      {
+        type: 'bullet',
+        value:
+          'Regularly updating software and systems to patch known vulnerabilities.',
+      },
+      {
+        type: 'bullet',
+        value:
+          'Deploying robust antivirus and firewall solutions to detect and prevent malware infections.',
+      },
+      {
+        type: 'bullet',
+        value:
+          "Conducting regular security audits and assessments to identify and address weaknesses in the organization's defenses.",
+      },
+      {
+        type: 'text',
+        value:
+          'By staying informed about the latest cybercrime trends and taking proactive steps to enhance security, individuals and organizations can significantly reduce their risk of falling victim to cyber attacks. It is crucial to foster a culture of cybersecurity awareness and remain vigilant in the face of evolving threats.',
       },
     ],
     category: 'Cybercrime',
@@ -65,7 +151,7 @@ export const blogs: Blog[] = [
     author: 'Eugene Tin',
     authorImage:
       'https://lh3.googleusercontent.com/a/ACg8ocKNOtFCLBpTcmsTQNkiqsIlNeh_sIX3kQVQR4Xd6iLIPkdFxw=s96-c',
-    date: '2023-03-10T15:00:00Z',
+    date: '2024-06-10T15:00:00Z',
     estimatedTime: '8 min read',
     content: [
       {

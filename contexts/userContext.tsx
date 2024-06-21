@@ -130,19 +130,12 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       removeDbUser();
       await AsyncStorage.removeItem('dbUser');
       useGroupStore.getState().resetState();
-      if (router.canGoBack()) {
-        router.dismissAll();
-      }
       router.replace('/login');
     } catch (error) {
       console.error('Error signing out:', error);
-      if (router.canGoBack()) {
-        router.dismissAll();
-      }
       router.replace('/login');
     }
   };
-
   const fetchUpdatedDbUser = useCallback(async () => {
     if (dbUser?.id) {
       const userId = dbUser.id;
