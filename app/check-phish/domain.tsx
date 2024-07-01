@@ -68,13 +68,32 @@ const ScanUrlPage = () => {
       <View style={styles.container}>
         <View
           style={{
-            backgroundColor: Colors.light.secondary,
             padding: 20,
             width: Dimensions.get('screen').width,
           }}
         >
-          <Text style={styles.title}>Scan URL</Text>
-
+          <Text style={styles.title}>Scan a phishing site</Text>
+          <Text style={{ fontSize: 10, marginVertical: 1, fontWeight: 'bold' }}>
+            Steps to extract a website from the email to scan for phishing
+          </Text>
+          <Text style={{ fontSize: 10, marginVertical: 1, color: '#909090' }}>
+            1. Open the email containing thes suspicious website.
+          </Text>
+          <Text style={{ fontSize: 10, marginVertical: 1, color: '#909090' }}>
+            2. Click on the link to open the website.
+          </Text>
+          <Text style={{ fontSize: 10, marginVertical: 1, color: '#909090' }}>
+            3. Copy the URL of the website from the browser.
+          </Text>
+          <Text
+            style={{
+              fontSize: 10,
+              color: '#909090',
+              marginBottom: actuatedNormalize(16),
+            }}
+          >
+            4. Paste the URL in the input field below and click Scan.
+          </Text>
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -105,24 +124,28 @@ const ScanUrlPage = () => {
         </TouchableOpacity>
 
         {isLoading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color={Colors.light.secondary} />
         ) : (
           <>
             {scanResult && (
               <View style={styles.resultContainer}>
                 <Text style={styles.resultText}>Scan Result:</Text>
                 <Text>Status: {scanResult.status}</Text>
-                <Text>Disposition: {scanResult.disposition}</Text>
+                <Text>Result: {scanResult.disposition}</Text>
                 <Text>Brand: {scanResult.brand}</Text>
                 <Image
                   source={{ uri: scanResult.screenshot_path }}
                   style={{
-                    width: actuatedNormalize(300),
-                    height: actuatedNormalize(200),
+                    width: actuatedNormalize(340),
+                    height: actuatedNormalize(220),
+                    backgroundColor: 'red',
+                    alignSelf: 'center',
+                    borderWidth: 2,
+                    borderColor: Colors.light.secondary,
+                    marginTop: actuatedNormalize(10),
                   }}
-                  resizeMode="contain"
+                  resizeMode="cover"
                 />
-                {/* Display other relevant fields from the scan result */}
               </View>
             )}
 
@@ -142,22 +165,20 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: actuatedNormalize(10),
   },
   input: {
     width: '100%',
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 10,
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: 'blue',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    backgroundColor: Colors.light.secondary,
+    paddingHorizontal: actuatedNormalize(120),
+    paddingVertical: 7,
     borderRadius: 5,
-    marginBottom: 20,
   },
   buttonText: {
     color: 'white',
@@ -166,11 +187,15 @@ const styles = StyleSheet.create({
   },
   resultContainer: {
     marginTop: 20,
+    width: Dimensions.get('screen').width,
+    paddingHorizontal: actuatedNormalize(24),
+    display: 'flex',
+    flexDirection: 'column',
   },
   resultText: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: actuatedNormalize(8),
   },
   errorText: {
     color: 'red',

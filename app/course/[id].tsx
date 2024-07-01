@@ -28,7 +28,6 @@ export default function Course() {
         description: 'You have completed this topic.',
         type: 'success',
         duration: 3000,
-        style: { top: 5 },
         titleStyle: { fontWeight: 'bold' },
         floating: true,
         icon: 'success',

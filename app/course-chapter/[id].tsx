@@ -16,6 +16,7 @@ import { Colors } from '@/hooks/useThemeColor';
 import LearningProgressBar from '@/components/blog/LearningProgressBar';
 import { Material, Topic } from '@/constants/Types';
 import useUsersStore from '@/hooks/useUsers';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 import useMaterialStore from '@/hooks/useMaterial';
 import {
   actuatedNormalize,
@@ -54,6 +55,16 @@ export default function CourseChapter() {
           router.back();
           // @ts-ignore
           await updateUserProgress(dbUser.id, id, topicId);
+          showMessage({
+            message: 'Congratulations!',
+            description: 'You have completed this topic.',
+            type: 'success',
+            duration: 3000,
+            style: { top: 10 },
+            titleStyle: { fontWeight: 'bold' },
+            floating: true,
+            icon: 'success',
+          });
         } catch (err) {
           console.warn('Error updating user progress:', err);
         }
@@ -80,6 +91,7 @@ export default function CourseChapter() {
           animation: 'slide_from_right',
         }}
       />
+      <FlashMessage position={'top'} />
       <FlatList
         data={lessons}
         horizontal={true}

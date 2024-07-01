@@ -1,38 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  StyleSheet,
   ActivityIndicator,
   ScrollView,
   Text,
-  RefreshControl,
+  StyleSheet,
 } from 'react-native';
-import {
-  BarChart,
-  PieChart,
-  LineChart,
-  yAxisSides,
-} from 'react-native-gifted-charts';
+import { BarChart, PieChart } from 'react-native-gifted-charts';
 import useUsersStore from '@/hooks/useUsers';
 import useMaterialStore from '@/hooks/useMaterial';
 import { Stack } from 'expo-router';
 import Avatar from '@/components/user/Avatar';
-import { Colors } from '@/hooks/useThemeColor';
 import useGroupStore from '@/hooks/useGroup';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
+import { Colors } from '@/hooks/useThemeColor';
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const dbUser = useUsersStore(state => state.dbUser);
   const materials = useMaterialStore(state => state.materials);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [lessonsByTag, setLessonsByTag] = useState<
-    { label: string; value: number; color: string }[]
+    Array<{ label: string; value: number; color: string }>
   >([]);
   const [userPoints, setUserPoints] = useState<
-    { label: string; value: number; color: string }[]
+    Array<{ label: string; value: number; color: string }>
   >([]);
 
   useEffect(() => {
@@ -40,7 +34,6 @@ const Dashboard = () => {
       if (dbUser) {
         const lessonsCompleted: { [key: string]: number } = {};
 
-        // Fetch user progress from Firestore
         const userProgress = await useUsersStore
           .getState()
           .getUserProgressByUserId(dbUser.id ?? '');
@@ -81,17 +74,18 @@ const Dashboard = () => {
           }))
         );
 
-        // Fetch user points from Firestore
-        const groupUsers = await useGroupStore
-          .getState()
-          .fetchGroupUsers(dbUser.group ?? '');
-        setUserPoints(
-          groupUsers.map((user, index) => ({
-            label: user.displayName,
-            value: user.points,
-            color: colorPalette[index % colorPalette.length],
-          }))
-        );
+        if (dbUser.group) {
+          const groupUsers = await useGroupStore
+            .getState()
+            .fetchGroupUsers(dbUser.group);
+          setUserPoints(
+            groupUsers.map((user, index) => ({
+              label: user.displayName,
+              value: user.points,
+              color: colorPalette[index % colorPalette.length],
+            }))
+          );
+        }
 
         setIsLoading(false);
       }
@@ -108,14 +102,6 @@ const Dashboard = () => {
     );
   }
 
-  // const [refreshing, setRefreshing] = useState<boolean>(false);
-  // // it should the page with necessary data in the leaderboard
-  // const onRefresh = async () => {
-  //   setRefreshing(true);
-  //   // await fetchMaterials();
-  //   setRefreshing(false);
-  // };
-
   return (
     <>
       <Stack.Screen
@@ -127,148 +113,105 @@ const Dashboard = () => {
       />
       <ScrollView
         style={styles.container}
-        contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={styles.contentContainer}
       >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: '#ffffff',
-            padding: 10,
-            borderRadius: 13,
-            marginBottom: actuatedNormalizeVertical(15),
-            shadowColor: '#909090',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.23,
-            shadowRadius: 2.62,
-            elevation: 4,
-          }}
-        >
-          <View style={{ marginBottom: actuatedNormalizeVertical(8) }}>
-            <Text style={{ fontWeight: 'bold' }}>Lessons Completed</Text>
-            <Text style={{ color: '#909090', fontSize: 9 }}>
-              Each lessons is accredited with 10 points*
+        <View style={styles.chartContainer}>
+          <View style={styles.chartHeader}>
+            <Text style={styles.chartTitle}>Lessons Completed</Text>
+            <Text style={styles.chartSubtitle}>
+              Each lesson is accredited with 10 points*
             </Text>
           </View>
-          <BarChart
-            barWidth={actuatedNormalize(50)}
-            noOfSections={3}
-            barBorderRadius={4}
-            data={lessonsByTag.map(item => ({
-              ...item,
-              frontColor: item.color,
-            }))}
-            yAxisThickness={0}
-            xAxisThickness={0.2}
-            labelWidth={45}
-            adjustToWidth
-            xAxisLabelTextStyle={{
-              color: 'gray',
-              textAlign: 'center',
-              fontSize: 10,
-            }}
-            isAnimated
-            xAxisLabelsVerticalShift={4}
-            maxValue={Math.max(...lessonsByTag.map(item => item.value))}
-          />
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: '#ffffff',
-            padding: 10,
-            borderRadius: 13,
-            shadowColor: '#909090',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.23,
-            shadowRadius: 2.62,
-            elevation: 4,
-          }}
-        >
-          <View style={{ marginBottom: actuatedNormalizeVertical(8) }}>
-            <Text style={{ fontWeight: 'bold' }}>Leaderboard</Text>
-            <Text style={{ color: '#909090', fontSize: 9 }}>
-              Total points for each users earned through lessons.
-            </Text>
-          </View>
-          <View
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <PieChart
-              data={userPoints}
-              radius={100}
-              showText
-              textColor="#ffffff"
-              showValuesAsLabels
-              showTextBackground
-              textBackgroundRadius={2}
-              textSize={16}
-              textBackgroundColor="transparent"
-              isAnimated
-            />
-          </View>
-          <View style={styles.legendContainer}>
-            {userPoints.map((user, index) => (
-              <View key={user.label} style={styles.legendItem}>
-                <View
-                  style={[
-                    styles.legendColor,
-                    { backgroundColor: user.color || 'transparent' },
-                  ]}
-                />
-                <Text style={styles.legendLabel}>{user.label}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-
-        {/* <View style={styles.leaderboardContainer}>
-          <Text>Leaderboard</Text>
-          <LineChart
-            data={userPoints.map(user => ({
-              value: user.value,
-              labelComponent: () => (
-                <Text style={styles.lineChartLabel} numberOfLines={1}>
-                  {user.label}
+          {lessonsByTag.length > 0 ? (
+            <>
+              <BarChart
+                barWidth={actuatedNormalize(50)}
+                noOfSections={
+                  Math.max(...lessonsByTag.map(item => item.value)) === 1
+                    ? 1
+                    : Math.max(...lessonsByTag.map(item => item.value)) === 2
+                    ? 2
+                    : 3
+                }
+                barBorderRadius={4}
+                data={lessonsByTag.map(item => ({
+                  ...item,
+                  frontColor: item.color,
+                }))}
+                yAxisThickness={0}
+                xAxisThickness={0.2}
+                labelWidth={45}
+                adjustToWidth
+                xAxisLabelTextStyle={styles.xAxisLabelTextStyle}
+                isAnimated
+                xAxisLabelsVerticalShift={4}
+                maxValue={Math.max(...lessonsByTag.map(item => item.value))}
+              />
+              <View style={styles.totalScoreContainer}>
+                <Text style={styles.totalScoreLabel}>Your Total Score:</Text>
+                <Text style={styles.totalScoreValue}>
+                  {lessonsByTag.reduce(
+                    (total, item) => total + item.value * 10,
+                    0
+                  )}
                 </Text>
-              ),
-            }))}
-            isAnimated
-            curved
-            spacing={70}
-            color="#F08A5D"
-            thickness={3}
-            hideRules
-            dataPointsHeight={0}
-            dataPointsWidth={0}
-            startFillColor="orange"
-            endFillColor="#F08A5D"
-            startOpacity={0.9}
-            endOpacity={0.2}
-            yAxisColor="gray"
-            yAxisThickness={1}
-            rulesColor="gray"
-            height={200}
-            width={280}
-            initialSpacing={30}
-            backgroundColor="#f1f1f1"
-            areaChart
-            noOfSections={5}
-            yAxisTextStyle={{ color: 'gray' }}
-            yAxisSide={yAxisSides.RIGHT}
-          />
-        </View> */}
+              </View>
+            </>
+          ) : (
+            <Text style={styles.noLessonsText}>
+              Complete some lessons to view your status.
+            </Text>
+          )}
+        </View>
+
+        <View style={styles.chartContainer}>
+          <View style={styles.chartHeader}>
+            <Text style={styles.chartTitle}>Leaderboard</Text>
+            <Text style={styles.chartSubtitle}>
+              Total points for each user earned through lessons.
+            </Text>
+          </View>
+          {dbUser?.group ? (
+            <>
+              <View style={styles.pieChartContainer}>
+                <PieChart
+                  data={userPoints}
+                  radius={100}
+                  showText
+                  textColor="#ffffff"
+                  showValuesAsLabels
+                  showTextBackground
+                  textBackgroundRadius={2}
+                  textSize={16}
+                  textBackgroundColor="transparent"
+                  isAnimated
+                />
+              </View>
+              <View style={styles.legendContainer}>
+                {userPoints.map((user, index) => (
+                  <View
+                    key={user.label + Math.random()}
+                    style={styles.legendItem}
+                  >
+                    <View
+                      style={[
+                        styles.legendColor,
+                        { backgroundColor: user.color || 'transparent' },
+                      ]}
+                    />
+                    <Text style={styles.legendLabel}>{user.label}</Text>
+                  </View>
+                ))}
+              </View>
+            </>
+          ) : (
+            <>
+              <Text style={styles.noLessonsText}>
+                Join a group to view the leaderboard.
+              </Text>
+            </>
+          )}
+        </View>
       </ScrollView>
     </>
   );
@@ -280,41 +223,52 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 20,
   },
+  contentContainer: {
+    paddingBottom: 40,
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    marginBottom: 24,
-  },
   chartContainer: {
-    marginBottom: 24,
-    alignItems: 'center',
-    width: 300,
+    backgroundColor: '#ffffff',
+    padding: 10,
+    borderRadius: 13,
+    marginBottom: actuatedNormalizeVertical(15),
+    shadowColor: '#909090',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
-  centerLabel: {
-    fontSize: 10,
+  chartHeader: {
+    marginBottom: actuatedNormalizeVertical(8),
+  },
+  chartTitle: {
     fontWeight: 'bold',
   },
-  leaderboardContainer: {
-    width: '100%',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+  chartSubtitle: {
+    color: '#909090',
+    fontSize: 9,
   },
-  lineChartLabel: {
-    fontSize: 10,
+  xAxisLabelTextStyle: {
     color: 'gray',
-    paddingHorizontal: 16,
+    textAlign: 'center',
+    fontSize: 10,
   },
-
+  noLessonsText: {
+    textAlign: 'center',
+    marginVertical: actuatedNormalize(50),
+    color: 'gray',
+  },
   pieChartContainer: {
-    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 24,
   },
   legendContainer: {
     marginLeft: 20,
@@ -334,6 +288,22 @@ const styles = StyleSheet.create({
   legendLabel: {
     fontSize: 12,
     color: 'gray',
+  },
+  totalScoreContainer: {
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  totalScoreLabel: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  totalScoreValue: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Colors.light.secondary,
   },
 });
 
