@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,7 @@ import { Stack } from 'expo-router';
 import Avatar from '@/components/user/Avatar';
 import { actuatedNormalize } from '@/constants/DynamicSize';
 import { Colors } from '@/hooks/useThemeColor';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 
 interface FormData {
   url: string;
@@ -38,8 +39,34 @@ const ScanUrlPage = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    formState: { errors, isValid },
+    reset,
+  } = useForm<FormData>({
+    mode: 'onChange',
+    defaultValues: {
+      url: '',
+    },
+  });
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (isLoading) {
+      timeout = setTimeout(() => {
+        setIsLoading(false);
+        showMessage({
+          message: 'Requested timed out.',
+          description: 'The URL is invalid. Please check and try again.',
+          type: 'danger',
+        });
+        reset();
+      }, 60000);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isLoading, reset]);
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
@@ -65,6 +92,7 @@ const ScanUrlPage = () => {
   return (
     <>
       <Stack.Screen options={{ title: '', headerRight: () => <Avatar /> }} />
+      <FlashMessage position="top" />
       <View style={styles.container}>
         <View
           style={{
@@ -106,7 +134,14 @@ const ScanUrlPage = () => {
               />
             )}
             name="url"
-            rules={{ required: 'URL is required' }}
+            rules={{
+              required: 'URL is required',
+              pattern: {
+                value:
+                  /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/,
+                message: 'Invalid URL format',
+              },
+            }}
             defaultValue=""
           />
         </View>
@@ -116,43 +151,42 @@ const ScanUrlPage = () => {
         )}
 
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, !isValid && styles.disabledButton]}
           onPress={handleSubmit(onSubmit)}
-          disabled={isLoading}
+          disabled={isLoading || !isValid}
         >
-          <Text style={styles.buttonText}>Scan</Text>
+          {isLoading ? (
+            <ActivityIndicator size="small" color="white" />
+          ) : (
+            <Text style={styles.buttonText}>Scan</Text>
+          )}
         </TouchableOpacity>
 
-        {isLoading ? (
-          <ActivityIndicator size="large" color={Colors.light.secondary} />
-        ) : (
-          <>
-            {scanResult && (
-              <View style={styles.resultContainer}>
-                <Text style={styles.resultText}>Scan Result:</Text>
-                <Text>Status: {scanResult.status}</Text>
-                <Text>Result: {scanResult.disposition}</Text>
-                <Text>Brand: {scanResult.brand}</Text>
-                <Image
-                  source={{ uri: scanResult.screenshot_path }}
-                  style={{
-                    width: actuatedNormalize(340),
-                    height: actuatedNormalize(220),
-                    backgroundColor: 'red',
-                    alignSelf: 'center',
-                    borderWidth: 2,
-                    borderColor: Colors.light.secondary,
-                    marginTop: actuatedNormalize(10),
-                  }}
-                  resizeMode="cover"
-                />
-              </View>
-            )}
-
-            {error && <Text style={styles.errorText}>{error}</Text>}
-          </>
+        {scanResult && (
+          <View style={styles.resultContainer}>
+            <Text style={styles.resultText}>Scan Result:</Text>
+            <Text>Status: {scanResult.status}</Text>
+            <Text>Result: {scanResult.disposition}</Text>
+            <Text>Brand: {scanResult.brand}</Text>
+            <Image
+              source={{ uri: scanResult.screenshot_path }}
+              style={{
+                width: actuatedNormalize(340),
+                height: actuatedNormalize(220),
+                alignSelf: 'center',
+                borderWidth: 2,
+                borderColor: Colors.light.secondary,
+                marginTop: actuatedNormalize(10),
+              }}
+              resizeMode="cover"
+            />
+          </View>
         )}
+
+        {error && <Text style={styles.errorText}>{error}</Text>}
       </View>
+
+      <FlashMessage position="top" />
     </>
   );
 };
@@ -180,6 +214,9 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     borderRadius: 5,
   },
+  disabledButton: {
+    opacity: 0.5,
+  },
   buttonText: {
     color: 'white',
     fontSize: 16,
@@ -199,7 +236,8 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginTop: 10,
+    marginBottom: actuatedNormalize(6),
+    marginTop: actuatedNormalize(-14),
   },
 });
 
