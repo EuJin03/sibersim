@@ -189,15 +189,12 @@ export default function NewPostScreen() {
                               backgroundColor: '#f9f9f9',
                             }}
                           >
-                            {isUpload ? (
-                              <ActivityIndicator />
-                            ) : (
-                              <Icon
-                                source="image"
-                                size={28}
-                                color={Colors.light.secondary}
-                              />
-                            )}
+                            <Icon
+                              source="image"
+                              size={28}
+                              color={Colors.light.secondary}
+                            />
+
                             <Text>Add Image</Text>
                           </View>
                         </TouchableHighlight>
