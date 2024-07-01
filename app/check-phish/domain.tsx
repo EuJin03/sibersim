@@ -27,7 +27,7 @@ interface ScanResult {
   brand: string;
   insights: string;
   screenshot_path: string;
-  sha256: string;
+  url_sha256: string;
   // Add other relevant fields from the scan result
 }
 
@@ -166,8 +166,14 @@ const ScanUrlPage = () => {
           <View style={styles.resultContainer}>
             <Text style={styles.resultText}>Scan Result:</Text>
             <Text>Status: {scanResult.status}</Text>
-            <Text>Result: {scanResult.disposition}</Text>
-            <Text>Brand: {scanResult.brand}</Text>
+            <Text
+              style={{
+                color: scanResult.disposition === 'clean' ? 'green' : 'yellow',
+              }}
+            >
+              Result: {scanResult.disposition}
+            </Text>
+            <Text style={{ fontSize: 11 }}>Hash: {scanResult.url_sha256}</Text>
             <Image
               source={{ uri: scanResult.screenshot_path }}
               style={{
