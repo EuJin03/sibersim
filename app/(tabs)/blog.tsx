@@ -5,6 +5,7 @@ import {
   RefreshControl,
   View,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { useAuth } from '@/contexts/userContext';
 import Slider from '@/components/blog/Slider';
@@ -16,13 +17,15 @@ import {
 } from '@/constants/DynamicSize';
 import { useEffect, useState } from 'react';
 import useMaterialStore from '@/hooks/useMaterial';
-import { ActivityIndicator, Searchbar, Text } from 'react-native-paper';
+import { ActivityIndicator, Icon, Searchbar, Text } from 'react-native-paper';
 import { fuzzySearch } from '@/utils/fuzzySearch';
 import { Colors } from '@/hooks/useThemeColor';
+import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
   const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   const { dbUser, signOut } = useAuth();
+  const router = useRouter();
 
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -72,27 +75,62 @@ export default function HomeScreen() {
       >
         <View
           style={{
-            backgroundColor: '#ffffff',
-            borderRadius: actuatedNormalize(20),
-            borderWidth: 1,
-            borderColor: Colors.light.secondary,
             marginTop: actuatedNormalizeVertical(16),
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
-          <Searchbar
-            placeholder="Search"
-            onChangeText={setSearchQuery}
-            value={searchQuery}
+          <View
             style={{
-              height: actuatedNormalize(40),
-              fontSize: actuatedNormalize(14),
               backgroundColor: '#ffffff',
+              borderRadius: actuatedNormalize(20),
+              borderWidth: 1,
+              borderColor: Colors.light.secondary,
+              flexBasis: '88%',
             }}
-            elevation={1}
-            inputStyle={{
-              minHeight: 0, // Add this
+          >
+            <Searchbar
+              placeholder="Search"
+              onChangeText={setSearchQuery}
+              value={searchQuery}
+              style={{
+                height: actuatedNormalize(40),
+                fontSize: actuatedNormalize(14),
+                backgroundColor: '#ffffff',
+              }}
+              elevation={1}
+              inputStyle={{
+                minHeight: 0, // Add this
+              }}
+              iconColor={Colors.dark.secondary}
+            />
+          </View>
+          <TouchableOpacity
+            style={{
+              flexBasis: '10%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
-          />
+            onPress={() => router.push('/leaderboard')}
+          >
+            <View
+              style={{
+                borderRadius: 60,
+                borderWidth: 0,
+                borderColor: '#ffffff',
+                padding: actuatedNormalize(5),
+              }}
+            >
+              <Icon
+                source="chart-box-outline"
+                color={Colors.light.secondary}
+                size={26}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
         {loading ? (
           <View style={style.loadingContainer}>

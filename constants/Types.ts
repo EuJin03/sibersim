@@ -1,3 +1,8 @@
+interface UserProgress {
+  courseId: string;
+  completedTopics: string[];
+}
+
 interface User {
   id?: string;
   email: string;
@@ -8,12 +13,8 @@ interface User {
   bios: string;
   isNewUser: boolean;
   group?: string;
-  progress?: {
-    [courseId: string]: {
-      completedTopics: string[];
-      completedLessons: string[];
-    };
-  };
+  progress?: UserProgress[];
+  points?: any;
 }
 
 interface Result {
@@ -128,6 +129,7 @@ interface Material {
 }
 
 export type {
+  UserProgress,
   User,
   Group,
   Quiz,

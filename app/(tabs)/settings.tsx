@@ -180,7 +180,7 @@ export default function settings() {
             </View>
           </TouchableRipple>
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
-          <TouchableRipple onPress={() => console.log('jeee')}>
+          <TouchableRipple>
             <View style={style.accordion}>
               <Icon source="alert-circle-outline" size={18} />
               <Text>Provide Feedback</Text>

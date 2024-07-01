@@ -17,6 +17,7 @@ import {
 import { generateUUID } from '@/hooks/useUuid';
 import useUserStore from '@/hooks/useUsers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import useUsersStore from '@/hooks/useUsers';
 
 export interface GroupState {
   groups: Group[];
@@ -43,6 +44,7 @@ export interface GroupState {
     uniqueId: string
   ) => Promise<void>;
   resetState: () => void;
+  fetchGroupUsers: (groupId: string) => Promise<User[]>;
 }
 
 const useGroupStore = create<GroupState>((set, get) => ({
@@ -397,6 +399,37 @@ const useGroupStore = create<GroupState>((set, get) => ({
       loading: false,
       error: null,
     });
+  },
+
+  fetchGroupUsers: async (groupId: string) => {
+    try {
+      const groupDocRef = doc(getFirestore(), 'groups', groupId);
+      const groupDoc = await getDoc(groupDocRef);
+      if (groupDoc.exists()) {
+        const groupData = groupDoc.data() as Group;
+        const userPromises = groupData.members.map(async userId => {
+          const userDoc = await getDoc(doc(getFirestore(), 'users', userId));
+          if (userDoc.exists()) {
+            const userData = userDoc.data() as User;
+            const userProgress = await useUsersStore
+              .getState()
+              .getUserProgressByUserId(userId);
+            const points = userProgress.reduce((total, progress) => {
+              const completedLessons = progress.completedTopics.length;
+              return total + completedLessons * 10; // Allocate 10 points for each completed lesson
+            }, 0);
+            return { ...userData, points };
+          }
+          return null;
+        });
+        const users = await Promise.all(userPromises);
+        return users.filter(user => user !== null);
+      }
+      return [];
+    } catch (error) {
+      console.error('Error fetching group users:', error);
+      return [];
+    }
   },
 }));
 
