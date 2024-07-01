@@ -60,7 +60,12 @@ export default function CourseList({
                   }}
                   resizeMode="cover"
                 />
-                <View style={{ padding: actuatedNormalize(8) }}>
+                <View
+                  style={{
+                    padding: actuatedNormalize(8),
+                    width: actuatedNormalize(240),
+                  }}
+                >
                   <Text
                     variant="bodySmall"
                     numberOfLines={1}

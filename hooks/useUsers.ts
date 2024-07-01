@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { User } from '@/constants/Types';
+import { User, UserProgress } from '@/constants/Types';
 import {
   getFirestore,
   collection,
@@ -10,6 +10,7 @@ import {
   updateDoc,
   addDoc,
   getDoc,
+  onSnapshot,
 } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -24,16 +25,14 @@ export interface UserState {
   updateUserProgress: (
     userId: string,
     courseId: string,
-    topicId: string,
-    lessonId: string
+    topicId: string
   ) => Promise<void>;
   getUserProgress: (
     userId: string,
     courseId: string
-  ) => Promise<{
-    completedTopics: string[];
-    completedLessons: string[];
-  }>;
+  ) => Promise<UserProgress | null>;
+  getUserProgressByUserId: (userId: string) => Promise<UserProgress[]>;
+  subscribeToUserUpdates: (userId: string) => () => void;
 }
 
 const useUsersStore = create<UserState>((set, get) => ({
@@ -102,38 +101,58 @@ const useUsersStore = create<UserState>((set, get) => ({
   updateUserProgress: async (
     userId: string,
     courseId: string,
-    topicId: string,
-    lessonId: string
+    topicId: string
   ) => {
     try {
+      // Update the user store first
+      const dbUser = get().dbUser;
+      if (dbUser) {
+        const progress = dbUser.progress || [];
+        const courseProgress = progress.find(
+          (p: UserProgress) => p.courseId === courseId
+        );
+
+        if (courseProgress) {
+          if (!courseProgress.completedTopics.includes(topicId)) {
+            courseProgress.completedTopics.push(topicId);
+          }
+        } else {
+          progress.push({
+            courseId,
+            completedTopics: [topicId],
+          });
+        }
+
+        const updatedUser = { ...dbUser, progress };
+        set({ dbUser: updatedUser });
+        await AsyncStorage.setItem('dbUser', JSON.stringify(updatedUser));
+      }
+
+      // Update Firestore in the background
       const userDocRef = doc(getFirestore(), 'users', userId);
       const docSnapshot = await getDoc(userDocRef);
 
       if (docSnapshot.exists()) {
         const userData = docSnapshot.data() as User;
-        const progress = userData.progress || {};
+        const progress = userData.progress || [];
 
-        if (!progress[courseId]) {
-          progress[courseId] = {
-            completedTopics: [],
-            completedLessons: [],
-          };
-        }
+        const courseProgress = progress.find(
+          (p: UserProgress) => p.courseId === courseId
+        );
 
-        if (!progress[courseId].completedTopics.includes(topicId)) {
-          progress[courseId].completedTopics.push(topicId);
-        }
-
-        if (!progress[courseId].completedLessons.includes(lessonId)) {
-          progress[courseId].completedLessons.push(lessonId);
+        if (courseProgress) {
+          if (!courseProgress.completedTopics.includes(topicId)) {
+            courseProgress.completedTopics.push(topicId);
+          }
+        } else {
+          progress.push({
+            courseId,
+            completedTopics: [topicId],
+          });
         }
 
         await updateDoc(userDocRef, { progress });
         console.log('User progress updated successfully');
-
-        const updatedUser = { ...userData, progress };
-        set({ dbUser: updatedUser });
-        console.log('dbUser state updated:', updatedUser);
       } else {
         console.warn('User document does not exist');
       }
@@ -148,18 +167,46 @@ const useUsersStore = create<UserState>((set, get) => ({
       const docSnapshot = await getDoc(userDocRef);
       if (docSnapshot.exists()) {
         const userData = docSnapshot.data() as User;
-        return (
-          userData.progress?.[courseId] || {
-            completedTopics: [],
-            completedLessons: [],
-          }
+        const courseProgress = userData.progress?.find(
+          (p: UserProgress) => p.courseId === courseId
         );
+        const updatedUser = { ...userData, id: userId };
+        set({ dbUser: updatedUser });
+        await AsyncStorage.setItem('dbUser', JSON.stringify(updatedUser));
+        return courseProgress || null;
       }
-      return { completedTopics: [], completedLessons: [] };
+      return null;
     } catch (error) {
       console.error('Error getting user progress:', error);
-      return { completedTopics: [], completedLessons: [] };
+      return null;
     }
+  },
+
+  getUserProgressByUserId: async (userId: string) => {
+    try {
+      const userDocRef = doc(getFirestore(), 'users', userId);
+      const docSnapshot = await getDoc(userDocRef);
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data() as User;
+        return userData.progress || [];
+      }
+      return [];
+    } catch (error) {
+      console.error('Error getting user progress by user ID:', error);
+      return [];
+    }
+  },
+
+  subscribeToUserUpdates: (userId: string) => {
+    const userDocRef = doc(getFirestore(), 'users', userId);
+    const unsubscribe = onSnapshot(userDocRef, snapshot => {
+      if (snapshot.exists()) {
+        const updatedUser = { id: snapshot.id, ...(snapshot.data() as User) };
+        set({ dbUser: updatedUser });
+        AsyncStorage.setItem('dbUser', JSON.stringify(updatedUser));
+      }
+    });
+    return unsubscribe;
   },
 }));
 

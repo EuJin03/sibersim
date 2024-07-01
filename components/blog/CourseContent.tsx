@@ -13,8 +13,8 @@ import {
 import { Text } from 'react-native-paper';
 import MUI from '@expo/vector-icons/MaterialCommunityIcons';
 import { Colors } from '@/hooks/useThemeColor';
-import { useRouter } from 'expo-router';
-import { Topic } from '@/constants/Types';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Topic, UserProgress } from '@/constants/Types';
 import useUsersStore from '@/hooks/useUsers';
 
 export default function CourseContent({
@@ -24,10 +24,13 @@ export default function CourseContent({
   courseId: string;
   courseTopics: Topic[];
 }) {
+  const { showMessage: shouldShowMessage } = useLocalSearchParams();
   const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   const router = useRouter();
   const dbUser = useUsersStore(state => state.dbUser);
-  const [completedTopics, setCompletedTopics] = useState<string[]>([]);
+  const [courseProgress, setCourseProgress] = useState<UserProgress | null>(
+    null
+  );
 
   const getUserProgress = useUsersStore(state => state.getUserProgress);
 
@@ -35,20 +38,17 @@ export default function CourseContent({
     const fetchUserProgress = async () => {
       if (dbUser && dbUser.id) {
         const progress = await getUserProgress(dbUser.id, courseId);
-        setCompletedTopics(progress.completedTopics);
+        setCourseProgress(progress);
       }
     };
 
     fetchUserProgress();
   }, [dbUser, courseId, getUserProgress]);
 
-  useEffect(() => {
-    if (dbUser && dbUser.progress && dbUser.progress[courseId]) {
-      setCompletedTopics(dbUser.progress[courseId].completedTopics);
-    }
-  }, [dbUser, courseId]);
-
   const isTopicCompleted = (topicId: string) => {
+    if (!courseProgress) return false;
+
+    const completedTopics = courseProgress.completedTopics;
     return completedTopics.includes(topicId);
   };
 
