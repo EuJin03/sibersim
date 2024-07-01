@@ -26,6 +26,7 @@ import { Colors } from '@/hooks/useThemeColor';
 import { useRouter } from 'expo-router';
 import useBlogStore from '@/hooks/useBlogs';
 import { blogs } from '@/assets/seeds/blog';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 
 export default function settings() {
   const { dbUser, signOut } = useAuth();
@@ -44,6 +45,7 @@ export default function settings() {
         backgroundColor: '#f1f1f1',
       }}
     >
+      <FlashMessage position="top" />
       <View
         style={{
           display: 'flex',
@@ -164,10 +166,21 @@ export default function settings() {
             </View>
           </TouchableRipple>
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
-          <TouchableRipple onPress={() => console.log('jeee')}>
+          <TouchableRipple
+            onPress={() =>
+              showMessage({
+                message: 'Sorry :(',
+                description:
+                  'This feature is not available currently due to budget reasons.',
+                type: 'warning',
+                duration: 3000,
+                titleStyle: { fontWeight: 'bold' },
+              })
+            }
+          >
             <View style={style.accordion}>
-              <Icon source="email-alert-outline" size={18} />
-              <Text>Scan your Phone Number</Text>
+              <Icon source="phone-alert-outline" size={18} />
+              <Text>Scan a suspicious h/p number</Text>
             </View>
           </TouchableRipple>
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
@@ -175,12 +188,23 @@ export default function settings() {
             onPress={() => router.navigate('/check-phish/domain')}
           >
             <View style={style.accordion}>
-              <Icon source="phone-alert-outline" size={18} />
-              <Text>Scan your Email Address</Text>
+              <Icon source="email-alert-outline" size={18} />
+              <Text>Scan a suspicious website</Text>
             </View>
           </TouchableRipple>
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
-          <TouchableRipple>
+          <TouchableRipple
+            onPress={() => {
+              /* HERE WE GONE SHOW OUR FIRST MESSAGE */
+              showMessage({
+                message: 'Sorry :(',
+                description: 'This feature is not available yet',
+                type: 'warning',
+                duration: 3000,
+                titleStyle: { fontWeight: 'bold' },
+              });
+            }}
+          >
             <View style={style.accordion}>
               <Icon source="alert-circle-outline" size={18} />
               <Text>Provide Feedback</Text>
