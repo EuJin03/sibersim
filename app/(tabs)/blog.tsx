@@ -23,7 +23,8 @@ import { Colors } from '@/hooks/useThemeColor';
 import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
-  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  // const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  const colorScheme = 'light';
   const { dbUser, signOut } = useAuth();
   const router = useRouter();
 
@@ -35,6 +36,8 @@ export default function HomeScreen() {
   useEffect(() => {
     fetchMaterials();
   }, []);
+
+  console.log(courseItems[4]);
 
   const filteredCourseItems = fuzzySearch(searchQuery, courseItems, [
     'title',

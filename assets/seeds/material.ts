@@ -13,68 +13,6 @@ export const materials: Material[] = [
     videoUrl: 'Yz0PnAkeRiI',
   },
   {
-    type: 'course',
-    tags: ['Cybersecurity', 'Phishing'],
-    id: '3419e505-a281-4e5e-9c67-82f5a9d7524a',
-    title: 'Cybersecurity Fundamentals for Beginners',
-    description: `This course is designed for individuals with little to no prior knowledge of cybersecurity.\nYou will learn:\n- The basics of cyber threats and attack vectors\n- Essential cybersecurity principles and best practices\n- How to protect your personal and professional digital assets`,
-    thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
-    createdAt: '2022-08-20T14:30:00Z',
-    updatedAt: '2022-08-20T14:30:00Z',
-    publishedAt: '2022-08-20T14:30:00Z',
-    topic: [
-      {
-        id: '4b9b7f8c-a6c0-4f9e-9d4d-fc57e8f1e4c5',
-        topic: 'Cybersecurity',
-        name: 'Introduction to Cybersecurity',
-        lesson: [
-          {
-            id: 'f4c4a9a8-c8f3-4d4b-8c9e-a1b1f9b5c7f9',
-            title: 'What is Cybersecurity?',
-            description: `This lesson covers the fundamentals of cybersecurity, including:\n- The importance of cybersecurity in today's digital world\n- Common cyber threats and attack vectors\n- Key cybersecurity principles and best practices`,
-          },
-          {
-            id: 'd8cd3a4f-0c76-4fbd-9ee7-f4c7d8ef9b68',
-            title: 'Cyber Threats and Attack Vectors',
-            description: `In this lesson, you'll learn about different types of cyber threats and attack vectors, such as:\n- Malware (viruses, worms, trojans, ransomware)\n- Phishing and social engineering attacks\n- Distributed Denial of Service (DDoS) attacks`,
-          },
-          {
-            id: 'a04a0d2b-acb3-4d0d-8f04-1c30a9b0cd4c',
-            title: 'Cybersecurity Best Practices',
-            description: `This lesson covers essential cybersecurity best practices for individuals and organizations, including:\n- Strong password management\n- Software updates and patching\n- Data backup and recovery strategies`,
-          },
-        ],
-        input: null,
-        output: null,
-      },
-      {
-        id: 'a9738d8f-8d8d-4f8c-9b3d-dc0c99dc5d1b',
-        topic: 'Cybersecurity',
-        name: 'Cybersecurity Best Practices',
-        lesson: [
-          {
-            id: '674c4dbd-6a90-4a57-91f4-7ed0e3f1d8d3',
-            title: 'Password Security',
-            description: `In this lesson, you'll learn best practices for creating and managing strong passwords, including:\n- Characteristics of a strong password\n- Password management tools and techniques\n- Two-factor authentication and password-less authentication`,
-          },
-          {
-            id: '8c7da85b-d1d7-4f6e-9c0d-cd6d91fd4d91',
-            title: 'Software Updates and Patching',
-            description: `This lesson covers the importance of keeping software up-to-date and patched, including:\n- The risks of using outdated or unpatched software\n- How to configure automatic updates\n- Strategies for patching software in organizational settings`,
-          },
-          {
-            id: '7c5ff5d6-f8b6-4e2f-9a6e-5f3a1b7f6ab8',
-            title: 'Data Backup and Recovery',
-            description: `In this lesson, you'll learn about data backup and recovery strategies, including:\n- The importance of regular data backups\n- Different backup methods and technologies (e.g., on-site, cloud-based)\n- Best practices for testing and restoring backups`,
-          },
-        ],
-        input: null,
-        output: null,
-      },
-    ],
-  },
-  {
     type: 'video',
     tags: ['Cybersecurity', 'Phishing'],
     id: 'ae70c38c-8f29-4217-8f99-de1ac8e05e1e',
@@ -84,68 +22,6 @@ export const materials: Material[] = [
     updatedAt: '2023-03-05T11:20:00Z',
     publishedAt: '2023-03-05T11:20:00Z',
     videoUrl: 'aO858HyFbKI',
-  },
-  {
-    type: 'course',
-    tags: ['Cybersecurity', 'Phishing'],
-    id: '9a8c8b4a-8d41-4b57-962b-c6c5ecd19554',
-    title: 'Phishing Awareness and Prevention',
-    description: `Phishing attacks are a significant threat to individuals and organizations alike.\nIn this course, you'll learn:\n- How to recognize various types of phishing attacks\n- Strategies for avoiding and mitigating phishing threats\n- Best practices for reporting suspected phishing incidents`,
-    thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fphishing.jpg?alt=media&token=ed4cc2de-8801-4a66-b854-98952949a976',
-    createdAt: '2023-04-20T10:30:00Z',
-    updatedAt: '2023-04-20T10:30:00Z',
-    publishedAt: '2023-04-20T10:30:00Z',
-    topic: [
-      {
-        id: '2f71eb8f-9afc-4f7d-9dde-d1b4c1cf2d71',
-        topic: 'Phishing',
-        name: 'Understanding Phishing Attacks',
-        lesson: [
-          {
-            id: '5dd73f9c-f8d5-4979-8f5e-70c91ae03cc2',
-            title: 'What is Phishing?',
-            description: `This lesson covers the fundamentals of phishing attacks, including:\n- What is phishing and how do phishing attacks work?\n- Common types of phishing attacks (email, SMS, social media, etc.)\n- Real-world examples and case studies`,
-          },
-          {
-            id: '31defd4d-1f5a-4054-93ad-a6d5f8c63e0a',
-            title: 'Phishing Tactics and Techniques',
-            description: `In this lesson, you'll learn about various tactics and techniques used in phishing attacks, such as:\n- Email phishing (deceptive subject lines, spoofed sender addresses)\n- Spear phishing and whaling attacks\n- Smishing (phishing via SMS/text messages)`,
-          },
-          {
-            id: 'dc40d184-7961-4dd2-989d-70b3f567a0f9',
-            title: 'Phishing Indicators and Red Flags',
-            description: `In this lesson, you'll learn how to identify potential phishing indicators and red flags, such as:\n- Suspicious URLs and domain names\n- Unusual requests for personal or financial information\n- Poor grammar and spelling errors in messages`,
-          },
-        ],
-        input: null,
-        output: null,
-      },
-      {
-        id: 'd6a3c3f5-8879-4d3f-9afe-f4d0f9792ee3',
-        topic: 'Phishing',
-        name: 'Phishing Prevention and Mitigation',
-        lesson: [
-          {
-            id: '5917ab00-6f84-4f8c-9e4e-9d7c83eea756',
-            title: 'Avoiding Phishing Attacks',
-            description: `This lesson covers strategies for avoiding and mitigating phishing attacks, including:\n- Verifying the legitimacy of requests for sensitive information\n- Best practices for email and internet security\n- Using anti-phishing tools and technologies`,
-          },
-          {
-            id: 'fcec8b4b-8c4f-4b54-8b68-f8abfa8f0c8b',
-            title: 'Reporting Phishing Incidents',
-            description: `In this lesson, you'll learn best practices for reporting suspected phishing incidents, including:\n- When and how to report phishing attempts\n- Importance of reporting phishing incidents\n- Organizational policies and procedures for incident reporting`,
-          },
-          {
-            id: '8a5c9b89-c9b6-4766-a6e8-f0e8d9610ffa',
-            title: 'Phishing Awareness Training',
-            description: `This lesson covers the importance of phishing awareness training for individuals and organizations, including:\n- Benefits of phishing awareness training\n- Types of phishing awareness training (e.g., simulations, interactive modules)\n- Developing and implementing an effective training program`,
-          },
-        ],
-        input: null,
-        output: null,
-      },
-    ],
   },
   {
     type: 'video',
@@ -159,68 +35,6 @@ export const materials: Material[] = [
     videoUrl: 'GSU1Ue_7Kb0',
   },
   {
-    type: 'course',
-    tags: ['Cybersecurity', 'Phishing'],
-    id: 'f2e6d7e9-96b0-4c1f-8b6b-8f6c3d4e6c5a',
-    title: 'Cybersecurity for Small Businesses',
-    description: `As a small business owner, protecting your digital assets is crucial.\nThis course will teach you:\n- Common cyber threats targeting small businesses\n- Essential cybersecurity practices and controls\n- How to develop and implement a cybersecurity strategy`,
-    thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
-    createdAt: '2023-03-10T08:00:00Z',
-    updatedAt: '2023-03-10T08:00:00Z',
-    publishedAt: '2023-03-10T08:00:00Z',
-    topic: [
-      {
-        id: '8d8d5c9a-b3b4-4a76-a3a7-b0e52c28ee4e',
-        topic: 'Small Business',
-        name: 'Cyber Threats and Risk Management',
-        lesson: [
-          {
-            id: '4c8d6a2b-ef50-4940-8a7f-92ac9dca66b1',
-            title: 'Cyber Threats for Small Businesses',
-            description: `This lesson covers common cyber threats that target small businesses, including:\n- Malware and ransomware attacks\n- Phishing and social engineering scams\n- Insider threats and employee negligence`,
-          },
-          {
-            id: 'd62c6ca3-e0bb-4f9e-9c30-f71f2ab8d9a5',
-            title: 'Risk Assessment and Management',
-            description: `In this lesson, you'll learn about risk assessment and management for small businesses, including:\n- Identifying and assessing cyber risks\n- Developing a risk management strategy\n- Implementing risk mitigation controls`,
-          },
-          {
-            id: '39a64d74-eaf4-4946-9616-0e9df0b5f8c9',
-            title: 'Incident Response and Business Continuity',
-            description: `This lesson covers incident response and business continuity planning for small businesses, including:\n- Developing an incident response plan\n- Implementing data backup and recovery strategies\n- Ensuring business continuity in the event of a cyber incident`,
-          },
-        ],
-        input: null,
-        output: null,
-      },
-      {
-        id: 'b8d68d52-dd64-4a49-a6e3-ce0d3a4e2f07',
-        topic: 'Small Business',
-        name: 'Cybersecurity Best Practices',
-        lesson: [
-          {
-            id: 'a4e77a2d-2ecc-4f9e-bbc3-5c0e1bfb6de7',
-            title: 'Secure Remote Access',
-            description: `In this lesson, you'll learn best practices for secure remote access for small businesses, including:\n- Implementing Virtual Private Networks (VPNs)\n- Secure remote desktop protocols\n- Secure collaboration and file-sharing tools`,
-          },
-          {
-            id: '0e01dd14-1ea6-4c7d-8d1a-b45ff3d4392f',
-            title: 'Employee Cybersecurity Awareness',
-            description: `This lesson covers the importance of employee cybersecurity awareness for small businesses, including:\n- Developing and implementing security awareness training\n- Establishing security policies and procedures\n- Promoting a security-conscious culture`,
-          },
-          {
-            id: '5b9baffc-e7bc-4e97-8c9b-de9fd0be3b20',
-            title: 'Securing Small Business Networks',
-            description: `In this lesson, you'll learn strategies for securing small business networks, including:\n- Implementing firewalls and intrusion detection/prevention systems\n- Securing wireless networks\n- Regularly updating and patching systems and software`,
-          },
-        ],
-        input: null,
-        output: null,
-      },
-    ],
-  },
-  {
     type: 'video',
     tags: ['Cybersecurity', 'Phishing'],
     id: 'b48f0c8e-696f-4f80-9fb8-a0e2eb04acf4',
@@ -230,68 +44,6 @@ export const materials: Material[] = [
     updatedAt: '2023-05-01T14:45:00Z',
     publishedAt: '2023-05-01T14:45:00Z',
     videoUrl: 'GqAvw_dm20w',
-  },
-  {
-    type: 'course',
-    tags: ['Cybersecurity', 'Phishing'],
-    id: '1d1458b8-9b9f-4f6b-9d49-e5e4c92f8d2b',
-    title: 'Web Application Security Essentials',
-    description: `Web applications are a common target for cyber attacks.\nThis course will teach you:\n- Common web application vulnerabilities and attacks\n- Secure coding practices and secure software development lifecycle (SDLC)\n- Web application security testing and remediation techniques`,
-    thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
-    createdAt: '2022-09-25T09:15:00Z',
-    updatedAt: '2022-09-25T09:15:00Z',
-    publishedAt: '2022-09-25T09:15:00Z',
-    topic: [
-      {
-        id: '7e24cbf7-e45c-4b9f-a1a6-03a6e949ca03',
-        topic: 'Web Security',
-        name: 'Web Application Vulnerabilities',
-        lesson: [
-          {
-            id: '9dd6aee6-7aa9-4b7e-a8ae-7c3fc4d76a6b',
-            title: 'Introduction to Web Application Security',
-            description: `This lesson provides an introduction to web application security, including:\n- The importance of web application security\n- Common web application vulnerabilities (e.g., SQL injection, cross-site scripting)\n- Potential impacts of web application vulnerabilities`,
-          },
-          {
-            id: '2b762414-38d7-4c0d-9d55-0c9331ec1f29',
-            title: 'Web Application Attacks',
-            description: `In this lesson, you'll learn about various types of web application attacks, such as:\n- Injection attacks (SQL injection, command injection)\n- Cross-site scripting (XSS) attacks\n- Cross-site request forgery (CSRF) attacks`,
-          },
-          {
-            id: '0a9f9cef-3c66-4aeb-aee8-5d6d33d22a9b',
-            title: 'Vulnerabilities in Web Applications',
-            description: `This lesson covers common vulnerabilities found in web applications, including:\n- Insecure authentication and session management\n- Sensitive data exposure\n- Security misconfiguration`,
-          },
-        ],
-        input: null,
-        output: null,
-      },
-      {
-        id: '0b36ec5b-d2d5-4d1d-a3d4-c35ba9d64f52',
-        topic: 'Web Security',
-        name: 'Secure Coding Practices',
-        lesson: [
-          {
-            id: '8c8ccaf4-9e7e-4c3b-b8af-b1b8a9e6e0f8',
-            title: 'Input Validation and Sanitization',
-            description: `In this lesson, you'll learn about the importance of input validation and sanitization in web applications, including:\n- Techniques for validating and sanitizing user input\n- Preventing common injection vulnerabilities (e.g., SQL injection, XSS)`,
-          },
-          {
-            id: 'c926d7f4-1e8f-4b3c-b9e7-1d75e6deae5f',
-            title: 'Secure Authentication and Session Management',
-            description: `This lesson covers secure authentication and session management practices for web applications, including:\n- Implementing strong authentication mechanisms\n- Securely managing user sessions\n- Best practices for password storage and management`,
-          },
-          {
-            id: 'e6e3cfdb-6d4c-4f4f-9fce-5fbd9f6be7e9',
-            title: 'Secure Software Development Lifecycle (SDLC)',
-            description: `In this lesson, you'll learn about the Secure Software Development Lifecycle (SDLC), including:\n- Integrating security throughout the software development process\n- Security testing and code review\n- Secure deployment and maintenance practices`,
-          },
-        ],
-        input: null,
-        output: null,
-      },
-    ],
   },
   {
     type: 'video',
@@ -306,136 +58,1269 @@ export const materials: Material[] = [
   },
   {
     type: 'course',
-    tags: ['Cybersecurity', 'Phishing'],
-    id: 'beb00708-f0fb-4aab-9a2b-c5f4e4d73e7d',
-    title: 'Cloud Security Fundamentals',
-    description: `As more organizations migrate to cloud environments, cloud security has become a critical concern.\nThis course will cover:\n- Common cloud security risks and challenges\n- Best practices for securing cloud infrastructure and services\n- Cloud security tools and technologies`,
+    tags: ['Scams'],
+    id: '019082bb-7792-7d80-84b4-e30584be7590',
+    title: 'Protecting Yourself from Phishing and Social Engineering Scams',
+    description:
+      'Learn how to identify and protect yourself from phishing and social engineering scams in Malaysia.',
     thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/scam-virus-spyware-malware-antivirus-concept.jpg?alt=media&token=0d3e9807-0d43-4b59-bf7f-74cd12650ea7',
-    createdAt: '2023-04-10T11:00:00Z',
-    updatedAt: '2023-04-10T11:00:00Z',
-    publishedAt: '2023-04-10T11:00:00Z',
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fphishingprotect.jpg?alt=media&token=c9a69a20-03a9-4aca-b744-44dee8f7e4c3',
+    createdAt: '2023-07-05T10:00:00Z',
+    updatedAt: '2023-07-05T10:00:00Z',
+    publishedAt: '2023-07-05T10:00:00Z',
+    videoUrl: '',
     topic: [
       {
-        id: '6fc9dee6-c8e7-4a31-9719-c50d9cbd0e3b',
-        topic: 'Cloud Security',
-        name: 'Cloud Security Risks and Challenges',
+        id: '019082bb-f11b-7df3-bb76-fdd1a4882b97',
+        topic: 'Phishing Scams',
+        name: 'Identifying Phishing Scams',
         lesson: [
           {
-            id: 'c8bf1dfd-2d1f-4c65-a16d-d9d6ef9a6ba6',
-            title: 'Introduction to Cloud Security',
-            description: `This lesson provides an introduction to cloud security, including:\n- The shared responsibility model in cloud computing\n- Common cloud security risks and challenges\n- The importance of cloud security for organizations`,
+            id: '019082bc-15f5-7db4-b981-7c56f42e33d0',
+            title: 'What is Phishing?',
+            question: 'Which of the following best describes phishing?',
+            choices: [
+              'A. A legitimate way to obtain personal information',
+              'B. A type of online scam that tricks people into revealing sensitive information',
+              'C. A secure method of communication used by banks and financial institutions',
+              'D. A form of online shopping',
+            ],
+            answer: 'B',
+            content: [
+              {
+                type: 'title',
+                value: 'What is Phishing?',
+              },
+              {
+                type: 'text',
+                value:
+                  'Phishing is a common online scam where criminals impersonate legitimate organizations to trick people into revealing sensitive information such as passwords, credit card numbers, and bank account details. Phishers often use emails, text messages, or fake websites that look identical to real ones to lure their victims.',
+              },
+              {
+                type: 'text',
+                value:
+                  'In Malaysia, phishing scams have been on the rise, with many Malaysians falling victim to these scams. Scammers often pose as representatives from well-known companies, banks, or government agencies to gain the trust of their targets.',
+              },
+              {
+                type: 'subtitle',
+                value: 'Common Signs of Phishing Scams',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Unexpected emails or messages claiming to be from legitimate organizations',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Urgent requests for personal information or immediate action',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Links to websites with slightly altered or misspelled URLs',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Poor grammar, spelling errors, or generic greetings in the message',
+              },
+              {
+                type: 'text',
+                value:
+                  'Always be cautious when receiving unsolicited emails or messages, especially those requesting sensitive information. Legitimate organizations will never ask for your personal details through email or text message.',
+              },
+              {
+                type: 'text',
+                value:
+                  'If you suspect a phishing attempt, do not click on any links or provide any information. Instead, contact the organization directly using a trusted phone number or website to verify the authenticity of the request.',
+              },
+              {
+                type: 'link',
+                value:
+                  'https://www.mcmc.gov.my/en/faqs/online-content-problems/what-is-phishing',
+              },
+            ],
           },
           {
-            id: '3c7d3da0-1e9f-4e9b-9d9d-e7b9ac63a4b4',
-            title: 'Cloud Security Threats and Vulnerabilities',
-            description: `In this lesson, you'll learn about various security threats and vulnerabilities in cloud environments, such as:\n- Insecure configurations and misconfigurations\n- Data breaches and unauthorized access\n- Distributed Denial of Service (DDoS) attacks`,
+            id: '019082bc-2d9c-751a-ab3b-da1a7b818274',
+            title: 'Real-Life Examples of Phishing Scams in Malaysia',
+            question:
+              'Which of the following is NOT a common phishing scam in Malaysia?',
+            choices: [
+              'A. Email scams claiming to be from Maybank',
+              "B. Text messages pretending to be from Touch 'n Go eWallet",
+              'C. Phone calls from scammers posing as Inland Revenue Board (LHDN) officers',
+              'D. Legitimate emails from your bank requesting account verification',
+            ],
+            answer: 'D',
+            content: [
+              {
+                type: 'title',
+                value: 'Real-Life Examples of Phishing Scams in Malaysia',
+              },
+              {
+                type: 'text',
+                value:
+                  'Phishing scams in Malaysia often target popular banks, e-wallets, and government agencies to trick people into revealing their sensitive information. Here are some real-life examples:',
+              },
+              {
+                type: 'subtitle',
+                value: 'Maybank Email Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'Scammers send fake emails claiming to be from Maybank, requesting recipients to update their account information or verify their transactions. These emails often contain links to phishing websites designed to steal login credentials and financial information.',
+              },
+              {
+                type: 'subtitle',
+                value: "Touch 'n Go eWallet Text Message Scams",
+              },
+              {
+                type: 'text',
+                value:
+                  "Fraudsters send text messages pretending to be from Touch 'n Go eWallet, claiming that the recipient's account has been blocked or that they have won a prize. The messages include links to fake websites that ask for personal and financial information.",
+              },
+              {
+                type: 'subtitle',
+                value: 'Inland Revenue Board (LHDN) Phone Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'Scammers call individuals, posing as LHDN officers and claiming that the victim owes unpaid taxes or is under investigation. They pressure the victim to make immediate payments or face legal consequences, often demanding sensitive information or money transfers.',
+              },
+              {
+                type: 'text',
+                value:
+                  'Remember, legitimate organizations like banks, e-wallets, and government agencies will never request sensitive information through unsecured channels like email, text messages, or phone calls. Always verify the authenticity of any request before providing any information.',
+              },
+              {
+                type: 'link',
+                value:
+                  'https://www.nst.com.my/news/nation/2022/02/772786/beware-10-financial-scams-malaysia',
+              },
+            ],
           },
           {
-            id: '6c39c536-e5b7-4fc3-b0f1-8c41c06cef23',
-            title: 'Cloud Security Compliance and Regulations',
-            description: `This lesson covers cloud security compliance and regulations, including:\n- Industry-specific compliance requirements (e.g., HIPAA, PCI DSS)\n- Data privacy regulations (e.g., GDPR, CCPA)\n- Best practices for achieving and maintaining compliance`,
+            id: '019082bc-7b62-75a0-9861-ee29a3b32806',
+            title: 'Protecting Yourself from Phishing Scams',
+            question:
+              'Which of the following is the best way to protect yourself from phishing scams?',
+            choices: [
+              'A. Click on links in suspicious emails to verify their authenticity',
+              'B. Provide personal information when requested by unsolicited emails or messages',
+              'C. Ignore and delete suspicious emails, and contact organizations directly for verification',
+              'D. Forward suspicious emails to your friends and family for their opinion',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Protecting Yourself from Phishing Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'To protect yourself from falling victim to phishing scams, follow these best practices:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of unsolicited emails, text messages, or phone calls requesting personal information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Do not click on links or download attachments from suspicious emails or messages',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Verify the authenticity of any request by contacting the organization directly using trusted contact information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Keep your computer and mobile devices updated with the latest security patches and anti-malware software',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Enable two-factor authentication (2FA) on your accounts whenever possible',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Regularly monitor your financial statements and report any suspicious activity to your bank or relevant authorities',
+              },
+              {
+                type: 'text',
+                value:
+                  'If you believe you have fallen victim to a phishing scam, immediately change your passwords, contact your bank or financial institution, and report the incident to the relevant authorities, such as the Malaysian Communications and Multimedia Commission (MCMC) or CyberSecurity Malaysia.',
+              },
+              {
+                type: 'text',
+                value:
+                  'By staying informed and vigilant, you can greatly reduce the risk of falling victim to phishing scams and protect your sensitive information from cybercriminals.',
+              },
+              {
+                type: 'link',
+                value:
+                  'https://www.cybersecurity.my/en/knowledge_bank/best_practices/main/detail/2817/index.html',
+              },
+            ],
           },
         ],
-        input: null,
-        output: null,
-      },
-      {
-        id: 'f5ca7a3d-6bee-4505-8bf6-4e63ebf8fc5b',
-        topic: 'Cloud Security',
-        name: 'Securing Cloud Infrastructure and Services',
-        lesson: [
-          {
-            id: '7e891d43-2463-4a7a-9e7d-f0e8d5a0d3c4',
-            title: 'Securing Cloud Infrastructure',
-            description: `In this lesson, you'll learn best practices for securing cloud infrastructure, including:\n- Secure configuration and hardening of cloud resources\n- Identity and access management in the cloud\n- Network security in cloud environments`,
-          },
-          {
-            id: 'f51a93a5-fe81-4e7f-87af-c4ed8b6c7f3c',
-            title: 'Securing Cloud Services',
-            description: `This lesson covers strategies for securing cloud services, such as:\n- Securing cloud storage and databases\n- Securing cloud-based applications and workloads\n- Implementing cloud security controls and monitoring`,
-          },
-          {
-            id: '9d9b96d2-f0b3-4a2b-8d0e-efb5ac6a5f4b',
-            title: 'Cloud Security Tools and Technologies',
-            description: `In this lesson, you'll learn about various cloud security tools and technologies, including:\n- Cloud security posture management (CSPM) tools\n- Cloud workload protection platforms (CWPP)\n- Cloud access security brokers (CASB)`,
-          },
-        ],
-        input: null,
-        output: null,
       },
     ],
   },
   {
-    type: 'video',
-    tags: ['Cybersecurity', 'Phishing'],
-    id: 'f7d59fdb-5de5-4c24-8ace-d1518573abb6',
-    title: 'Phishing Simulation: A Hands-On Experience',
-    description: `This interactive video will simulate a phishing attack scenario.\nYou'll have the opportunity to:\n- Identify potential phishing indicators and red flags\n- Practice responding appropriately to suspected phishing attempts\n- Learn from real-world examples and case studies`,
-    createdAt: '2023-06-01T10:15:00Z',
-    updatedAt: '2023-06-01T10:15:00Z',
-    publishedAt: '2023-06-01T10:15:00Z',
-    videoUrl: 'XBkzBrXlle0',
+    type: 'course',
+    tags: ['Online'],
+    id: 'a8b6e2d4-1c3a-4e5f-9b2c-7d8e9f0a1b3c',
+    title: 'Staying Safe from Email Scams and Online Shopping Fraud',
+    description:
+      'Learn how to identify and protect yourself from email scams and online shopping fraud in Malaysia.',
+    thumbnail:
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fonlineshopping.jpg?alt=media&token=2db0c318-38a2-4638-90f8-09dd9df3fb06',
+    createdAt: '2023-07-06T09:00:00Z',
+    updatedAt: '2023-07-06T09:00:00Z',
+    publishedAt: '2023-07-06T09:00:00Z',
+    videoUrl: '',
+    topic: [
+      {
+        id: 'e1f2c3d4-a5b6-4c7d-8e9f-1a2b3c4d5e6f',
+        topic: 'Email Scams',
+        name: 'Identifying and Avoiding Email Scams',
+        lesson: [
+          {
+            id: '4d71e82f-0f5c-49a8-b3c1-6d5e4f3a2b1c',
+            title: 'Common Types of Email Scams',
+            question:
+              'Which of the following is NOT a common type of email scam?',
+            choices: [
+              'Nigerian prince scam',
+              'Phishing emails',
+              'Legitimate job offers',
+              'Lottery or prize scams',
+            ],
+            answer: 'Legitimate job offers',
+            content: [
+              {
+                type: 'title',
+                value: 'Common Types of Email Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'Email scams come in various forms, but some of the most common types include:',
+              },
+              {
+                type: 'subtitle',
+                value: '1. Nigerian Prince Scam',
+              },
+              {
+                type: 'text',
+                value:
+                  "In this scam, the scammer claims to be a wealthy Nigerian prince who needs help transferring money out of the country. They promise a large sum of money in return for your assistance, but it's just a ploy to steal your money or personal information.",
+              },
+              {
+                type: 'subtitle',
+                value: '2. Phishing Emails',
+              },
+              {
+                type: 'text',
+                value:
+                  'Phishing emails are designed to trick you into revealing sensitive information, such as login credentials or credit card numbers. These emails often appear to come from legitimate sources, like banks or well-known companies.',
+              },
+              {
+                type: 'subtitle',
+                value: '3. Lottery or Prize Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  "In these scams, you receive an email claiming that you've won a lottery or prize, but you need to pay a fee or provide personal information to claim your winnings. In reality, there is no prize, and the scammer is just trying to steal your money or identity.",
+              },
+              {
+                type: 'text',
+                value:
+                  'Always be cautious of unsolicited emails, especially those that make grand promises or urgent requests for personal information. If an offer seems too good to be true, it probably is.',
+              },
+            ],
+          },
+          {
+            id: '6b4e3c1d-8f5a-42c7-9b1e-3d5c4f6a2b7d',
+            title: 'Spotting Red Flags in Email Scams',
+            question:
+              'Which of the following is a red flag that an email might be a scam?',
+            choices: [
+              'A. The email comes from a trusted source',
+              'B. The email contains personal greetings and proper grammar',
+              'C. The email creates a sense of urgency or pressure',
+              'D. The email provides detailed contact information',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Spotting Red Flags in Email Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'To protect yourself from email scams, learn to recognize these common red flags:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Generic greetings or no greetings at all (e.g., "Dear Sir/Madam")',
+              },
+              {
+                type: 'bullet',
+                value: 'Poor grammar, spelling errors, or unusual formatting',
+              },
+              {
+                type: 'bullet',
+                value: 'Sense of urgency or pressure to act quickly',
+              },
+              {
+                type: 'bullet',
+                value: 'Requests for personal, financial, or login information',
+              },
+              {
+                type: 'bullet',
+                value: 'Suspicious attachments or links',
+              },
+              {
+                type: 'bullet',
+                value: 'Promises of large sums of money or unrealistic offers',
+              },
+              {
+                type: 'text',
+                value:
+                  "If you notice any of these red flags in an email, treat it with suspicion. Avoid clicking on links, downloading attachments, or replying with personal information. When in doubt, contact the supposed sender directly using a trusted phone number or website to verify the email's authenticity.",
+              },
+            ],
+          },
+          {
+            id: 'f8e6d4c2-b1a3-49c5-8d7e-6f4a3b2c1d5e',
+            title: 'Protecting Yourself from Email Scams',
+            question:
+              'Which of the following is the most effective way to protect against email scams?',
+            choices: [
+              'A. Regularly update your anti-malware software',
+              'B. Open attachments from unknown senders to check their content',
+              'C. Reply to suspicious emails to verify their authenticity',
+              'D. Click on links in emails to see where they lead',
+            ],
+            answer: 'A',
+            content: [
+              {
+                type: 'title',
+                value: 'Protecting Yourself from Email Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'To safeguard yourself from falling victim to email scams, follow these best practices:',
+              },
+              {
+                type: 'bullet',
+                value: 'Keep your anti-malware software up-to-date',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of unsolicited emails, especially those requesting personal information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Avoid clicking on links or downloading attachments from suspicious emails',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Verify the authenticity of emails by contacting the sender directly using trusted contact information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Enable two-factor authentication (2FA) on your accounts',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Educate yourself and stay informed about the latest email scam tactics',
+              },
+              {
+                type: 'text',
+                value:
+                  "Remember, scammers are constantly evolving their techniques, so it's essential to stay vigilant and cautious when dealing with emails. Trust your instincts – if an email seems suspicious, it's best to err on the side of caution.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: '8c7d6e5f-4a3b-2c1d-9e8f-7a6b5c4d3e2f',
+        topic: 'Online Shopping Fraud',
+        name: 'Safe Online Shopping Practices',
+        lesson: [
+          {
+            id: '5e4f3a2b-1c6d-7e8f-9a0b-4c3d2e1f5a6b',
+            title: 'Common Online Shopping Scams',
+            question:
+              'Which of the following is a common online shopping scam?',
+            choices: [
+              'A. Legitimate retailers offering discounts',
+              'B. Non-delivery of purchased items',
+              'C. Secure payment gateways',
+              'D. Product reviews from verified buyers',
+            ],
+            answer: 'B',
+            content: [
+              {
+                type: 'title',
+                value: 'Common Online Shopping Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'As online shopping becomes increasingly popular in Malaysia, so do online shopping scams. Some common scams include:',
+              },
+              {
+                type: 'subtitle',
+                value: '1. Non-Delivery of Items',
+              },
+              {
+                type: 'text',
+                value:
+                  'In this scam, you make a purchase, but the seller never ships the item. They may provide fake tracking numbers or make excuses for the delay before disappearing with your money.',
+              },
+              {
+                type: 'subtitle',
+                value: '2. Counterfeit or Low-Quality Products',
+              },
+              {
+                type: 'text',
+                value:
+                  "Some scammers sell counterfeit or low-quality products that don't match the description or images provided. These items may be difficult or impossible to return, leaving you with a subpar product and no recourse.",
+              },
+              {
+                type: 'subtitle',
+                value: '3. Fake Websites or Sellers',
+              },
+              {
+                type: 'text',
+                value:
+                  'Scammers may create fake websites that mimic legitimate e-commerce platforms or pose as trustworthy sellers. These sites may offer extremely low prices to lure in buyers but fail to deliver the products after receiving payment.',
+              },
+              {
+                type: 'text',
+                value:
+                  'To avoid falling victim to these scams, always be cautious when shopping online. Research sellers and websites before making a purchase, and be wary of deals that seem too good to be true.',
+              },
+            ],
+          },
+          {
+            id: '1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p',
+            title: 'Identifying Trustworthy Online Sellers',
+            question:
+              'Which of the following is a sign of a trustworthy online seller?',
+            choices: [
+              'A. Lack of contact information or physical address',
+              'B. Prices significantly lower than other sellers',
+              'C. Positive reviews from verified buyers',
+              'D. Unsecured payment gateways',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Identifying Trustworthy Online Sellers',
+              },
+              {
+                type: 'text',
+                value:
+                  'To ensure a safe online shopping experience, learn to identify trustworthy sellers:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Check for a physical address, contact information, and return policies',
+              },
+              {
+                type: 'bullet',
+                value: 'Read reviews from verified buyers',
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Verify the seller's reputation on trusted review platforms",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Look for secure payment gateways and https:// in the website URL',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of sellers offering prices significantly lower than others',
+              },
+              {
+                type: 'text',
+                value:
+                  'Legitimate sellers will have a professional website, clear contact information, and a track record of positive reviews. They will also use secure payment methods and provide detailed product descriptions.',
+              },
+              {
+                type: 'text',
+                value:
+                  "If a seller seems suspicious or lacks crucial information, it's best to find a more trustworthy alternative. Remember, if a deal seems too good to be true, it likely is.",
+              },
+            ],
+          },
+          {
+            id: 'a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6',
+            title: 'Safe Online Payment Methods',
+            question:
+              'Which of the following is the safest way to pay for online purchases?',
+            choices: [
+              "A. Bank transfers to the seller's personal account",
+              'B. Cash on delivery',
+              'C. Secure payment gateways like PayPal or credit cards',
+              'D. Cryptocurrency',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Safe Online Payment Methods',
+              },
+              {
+                type: 'text',
+                value:
+                  'When shopping online, using safe payment methods is crucial to protect your financial information. Some of the safest options include:',
+              },
+              {
+                type: 'subtitle',
+                value: '1. Secure Payment Gateways',
+              },
+              {
+                type: 'text',
+                value:
+                  'Platforms like PayPal, Stripe, or built-in payment systems on reputable e-commerce websites offer secure transactions and buyer protection. These gateways encrypt your sensitive information, reducing the risk of fraud.',
+              },
+              {
+                type: 'subtitle',
+                value: '2. Credit Cards',
+              },
+              {
+                type: 'text',
+                value:
+                  "Credit cards often provide additional protection against fraud, allowing you to dispute unauthorized charges. Many credit card companies also offer zero-liability policies, meaning you won't be held responsible for fraudulent transactions.",
+              },
+              {
+                type: 'subtitle',
+                value: '3. Cash on Delivery',
+              },
+              {
+                type: 'text',
+                value:
+                  "While not always available, cash on delivery allows you to pay for your purchase only after receiving the item. This method ensures that you don't lose money if the seller fails to deliver the product.",
+              },
+              {
+                type: 'text',
+                value:
+                  'Avoid making direct bank transfers to sellers, as this method offers little protection if the seller is fraudulent. Similarly, be cautious when paying with cryptocurrency, as transactions are often irreversible and difficult to trace.',
+              },
+              {
+                type: 'text',
+                value:
+                  'Always prioritize secure payment methods when shopping online to minimize the risk of falling victim to scams or fraud.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     type: 'course',
-    tags: ['Cybersecurity', 'Phishing'],
-    id: '4c8d6a2b-ef50-4940-8a7f-92ac9dca66b1',
-    title: 'Mobile Device Security',
-    description: `With the widespread use of mobile devices, securing these devices is crucial.\nIn this course, you'll learn:\n- Common mobile device security risks and threats\n- Best practices for securing mobile devices and apps\n- Mobile device management and security controls`,
+    tags: ['Smishing'],
+    id: 'b1c2d3e4-f5a6-7b8c-9d0e-1f2g3h4i5j6k',
+    title: 'Protecting Yourself from Phone Scams and SMS Phishing',
+    description:
+      'Learn how to identify and protect yourself from phone scams and SMS phishing attacks in Malaysia.',
     thumbnail:
-      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fphishing.jpg?alt=media&token=ed4cc2de-8801-4a66-b854-98952949a976',
-    createdAt: '2022-12-15T14:30:00Z',
-    updatedAt: '2022-12-15T14:30:00Z',
-    publishedAt: '2022-12-15T14:30:00Z',
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fsmishing.jpg?alt=media&token=e0df3cf8-8a2a-452e-b2ea-cdfa35b4ad45',
+    createdAt: '2023-07-07T10:00:00Z',
+    updatedAt: '2023-07-07T10:00:00Z',
+    publishedAt: '2023-07-07T10:00:00Z',
+    videoUrl: '',
     topic: [
       {
-        id: 'b9c74d1a-9d9c-4bfc-8d7e-6c4e9c2d7c37',
-        topic: 'Mobile Security',
-        name: 'Mobile Device Threats and Risks',
+        id: '1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p',
+        topic: 'Phone Scams',
+        name: 'Identifying and Handling Phone Scams',
         lesson: [
           {
-            id: '1c2fc48e-2a76-49a0-9e4f-d8d1f0d2f2e5',
-            title: 'Introduction to Mobile Device Security',
-            description: `This lesson provides an introduction to mobile device security, including:\n- The importance of mobile device security\n- Common mobile device security risks and threats\n- Potential impacts of mobile device compromises`,
+            id: 'a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6',
+            title: 'Common Types of Phone Scams',
+            question:
+              'Which of the following is a common type of phone scam in Malaysia?',
+            choices: [
+              'A. Legitimate bank representatives requesting personal information',
+              'B. Scammers pretending to be from the Inland Revenue Board (LHDN)',
+              'C. Callers offering genuine investment opportunities',
+              'D. Phone surveys conducted by reputable organizations',
+            ],
+            answer: 'B',
+            content: [
+              {
+                type: 'title',
+                value: 'Common Types of Phone Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'Phone scams are prevalent in Malaysia, with scammers using various tactics to trick individuals into revealing personal information or sending money. Some common types of phone scams include:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Scammers posing as officials from government agencies, such as the Inland Revenue Board (LHDN) or police',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Callers claiming to be from banks or financial institutions requesting personal or account information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Scammers offering fake investment opportunities or get-rich-quick schemes',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Callers pretending to be from telecommunications companies offering upgrades or deals',
+              },
+              {
+                type: 'text',
+                value:
+                  "Remember, legitimate organizations will never ask for sensitive information over the phone. If you receive a suspicious call, hang up and contact the organization directly using a trusted number to verify the caller's identity.",
+              },
+            ],
           },
           {
-            id: '7f77e5cf-d8f5-4c78-9a36-76dc9e3d0f1b',
-            title: 'Mobile Malware and Vulnerabilities',
-            description: `In this lesson, you'll learn about mobile malware and vulnerabilities, such as:\n- Different types of mobile malware (e.g., trojans, spyware)\n- Vulnerabilities in mobile operating systems and apps\n- Exploitation techniques and attack vectors`,
+            id: '7b8c9d0e-1f2g-3h4i-5j6k-7l8m9n0o1p2q',
+            title: 'Red Flags to Watch Out for During Phone Calls',
+            question:
+              'Which of the following is NOT a red flag during a phone call?',
+            choices: [
+              'A. The caller pressures you to make an immediate decision',
+              'B. The caller asks for your personal or financial information',
+              'C. The caller provides a clear explanation of the purpose of the call',
+              'D. The caller becomes aggressive or threatening when questioned',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Red Flags to Watch Out for During Phone Calls',
+              },
+              {
+                type: 'text',
+                value:
+                  'To protect yourself from phone scams, be aware of these red flags during calls:',
+              },
+              {
+                type: 'bullet',
+                value: 'Unsolicited calls from unknown numbers or individuals',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Callers requesting personal, financial, or account information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'High-pressure tactics or a sense of urgency to make a decision',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Callers becoming aggressive, threatening, or evasive when questioned',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Offers that seem too good to be true or promise guaranteed returns',
+              },
+              {
+                type: 'text',
+                value:
+                  'If you notice any of these red flags during a phone call, trust your instincts and end the call. Scammers often use persuasive techniques to pressure you into making a quick decision or revealing sensitive information.',
+              },
+            ],
           },
           {
-            id: 'e6e04f22-c8b3-4f8d-8cfe-43c9d3f68e1f',
-            title: 'Mobile Device Data Leakage and Privacy Risks',
-            description: `This lesson covers mobile device data leakage and privacy risks, including:\n- Sensitive data exposure and data leakage risks\n- Location tracking and user privacy concerns\n- Unauthorized access to mobile device data and resources`,
+            id: '3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r',
+            title: 'Protecting Yourself from Phone Scams',
+            question:
+              'What should you do if you suspect a phone call is a scam?',
+            choices: [
+              "A. Provide personal information to verify the caller's identity",
+              "B. Follow the caller's instructions to resolve the issue",
+              'C. Hang up and report the call to the relevant authorities',
+              'D. Engage with the caller to gather more information',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Protecting Yourself from Phone Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'To safeguard yourself from falling victim to phone scams, follow these best practices:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of unsolicited calls, especially those requesting personal or financial information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Verify the caller's identity by contacting the organization directly using a trusted number",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Do not provide sensitive information over the phone, even if the caller claims to be from a legitimate organization',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Hang up on suspicious calls and report them to the relevant authorities, such as the police or the Malaysian Communications and Multimedia Commission (MCMC)',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Educate yourself and your loved ones about the latest phone scam tactics and red flags',
+              },
+              {
+                type: 'text',
+                value:
+                  "Remember, it's always better to err on the side of caution when it comes to phone calls. If a call seems suspicious or makes you uncomfortable, trust your instincts and end the conversation.",
+              },
+            ],
           },
         ],
-        input: null,
-        output: null,
       },
       {
-        id: '3c0e5a6b-6938-4573-9e35-d4d2f0d7b9b2',
-        topic: 'Mobile Security',
-        name: 'Securing Mobile Devices and Apps',
+        id: '9d0e1f2g-3h4i-5j6k-7l8m-9n0o1p2q3r4s',
+        topic: 'SMS Phishing',
+        name: 'Identifying and Dealing with SMS Phishing',
         lesson: [
           {
-            id: '0b7a4d2f-4f64-4eea-8f33-9af74651d5ab',
-            title: 'Mobile Device Security Best Practices',
-            description: `In this lesson, you'll learn best practices for securing mobile devices, including:\n- Implementing mobile device management (MDM) solutions\n- Secure mobile app development and vetting\n- Protecting mobile devices from physical threats`,
+            id: '5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t',
+            title: 'What is SMS Phishing?',
+            question: 'What is the purpose of SMS phishing?',
+            choices: [
+              'A. To provide legitimate updates from banks or government agencies',
+              'B. To trick recipients into revealing personal or financial information',
+              'C. To offer genuine prizes or rewards for lucky winners',
+              'D. To conduct market research on behalf of reputable companies',
+            ],
+            answer: 'B',
+            content: [
+              {
+                type: 'title',
+                value: 'What is SMS Phishing?',
+              },
+              {
+                type: 'text',
+                value:
+                  'SMS phishing, also known as "smishing," is a type of scam where fraudsters send text messages to trick recipients into revealing sensitive information or installing malware on their devices. These messages often appear to come from legitimate organizations, such as banks, government agencies, or well-known companies.',
+              },
+              {
+                type: 'text',
+                value:
+                  'The goal of SMS phishing is to steal personal or financial information, such as login credentials, credit card numbers, or bank account details. Scammers may use this information for identity theft, financial fraud, or other malicious purposes.',
+              },
+              {
+                type: 'text',
+                value:
+                  "SMS phishing messages often create a sense of urgency or fear, pressuring the recipient to take immediate action. They may claim that there is an issue with your account, that you've won a prize, or that you need to update your information to avoid negative consequences.",
+              },
+              {
+                type: 'text',
+                value:
+                  "It's essential to be cautious of unsolicited text messages, especially those requesting sensitive information or prompting you to click on links or download attachments.",
+              },
+            ],
           },
           {
-            id: 'd8c27dee-dd85-4d0e-b7b3-f8faa3f7ee1d',
-            title: 'Mobile App Security',
-            description: `This lesson covers mobile app security, including:\n- Secure coding practices for mobile apps\n- Protecting mobile app data and communications\n- Mobile app security testing and hardening`,
+            id: '1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p',
+            title: 'Recognizing SMS Phishing Attempts',
+            question: 'Which of the following is a red flag for SMS phishing?',
+            choices: [
+              'A. The message comes from a known and trusted sender',
+              'B. The message contains a personalized greeting',
+              'C. The message includes a sense of urgency or threats',
+              'D. The message provides a clear explanation for the request',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Recognizing SMS Phishing Attempts',
+              },
+              {
+                type: 'text',
+                value:
+                  'To protect yourself from SMS phishing, learn to recognize the common signs of a phishing attempt:',
+              },
+              {
+                type: 'bullet',
+                value: 'Unknown or suspicious sender numbers',
+              },
+              {
+                type: 'bullet',
+                value: 'Generic greetings or lack of personalization',
+              },
+              {
+                type: 'bullet',
+                value: 'Poor grammar, spelling errors, or unusual formatting',
+              },
+              {
+                type: 'bullet',
+                value: 'Sense of urgency or threats of negative consequences',
+              },
+              {
+                type: 'bullet',
+                value: 'Requests for personal, financial, or login information',
+              },
+              {
+                type: 'bullet',
+                value: 'Suspicious links or attachments',
+              },
+              {
+                type: 'text',
+                value:
+                  'If you receive a text message with any of these red flags, do not respond, click on links, or provide any information. Instead, delete the message and report it to your mobile service provider or the relevant authorities.',
+              },
+            ],
           },
           {
-            id: '6e2c4d89-53ae-4df5-9c69-9b6eaf7e7f1e',
-            title: 'Mobile Device Management (MDM)',
-            description: `In this lesson, you'll learn about mobile device management (MDM) solutions, including:\n- The role of MDM in enterprise mobility management\n- Key features and capabilities of MDM solutions\n- Implementing and managing an MDM solution`,
+            id: '7b8c9d0e-1f2g-3h4i-5j6k-7l8m9n0o1p2q',
+            title: 'Protecting Yourself from SMS Phishing',
+            question:
+              'What is the best way to protect yourself from SMS phishing?',
+            choices: [
+              'A. Reply to the message to verify its authenticity',
+              'B. Click on the links provided in the message',
+              'C. Ignore and delete suspicious messages',
+              'D. Call the number provided in the message for more information',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Protecting Yourself from SMS Phishing',
+              },
+              {
+                type: 'text',
+                value:
+                  'To safeguard yourself from falling victim to SMS phishing, follow these best practices:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of unsolicited text messages, especially those requesting sensitive information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Do not reply to suspicious messages or click on links or attachments',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Delete SMS phishing messages and report them to your mobile service provider',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Verify the legitimacy of requests by contacting the organization directly using a trusted number or website',
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Keep your mobile device's operating system and security software up to date",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Educate yourself and your loved ones about the latest SMS phishing tactics and red flags',
+              },
+              {
+                type: 'text',
+                value:
+                  'Remember, legitimate organizations will never ask for sensitive information via text message. Always be cautious and trust your instincts when it comes to suspicious messages.',
+              },
+            ],
           },
         ],
-        input: null,
-        output: null,
+      },
+    ],
+  },
+  {
+    type: 'course',
+    tags: ["Touch 'n Go eWallet scams", 'Maybank scams', 'cybersecurity'],
+    id: 'c2d3e4f5-a6b7-8c9d-0e1f-2g3h4i5j6k7l',
+    title: "Protecting Yourself from Touch 'n Go eWallet and Maybank Scams",
+    description:
+      "Learn how to identify and protect yourself from Touch 'n Go eWallet and Maybank scams in Malaysia.",
+    thumbnail: 'https://example.com/touch-n-go-maybank-scams-thumbnail.jpg',
+    createdAt: '2023-07-08T11:00:00Z',
+    updatedAt: '2023-07-08T11:00:00Z',
+    publishedAt: '2023-07-08T11:00:00Z',
+    videoUrl: '',
+    topic: [
+      {
+        id: '8m9n0o1p-2q3r-4s5t-6u7v-8w9x0y1z2a3b',
+        topic: "Touch 'n Go eWallet Scams",
+        name: "Identifying and Avoiding Touch 'n Go eWallet Scams",
+        lesson: [
+          {
+            id: '4c5d6e7f-8g9h-0i1j-2k3l-4m5n6o7p8q9r',
+            title: "Common Types of Touch 'n Go eWallet Scams",
+            question:
+              "Which of the following is a common type of Touch 'n Go eWallet scam?",
+            choices: [
+              "A. Legitimate Touch 'n Go representatives requesting account information",
+              "B. Scammers posing as Touch 'n Go employees offering promotional deals",
+              "C. Genuine Touch 'n Go surveys with rewards for participation",
+              "D. Touch 'n Go official social media accounts requesting personal details",
+            ],
+            answer: 'B',
+            content: [
+              {
+                type: 'title',
+                value: "Common Types of Touch 'n Go eWallet Scams",
+              },
+              {
+                type: 'text',
+                value:
+                  "As the popularity of Touch 'n Go eWallet grows in Malaysia, so do the number of scams targeting its users. Some common types of Touch 'n Go eWallet scams include:",
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Fake Touch 'n Go promotions or deals sent via SMS or WhatsApp",
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Scammers pretending to be Touch 'n Go employees requesting account information",
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Phishing websites or apps designed to steal Touch 'n Go login credentials",
+              },
+              {
+                type: 'bullet',
+                value: "Fraudulent Touch 'n Go social media accounts or pages",
+              },
+              {
+                type: 'text',
+                value:
+                  "Be cautious of unsolicited messages or calls claiming to be from Touch 'n Go, especially those requesting personal or account information. Always verify the legitimacy of promotions or requests by contacting Touch 'n Go directly through official channels.",
+              },
+            ],
+          },
+          {
+            id: '0s1t2u3v-4w5x-6y7z-8a9b-2c3d4e5f6g7h',
+            title: "Spotting Red Flags in Touch 'n Go eWallet Scams",
+            question:
+              "Which of the following is a red flag for a Touch 'n Go eWallet scam?",
+            choices: [
+              'A. Requests for personal or account information',
+              'B. Promotions or deals that seem too good to be true',
+              'C. Pressure to act quickly or risk missing out on a deal',
+              'D. All of the above',
+            ],
+            answer: 'D',
+            content: [
+              {
+                type: 'title',
+                value: "Spotting Red Flags in Touch 'n Go eWallet Scams",
+              },
+              {
+                type: 'text',
+                value:
+                  "To protect yourself from Touch 'n Go eWallet scams, be aware of these red flags:",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Unsolicited messages or calls requesting personal or account information',
+              },
+              {
+                type: 'bullet',
+                value: 'Promotions or deals that seem too good to be true',
+              },
+              {
+                type: 'bullet',
+                value: 'Pressure to act quickly or risk missing out on a deal',
+              },
+              {
+                type: 'bullet',
+                value: 'Suspicious links or attachments in messages or emails',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Poor grammar, spelling errors, or unprofessional language in communications',
+              },
+              {
+                type: 'text',
+                value:
+                  "If you notice any of these red flags, do not provide any information or click on links. Instead, report the incident to Touch 'n Go and the relevant authorities.",
+              },
+            ],
+          },
+          {
+            id: '8i9j0k1l-2m3n-4o5p-6q7r-8s9t0u1v2w3x',
+            title: "Protecting Your Touch 'n Go eWallet from Scams",
+            question:
+              "Which of the following is the best way to protect your Touch 'n Go eWallet from scams?",
+            choices: [
+              'A. Share your account information with friends and family',
+              'B. Click on links in unsolicited messages to verify their authenticity',
+              'C. Enable two-factor authentication and keep your login details secure',
+              "D. Respond to requests for personal information from Touch 'n Go",
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: "Protecting Your Touch 'n Go eWallet from Scams",
+              },
+              {
+                type: 'text',
+                value:
+                  "To safeguard your Touch 'n Go eWallet from scams, follow these best practices:",
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Enable two-factor authentication (2FA) on your Touch 'n Go eWallet account",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Keep your login details and PIN secure, and never share them with anyone',
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Be cautious of unsolicited messages, calls, or emails regarding your Touch 'n Go account",
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Verify the legitimacy of promotions or requests by contacting Touch 'n Go directly",
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Regularly review your Touch 'n Go transaction history for any suspicious activity",
+              },
+              {
+                type: 'text',
+                value:
+                  "If you suspect that your Touch 'n Go eWallet has been compromised, immediately change your password and contact Touch 'n Go customer support for assistance.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: '4y5z6a7b-8c9d-0e1f-2g3h-4i5j6k7l8m9n',
+        topic: 'Maybank Scams',
+        name: 'Staying Safe from Maybank Scams',
+        lesson: [
+          {
+            id: '0o1p2q3r-4s5t-6u7v-8w9x-0y1z2a3b4c5d',
+            title: 'Common Maybank Scam Tactics',
+            question: 'Which of the following is a common Maybank scam tactic?',
+            choices: [
+              'A. Legitimate Maybank employees requesting account information',
+              'B. Scammers pretending to be Maybank representatives',
+              'C. Genuine Maybank surveys with rewards for participation',
+              'D. Maybank official social media accounts requesting personal details',
+            ],
+            answer: 'B',
+            content: [
+              {
+                type: 'title',
+                value: 'Common Maybank Scam Tactics',
+              },
+              {
+                type: 'text',
+                value:
+                  'Scammers often target Maybank customers using various tactics, such as:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Phishing emails or SMS messages claiming to be from Maybank',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Scammers posing as Maybank representatives over the phone',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Fake Maybank websites designed to steal login credentials',
+              },
+              {
+                type: 'bullet',
+                value: 'Fraudulent Maybank social media accounts or pages',
+              },
+              {
+                type: 'text',
+                value:
+                  'These scams often request personal or account information, claim that there is an issue with your account, or offer fraudulent promotions or deals. Be cautious of any unsolicited communication claiming to be from Maybank, and always verify the legitimacy of requests through official channels.',
+              },
+            ],
+          },
+          {
+            id: '6e7f8g9h-0i1j-2k3l-4m5n-6o7p8q9r0s1t',
+            title: 'Identifying Maybank Phishing Scams',
+            question:
+              'Which of the following is a sign of a Maybank phishing scam?',
+            choices: [
+              'A. Personalized greetings and well-written messages',
+              'B. Requests for personal or account information',
+              'C. Links to the official Maybank website',
+              'D. Absence of urgent deadlines or threats',
+            ],
+            answer: 'B',
+            content: [
+              {
+                type: 'title',
+                value: 'Identifying Maybank Phishing Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'Phishing scams are a common way for scammers to target Maybank customers. To protect yourself, look out for these signs of a phishing attempt:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Generic greetings or salutations (e.g., "Dear Valued Customer")',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Poor grammar, spelling errors, or unusual formatting in the message',
+              },
+              {
+                type: 'bullet',
+                value: 'Requests for personal, account, or login information',
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Urgency or threats of account suspension if you don't act quickly",
+              },
+              {
+                type: 'bullet',
+                value: 'Suspicious links or attachments',
+              },
+              {
+                type: 'text',
+                value:
+                  'If you receive a message with any of these red flags, do not click on any links, download attachments, or provide any information. Instead, report the incident to Maybank and forward the message to their official email for phishing reports.',
+              },
+            ],
+          },
+          {
+            id: '2u3v4w5x-6y7z-8a9b-0c1d-2e3f4g5h6i7j',
+            title: 'Keeping Your Maybank Account Secure',
+            question:
+              'What is the best way to keep your Maybank account secure?',
+            choices: [
+              'A. Regularly share your login credentials with family members',
+              'B. Click on links in emails to verify their authenticity',
+              'C. Enable two-factor authentication and keep your login details private',
+              'D. Respond to requests for personal information from Maybank via email',
+            ],
+            answer: 'C',
+            content: [
+              {
+                type: 'title',
+                value: 'Keeping Your Maybank Account Secure',
+              },
+              {
+                type: 'text',
+                value:
+                  'To protect your Maybank account from scams and unauthorized access, follow these security tips:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Enable two-factor authentication (2FA) on your Maybank account',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Keep your login credentials, PIN, and other sensitive information private',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of unsolicited emails, messages, or calls claiming to be from Maybank',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Verify the legitimacy of any requests by contacting Maybank directly',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Regularly review your Maybank account statements for suspicious activity',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Keep your devices and web browsers updated with the latest security patches',
+              },
+              {
+                type: 'text',
+                value:
+                  'If you suspect that your Maybank account has been compromised, immediately change your login credentials and contact Maybank customer support for assistance. Remember, Maybank will never ask for your sensitive information via email, SMS, or phone calls.',
+              },
+            ],
+          },
+        ],
       },
     ],
   },

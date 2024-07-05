@@ -12,16 +12,16 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout({}) {
-  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  // const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  const colorScheme = 'light';
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].inactive,
-        tabBarActiveBackgroundColor: Colors[colorScheme ?? 'light'].background,
-        tabBarInactiveBackgroundColor:
-          Colors[colorScheme ?? 'light'].background,
+        tabBarActiveTintColor: Colors.light.tint,
+        tabBarInactiveTintColor: Colors.light.inactive,
+        tabBarActiveBackgroundColor: Colors.light.background,
+        tabBarInactiveBackgroundColor: Colors.light.background,
         headerShown: false,
         tabBarLabelStyle: {
           paddingBottom: 6,

@@ -8,7 +8,7 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
-import React, { useId } from 'react';
+import React, { useEffect, useId } from 'react';
 import { Group, Result, Template } from '@/constants/Types';
 import {
   actuatedNormalize,
@@ -17,6 +17,7 @@ import {
 import { IconButton } from 'react-native-paper';
 import { Colors } from '@/hooks/useThemeColor';
 import CourseList from '../blog/CourseList';
+import useMaterialStore from '@/hooks/useMaterial';
 
 export default function ResultModal({
   isVisible,
@@ -36,6 +37,12 @@ export default function ResultModal({
     user => user.comment === 'User clicked the phishing link'
   ).length;
 
+  const { courseItems, fetchMaterials } = useMaterialStore();
+
+  useEffect(() => {
+    fetchMaterials();
+  }, []);
+
   return (
     <Modal
       visible={isVisible}
@@ -43,7 +50,10 @@ export default function ResultModal({
       presentationStyle="pageSheet"
       animationType="slide"
     >
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      >
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Campaign Result</Text>
           <IconButton
@@ -97,7 +107,7 @@ export default function ResultModal({
           </View>
         </View>
 
-        <CourseList />
+        <CourseList courseItems={courseItems} />
       </ScrollView>
     </Modal>
   );
@@ -118,7 +128,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: actuatedNormalize(20),
-    fontWeight: 700,
+    fontWeight: 'bold',
   },
   closeButton: {
     alignSelf: 'flex-end',
@@ -145,12 +155,12 @@ const styles = StyleSheet.create({
   },
   failedUsers: {
     fontSize: actuatedNormalize(18),
-    fontWeight: 700,
+    fontWeight: 'bold',
     color: 'red',
   },
   totalUsers: {
     fontSize: actuatedNormalize(18),
-    fontWeight: 700,
+    fontWeight: 'bold',
   },
   usersFailed: {
     fontSize: actuatedNormalize(12),
@@ -187,11 +197,11 @@ const styles = StyleSheet.create({
   groupName: {
     color: Colors.light.secondary,
     fontSize: actuatedNormalize(18),
-    fontWeight: 700,
+    fontWeight: 'bold',
   },
   membersLabel: {
     marginVertical: actuatedNormalizeVertical(8),
-    fontWeight: 700,
+    fontWeight: 'bold',
   },
   memberContainer: {
     display: 'flex',

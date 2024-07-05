@@ -25,7 +25,8 @@ export default function CourseContent({
   courseTopics: Topic[];
 }) {
   const { showMessage: shouldShowMessage } = useLocalSearchParams();
-  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  // const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  const colorScheme = 'light';
   const router = useRouter();
   const dbUser = useUsersStore(state => state.dbUser);
   const [courseProgress, setCourseProgress] = useState<UserProgress | null>(

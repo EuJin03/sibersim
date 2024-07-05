@@ -18,6 +18,7 @@ import { Blog } from '@/constants/Types';
 import useRelativeTime from '@/hooks/useTimeFormat';
 import useBlogStore from '@/hooks/useBlogs';
 import { router } from 'expo-router';
+import { generateUUID } from '@/hooks/useUuid';
 
 export default function blogpost() {
   const { fetchBlogs, loading } = useBlogStore();
@@ -229,7 +230,7 @@ export default function blogpost() {
           <FlatList
             data={filteredBlogs}
             renderItem={renderBlogItem}
-            keyExtractor={item => item.id ?? Math.random().toString()}
+            keyExtractor={item => item.id ?? generateUUID(8)}
             contentContainerStyle={{
               paddingHorizontal: actuatedNormalize(10),
               paddingVertical: actuatedNormalizeVertical(7),

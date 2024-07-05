@@ -108,10 +108,10 @@ const ScanUrlPage = () => {
             1. Open the email containing thes suspicious website.
           </Text>
           <Text style={{ fontSize: 10, marginVertical: 1, color: '#909090' }}>
-            2. Click on the link to open the website.
+            2. Hold on the link until a tooltip appear.
           </Text>
           <Text style={{ fontSize: 10, marginVertical: 1, color: '#909090' }}>
-            3. Copy the URL of the website from the browser.
+            3. Copy the URL of the website from the email.
           </Text>
           <Text
             style={{

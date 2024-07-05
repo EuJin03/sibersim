@@ -2,7 +2,7 @@
   "expo": {
     "name": "sibersim_v4",
     "slug": "sibersim_v4",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.eujin.sibersim"
+      "package": "com.eujin.sibersim",
+      "assetBundlePatterns": ["assets/images/*"]
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +38,9 @@
       },
       "eas": {
         "projectId": "61bbdbe9-19bd-4a97-a71a-e93d67cb77aa"
+      },
+      "updates": {
+        "assetPatternsToBeBundled": ["./assets/images/*", "./assets/fonts/*"]
       }
     }
   }

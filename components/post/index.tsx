@@ -45,7 +45,7 @@ function FooterButton({ text, icon }: FooterButtonProp) {
         style={{
           marginLeft: 5,
           color: 'gray',
-          fontWeight: '500',
+          fontWeight: 500,
           fontSize: 12,
         }}
       >
@@ -238,7 +238,7 @@ export default function PostListItem({ post }: PostListItemProps) {
             <Text
               style={{
                 marginLeft: 5,
-                fontWeight: '500',
+                fontWeight: 500,
                 fontSize: 12,
                 color: (post.upvote || []).find(id => id === dbUser?.id)
                   ? Colors.light.primary

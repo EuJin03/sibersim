@@ -18,7 +18,8 @@ import { Colors } from '@/hooks/useThemeColor';
 
 export default function simulation() {
   const { dbUser, fetchUpdatedDbUser } = useAuth();
-  const { groupDetail, getGroupByInvitationLink } = useGroupStore();
+  const { groupDetail, getGroupByInvitationLink, fetchResults } =
+    useGroupStore();
 
   const [templateModalVisible, setTemplateModalVisible] =
     useState<boolean>(false);
@@ -48,6 +49,7 @@ export default function simulation() {
     try {
       if (dbUser?.group) {
         await getGroupByInvitationLink(dbUser.group);
+        await fetchResults(dbUser.group);
       }
     } catch (error) {
       console.error('Error fetching updated dbUser and group:', error);
@@ -138,12 +140,15 @@ export default function simulation() {
                 const template = templates.find(
                   template => template.template === result.templateId
                 );
+
+                console.log(result.userResults);
+
                 if (!template) {
                   return null;
                 }
                 return (
                   <ResultCard
-                    key={result.templateId}
+                    key={Math.random()}
                     userInfo={result.userResults}
                     template={template}
                     groupInfo={groupDetail!}

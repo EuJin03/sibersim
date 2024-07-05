@@ -25,38 +25,51 @@ export default function PhishingCard({
   const { getUserById } = useUserStore();
 
   const handleDispatchEmail = async () => {
-    const uniqueId = generateUUID(8);
-    if (groupDetail) {
-      const emailPromises = groupDetail.members.map(async userId => {
-        const user = await getUserById(userId);
-        if (user) {
-          const params = {
-            to_email: user.email,
-            from_service: template.service,
-            template: template.template,
-            fullname: user.displayName,
-            email: user.email,
-            userId: userId,
-            groupId: groupId,
-            uniqueId: uniqueId,
-          };
-          await handleEmail({ params });
-        }
-      });
+    try {
+      const uniqueId = generateUUID(8);
+      if (groupDetail) {
+        Alert.alert(
+          'Dispatching emails...',
+          'Please wait while we process your request.'
+        );
 
-      await Promise.all(emailPromises);
+        const emailPromises = groupDetail.members.map(async userId => {
+          const user = await getUserById(userId);
+          if (user) {
+            const params = {
+              to_email: user.email,
+              from_service: template.service,
+              template: template.template,
+              fullname: user.displayName,
+              email: user.email,
+              userId: userId,
+              groupId: groupId,
+              uniqueId: uniqueId,
+            };
+            await handleEmail({ params });
+          }
+        });
 
-      // Add the result to the group with the selected template and username
-      await addResult(
-        groupDetail.invitationLink,
-        template.template,
-        groupDetail.members,
-        uniqueId
+        await Promise.all(emailPromises);
+
+        // Add the result to the group with the selected template and username
+        await addResult(
+          groupDetail.invitationLink,
+          template.template,
+          groupDetail.members,
+          uniqueId
+        );
+        toggleModal();
+        Alert.alert('Success', 'Emails dispatched successfully');
+      } else {
+        Alert.alert('Error', 'Group not found');
+      }
+    } catch (error) {
+      console.error('Error dispatching emails:', error);
+      Alert.alert(
+        'Error',
+        'An error occurred while dispatching emails. Please try again.'
       );
-      toggleModal();
-      Alert.alert('Emails dispatched successfully');
-    } else {
-      Alert.alert('Group not found');
     }
   };
 
@@ -111,7 +124,7 @@ export default function PhishingCard({
 
 const styles = StyleSheet.create({
   container: {
-    height: actuatedNormalizeVertical(180),
+    height: actuatedNormalize(180),
     width: '100%',
     backgroundColor: '#ffffff',
     borderRadius: 18,
@@ -139,7 +152,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: actuatedNormalize(120),
-    height: actuatedNormalizeVertical(180),
+    height: actuatedNormalize(180),
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
     resizeMode: 'cover',
@@ -154,7 +167,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Colors.light.secondary,
-    fontWeight: '700',
+    fontWeight: 700,
     width: actuatedNormalize(190),
   },
   description: {
@@ -164,7 +177,7 @@ const styles = StyleSheet.create({
     marginTop: actuatedNormalizeVertical(5),
     textAlign: 'justify',
     lineHeight: actuatedNormalize(15),
-    height: actuatedNormalizeVertical(84),
+    height: actuatedNormalize(84),
   },
   tagContainer: {
     display: 'flex',

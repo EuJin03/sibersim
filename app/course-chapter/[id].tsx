@@ -1,14 +1,14 @@
+import React, { useRef, useState } from 'react';
 import {
   View,
   FlatList,
   TouchableOpacity,
   ScrollView,
-  useColorScheme,
   ActivityIndicator,
   StyleSheet,
   Dimensions,
+  Image,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import Avatar from '@/components/user/Avatar';
 import { Text } from 'react-native-paper';
@@ -22,9 +22,86 @@ import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+const Quiz: React.FC<{
+  question: string;
+  choices: string[];
+  answer: string;
+  onCorrectAnswer: (index: number) => void;
+  index: number;
+}> = ({ question, choices, answer, onCorrectAnswer, index }) => {
+  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
+  const [showRetry, setShowRetry] = useState(false);
+
+  const handleAnswerSelection = (selectedChoice: string) => {
+    setSelectedAnswer(selectedChoice);
+    setIsAnswerCorrect(selectedChoice === answer);
+    setShowRetry(selectedChoice !== answer);
+
+    if (selectedChoice === answer) {
+      onCorrectAnswer(index);
+    }
+  };
+
+  const resetQuiz = () => {
+    setSelectedAnswer('');
+    setIsAnswerCorrect(false);
+    setShowRetry(false);
+  };
+
+  return (
+    <View style={styles.quizContainer}>
+      <Text style={styles.questionText}>{question}</Text>
+      <Text
+        style={{
+          color: '#909090',
+          fontSize: 10,
+          marginBottom: actuatedNormalizeVertical(10),
+        }}
+      >
+        Answer the quiz to proceed to next lesson!
+      </Text>
+      {choices.map((choice, index) => (
+        <TouchableOpacity
+          key={index}
+          style={[
+            styles.choiceButton,
+            selectedAnswer === choice &&
+              !isAnswerCorrect &&
+              styles.incorrectChoiceButton,
+            selectedAnswer === choice &&
+              isAnswerCorrect &&
+              styles.correctChoiceButton,
+          ]}
+          onPress={() => handleAnswerSelection(choice)}
+          disabled={selectedAnswer !== ''}
+        >
+          <Text
+            style={[
+              styles.choiceText,
+              selectedAnswer === choice &&
+                !isAnswerCorrect && { color: 'white' },
+              selectedAnswer === choice &&
+                isAnswerCorrect && { color: 'white' },
+            ]}
+          >
+            {choice}
+          </Text>
+        </TouchableOpacity>
+      ))}
+      {showRetry && (
+        <TouchableOpacity style={styles.retryButton} onPress={resetQuiz}>
+          <Text style={styles.retryButtonText}>Retry</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+};
 
 export default function CourseChapter() {
-  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  const colorScheme = 'light';
   const { id, topicId } = useLocalSearchParams();
   let chapterRef = useRef<FlatList | null>(null);
   const router = useRouter();
@@ -40,11 +117,13 @@ export default function CourseChapter() {
   const updateUserProgress = useUsersStore(state => state.updateUserProgress);
 
   const [isUpdating, setIsUpdating] = useState(false);
+  const [quizCorrect, setQuizCorrect] = useState<boolean>(false);
 
   const onClickNext = async (index: number) => {
     if (isUpdating) return;
 
     setIsUpdating(true);
+    setQuizCorrect(false);
 
     if (dbUser && dbUser.id && id) {
       if (index === topicLength - 1) {
@@ -53,18 +132,18 @@ export default function CourseChapter() {
         try {
           router.setParams({ showMessage: 'true' });
           router.back();
-          // @ts-ignore
-          await updateUserProgress(dbUser.id, id, topicId);
           showMessage({
             message: 'Congratulations!',
             description: 'You have completed this topic.',
             type: 'success',
             duration: 3000,
-            style: { top: 10 },
+            style: { top: 0 },
             titleStyle: { fontWeight: 'bold' },
             floating: true,
             icon: 'success',
           });
+          // @ts-ignore
+          await updateUserProgress(dbUser.id, id, topicId);
         } catch (err) {
           console.warn('Error updating user progress:', err);
         }
@@ -80,6 +159,102 @@ export default function CourseChapter() {
     }
 
     setIsUpdating(false);
+  };
+
+  const renderContent = (item: any, index: number) => {
+    switch (item.type) {
+      case 'text':
+        return (
+          <Text
+            key={index}
+            style={{
+              fontSize: actuatedNormalize(13),
+              lineHeight: 20,
+              textAlign: 'justify',
+            }}
+          >
+            {item.value}
+          </Text>
+        );
+      case 'subtitle':
+        return (
+          <Text
+            key={index}
+            style={{
+              fontSize: actuatedNormalize(16),
+              fontWeight: 'bold',
+              marginTop: actuatedNormalize(10),
+            }}
+          >
+            {item.value}
+          </Text>
+        );
+      case 'bullet':
+        return (
+          <View
+            key={index}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              gap: actuatedNormalize(8),
+              marginTop: actuatedNormalize(5),
+            }}
+          >
+            <MaterialCommunityIcons
+              name="checkbox-marked-circle"
+              size={15}
+              color="black"
+              style={{
+                marginTop: actuatedNormalize(5),
+              }}
+            />
+            <Text
+              style={{
+                fontSize: actuatedNormalize(13),
+                lineHeight: 20,
+                flex: 1,
+                textAlign: 'justify',
+              }}
+            >
+              {item.value}
+            </Text>
+          </View>
+        );
+      case 'image':
+        return (
+          <Image
+            key={index}
+            source={{ uri: item.value }}
+            style={{
+              width: '90%',
+              height: actuatedNormalize(180),
+              marginVertical: actuatedNormalize(10),
+              marginHorizontal: 'auto',
+            }}
+            resizeMode="cover"
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const renderQuiz = (item: any, index: number) => {
+    if (!item.question || !item.choices || !item.answer) {
+      return null;
+    }
+
+    return (
+      <Quiz
+        question={item.question}
+        choices={item.choices}
+        answer={item.answer}
+        onCorrectAnswer={quizIndex => {
+          setQuizCorrect(!quizCorrect);
+        }}
+        index={index}
+      />
+    );
   };
 
   return (
@@ -102,20 +277,41 @@ export default function CourseChapter() {
         renderItem={({ item, index }) => (
           <View style={styles.container}>
             <LearningProgressBar progress={progress} />
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <Text variant="titleLarge" style={styles.title}>
+            <ScrollView
+              style={{
+                flex: 1,
+                paddingHorizontal: actuatedNormalize(26),
+                paddingTop: actuatedNormalize(16),
+              }}
+              contentContainerStyle={{
+                paddingBottom: actuatedNormalize(30),
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: actuatedNormalize(24),
+                  fontWeight: 'bold',
+                  marginBottom: actuatedNormalizeVertical(6),
+                }}
+              >
                 {item.title}
               </Text>
-              <Text variant="bodySmall">{item.description}</Text>
+
+              {item.content.map((contentItem: any, contentIndex: number) =>
+                renderContent(contentItem, contentIndex)
+              )}
+              <View style={styles.quizContainer}>
+                {renderQuiz(item, index)}
+              </View>
             </ScrollView>
 
             <TouchableOpacity
               onPress={() => onClickNext(index)}
-              disabled={isUpdating}
+              disabled={isUpdating || !quizCorrect}
               style={[
                 styles.button,
                 { backgroundColor: Colors[colorScheme].primary },
-                isUpdating && styles.buttonDisabled,
+                (isUpdating || !quizCorrect) && styles.buttonDisabled,
               ]}
             >
               {isUpdating ? (
@@ -142,10 +338,6 @@ const styles = StyleSheet.create({
     paddingVertical: actuatedNormalize(24),
     paddingHorizontal: actuatedNormalize(20),
   },
-  title: {
-    fontWeight: 700,
-    marginVertical: actuatedNormalizeVertical(12),
-  },
   button: {
     display: 'flex',
     justifyContent: 'center',
@@ -159,5 +351,40 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#ffffff',
+  },
+  quizContainer: {
+    marginVertical: actuatedNormalizeVertical(20),
+  },
+  questionText: {
+    fontSize: actuatedNormalize(18),
+    fontWeight: 'bold',
+  },
+  choiceButton: {
+    paddingVertical: actuatedNormalizeVertical(10),
+    paddingHorizontal: actuatedNormalize(15),
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    marginBottom: actuatedNormalizeVertical(10),
+  },
+  incorrectChoiceButton: {
+    backgroundColor: 'red',
+  },
+  correctChoiceButton: {
+    backgroundColor: 'green',
+  },
+  choiceText: {
+    fontSize: actuatedNormalize(16),
+  },
+  retryButton: {
+    backgroundColor: Colors.light.secondary,
+    paddingVertical: actuatedNormalizeVertical(10),
+    paddingHorizontal: actuatedNormalize(15),
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  retryButtonText: {
+    color: 'white',
+    fontSize: actuatedNormalize(16),
   },
 });

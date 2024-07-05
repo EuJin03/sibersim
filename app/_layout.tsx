@@ -31,19 +31,12 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   console.log(usePathname());
-  const colorScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
-  const paperTheme =
-    colorScheme === 'dark'
-      ? { ...DarkTheme, colors: DarkTheme.colors }
-      : { ...LightTheme, colors: LightTheme.colors };
+  const colorScheme = 'light';
+  const paperTheme = { ...LightTheme, colors: LightTheme.colors };
 
   useEffect(() => {
-    NavigationBar.setBackgroundColorAsync(
-      colorScheme === 'dark' ? '#000000' : '#ffffff'
-    );
-    NavigationBar.setButtonStyleAsync(
-      colorScheme === 'dark' ? 'dark' : 'light'
-    );
+    NavigationBar.setBackgroundColorAsync('#000000');
+    NavigationBar.setButtonStyleAsync('light');
   }, [colorScheme]);
 
   const [loaded] = useFonts({
@@ -68,7 +61,7 @@ export default function RootLayout() {
           icon: props => <MaterialIcons {...props} />,
         }}
       >
-        <StatusBar style="auto" />
+        <StatusBar style="dark" />
         <Stack
           initialRouteName="(tabs)"
           screenOptions={{

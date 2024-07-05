@@ -27,7 +27,8 @@ export default function AdminGroup({
   groupId: string;
   onLeaveGroup: () => void;
 }) {
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
+  const colorScheme = 'light';
   const [showLink, setShowLink] = useState<string>('Invitation');
   const { groupDetail, leaveGroup, loading } = useGroupStore();
   const { dbUser } = useAuth();

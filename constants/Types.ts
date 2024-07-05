@@ -104,14 +104,15 @@ interface Topic {
   topic: string;
   name: string;
   lesson: Lesson[];
-  input: null | string;
-  output: null | string;
 }
 
 interface Lesson {
   id: string;
   title: string;
-  description: string;
+  content: Content[];
+  choices?: string[];
+  question?: string;
+  answer?: string;
 }
 
 interface Material {

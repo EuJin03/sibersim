@@ -19,6 +19,8 @@ import {
 import { Icon, Searchbar, Text, TouchableRipple } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { fuzzySearch } from '@/utils/fuzzySearch';
+import { materials } from '@/assets/seeds/material';
+import { client } from '@/utils/sanity';
 
 export default function Blog() {
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -46,6 +48,45 @@ export default function Blog() {
   const filteredPosts = useMemo(() => {
     return fuzzySearch(searchQuery, posts, ['content']);
   }, [posts, searchQuery]);
+
+  // useEffect(() => {
+  //   const migrateMaterialsToSanity = async () => {
+  //     try {
+  //       // Create an array to store the migration promises
+  //       const migrationPromises = materials.map(async material => {
+  //         // Check if the material already exists in Sanity
+  //         const existingMaterial = await client.fetch(
+  //           `*[_type == "material" && id == $id][0]`,
+  //           { id: material.id }
+  //         );
+
+  //         if (existingMaterial) {
+  //           console.log(
+  //             `Material with ID ${material.id} already exists. Skipping...`
+  //           );
+  //           return;
+  //         }
+
+  //         // Create a new document in Sanity for the material
+  //         await client.create({
+  //           _type: 'material',
+  //           ...material,
+  //         });
+
+  //         console.log(`Material with ID ${material.id} migrated successfully.`);
+  //       });
+
+  //       // Wait for all migration promises to resolve
+  //       await Promise.all(migrationPromises);
+
+  //       console.log('Data migration completed successfully.');
+  //     } catch (error) {
+  //       console.error('Error during data migration:', error);
+  //     }
+  //   };
+
+  //   migrateMaterialsToSanity();
+  // }, []);
 
   return (
     <SafeAreaProvider>

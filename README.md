@@ -1,50 +1,87 @@
-# Welcome to your Expo app 👋
+# SiberSim
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+SiberSim is a comprehensive mobile application designed to enhance cybersecurity education and awareness through interactive learning and community engagement. Built with Expo and React Native, SiberSim aims to empower users with the knowledge and skills needed to navigate the digital world securely.
 
-## Get started
+## Features
 
-1. Install dependencies
+- User-friendly mobile interface for easy access to cybersecurity content
+- Interactive learning modules and simulated phishing exercises
+- Dynamic scammer database with community-driven updates
+- Personalized feedback and performance tracking
+- Community forum for discussion and knowledge sharing
+- Integration with official reporting channels for scam attempts
 
-   ```bash
-   npm install
-   ```
+## Getting Started
 
-2. Start the app
+### Prerequisites
 
-   ```bash
-    npx expo start
-   ```
+- Node.js (v14.0.0 or later)
+- npm (v6.0.0 or later)
+- Expo CLI (`npm install -g expo-cli`)
 
-In the output, you'll find options to open the app in a
+### Installation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+1. Clone the repository:
 
 ```bash
-npm run reset-project
+   git clone https://github.com/yourusername/sibersim.git
+   cd sibersim
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies:
 
-## Learn more
+```bash
+   npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Start the Expo development server:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+   expo start
+```
 
-## Join the community
+4. Use the Expo Go app on your mobile device to scan the QR code and run the app, or use an iOS or Android simulator.
 
-Join our community of developers creating universal apps.
+## Project Structure
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+sibersim/
+├── assets/
+├── src/
+│ ├── components/
+│ ├── screens/
+│ ├── navigation/
+│ ├── services/
+│ ├── store/
+│ └── utils/
+├── App.js
+├── app.json
+└── package.json
+
+## Technologies Used
+
+- Expo
+- React Native
+- Firebase (Authentication, Firestore)
+- TypeScript
+- Redux (for state management)
+
+## Contributing
+
+We welcome contributions to SiberSim! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgments
+
+- Thanks to all contributors who have helped shape SiberSim
+- Special thanks to the cybersecurity community for their invaluable insights
+
+## Contact
+
+For any inquiries or support, please contact [your-email@example.com](mailto:your-email@example.com).
+
+## Disclaimer
+
+SiberSim is an educational tool and should not be considered a substitute for professional cybersecurity advice or services. Always consult with cybersecurity experts for critical security concerns.

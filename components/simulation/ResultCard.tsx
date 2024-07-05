@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Colors.light.secondary,
-    fontWeight: 700,
+    fontWeight: 'bold',
     width: actuatedNormalize(190),
   },
   description: {
@@ -187,7 +187,6 @@ const styles = StyleSheet.create({
   },
   participantsLabel: {
     fontSize: actuatedNormalize(11),
-    fontWeight: 700,
   },
   participantsContainer: {
     height: actuatedNormalizeVertical(50),

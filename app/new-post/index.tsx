@@ -77,6 +77,8 @@ export default function NewPostScreen() {
         // Reset the form fields
         reset();
         setImages(['']);
+        setIsUpload(false); // Reset the upload state
+        redirectToTabs();
       } catch (error) {
         console.error('Error adding post: ', error);
       } finally {
@@ -111,36 +113,38 @@ export default function NewPostScreen() {
       }
     } catch (error) {
       console.error(error);
+      setIsUpload(false);
     } finally {
       setDisableTouch(false);
-      setIsUpload(true);
+      setIsUpload(false);
     }
   };
 
   const uploadImagesToFirebase = async (imageUris: string[]) => {
-    console.log('hello i am here');
-    const promises = imageUris.map(async uri => {
-      const filename = `post/${Date.now()}-${Math.random()
-        .toString(36)
-        .slice(2, 9)}.jpg`;
-      const imageRef = ref(storage, filename);
-      const file = await fetch(uri);
-      const blob = await file.blob();
-      uploadBytes(imageRef, blob).then(snapshot => {
-        getDownloadURL(snapshot.ref).then(downloadURL => {
-          setImages(prevImages => {
-            const newImages = [...prevImages];
-            if (newImages.length === 6) {
-              newImages.pop(); // Remove the empty string '' from the end
-            }
-            newImages.unshift(downloadURL); // Add the new image to the front
-            return newImages;
-          });
+    try {
+      const promises = imageUris.map(async uri => {
+        const filename = `post/${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2, 9)}.jpg`;
+        const imageRef = ref(storage, filename);
+        const file = await fetch(uri);
+        const blob = await file.blob();
+        const snapshot = await uploadBytes(imageRef, blob);
+        const downloadURL = await getDownloadURL(snapshot.ref);
+        setImages(prevImages => {
+          const newImages = [...prevImages];
+          if (newImages.length === 6) {
+            newImages.pop(); // Remove the empty string '' from the end
+          }
+          newImages.unshift(downloadURL); // Add the new image to the front
+          return newImages;
         });
       });
-    });
 
-    await Promise.all(promises);
+      await Promise.all(promises);
+    } catch (error) {
+      console.error('Error uploading images:', error);
+    }
   };
 
   return (

@@ -341,7 +341,7 @@ const useGroupStore = create<GroupState>((set, get) => ({
       const groupDocRef = doc(groupsCollection, groupDoc.id);
       const groupData = groupDoc.data() as Group;
 
-      const updatedResults = await Promise.all(
+      const newResults: Result[] = await Promise.all(
         members.map(async userId => {
           const userDocRef = doc(getFirestore(), 'users', userId);
           const docSnapshot = await getDoc(userDocRef);
@@ -351,27 +351,31 @@ const useGroupStore = create<GroupState>((set, get) => ({
             ...(docSnapshot.data() as User),
           };
           return {
-            comment: 'User manage to not click the phishing link yet',
+            id: generateUUID(10),
+            comment: 'User has not clicked the phishing link yet',
             templateId: templateId,
             user: userId,
             username: userData.displayName,
-            updatedAt: new Date().toISOString(),
-            id: generateUUID(10),
+            updatedAt: new Date().toISOString(), // Convert to ISO string
           };
         })
       );
+
+      const updatedResults: Result[] = [
+        ...(groupData.results || []),
+        ...newResults,
+      ];
 
       await updateDoc(groupDocRef, {
         results: updatedResults,
       });
 
-      const updatedGroupData = {
-        id: groupDoc.id,
+      const updatedGroupData: Group = {
         ...groupData,
         results: updatedResults,
       };
 
-      set(state => ({
+      set((state: GroupState) => ({
         groups: state.groups.map(group =>
           group.invitationLink === invitationLink ? updatedGroupData : group
         ),
@@ -379,12 +383,11 @@ const useGroupStore = create<GroupState>((set, get) => ({
           state.groupDetail?.invitationLink === invitationLink
             ? updatedGroupData
             : state.groupDetail,
-        results:
-          state.groupDetail?.invitationLink === invitationLink
-            ? updatedResults
-            : state.results,
+        results: updatedResults,
         loading: false,
       }));
+
+      console.log('Results updated successfully:', updatedResults);
     } catch (error) {
       console.error('Error adding result:', error);
       set({ error: error as Error, loading: false });
