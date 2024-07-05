@@ -44,6 +44,7 @@ SiberSim is a comprehensive mobile application designed to enhance cybersecurity
 
 ## Project Structure
 
+```bash
 sibersim/
 ├── assets/
 ├── src/
@@ -56,6 +57,7 @@ sibersim/
 ├── App.js
 ├── app.json
 └── package.json
+```
 
 ## Technologies Used
 
@@ -63,7 +65,7 @@ sibersim/
 - React Native
 - Firebase (Authentication, Firestore)
 - TypeScript
-- Redux (for state management)
+- Sanity (Material CMS)
 
 ## Contributing
 
