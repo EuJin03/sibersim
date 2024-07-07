@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Text, ActivityIndicator } from 'react-native-paper';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ScaledImage } from '@/components/basic/ScaledImage';
@@ -13,28 +13,23 @@ import useRelativeTime from '@/hooks/useTimeFormat';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 import useMaterialStore from '@/hooks/useMaterial';
 import { Colors } from '@/hooks/useThemeColor';
+import { Material } from '@/constants/Types';
 
 export default function Course() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-  const {
-    fetchCourseById,
-    currentCourse,
-    loading: storeLoading,
-  } = useMaterialStore();
-  const [loading, setLoading] = useState<boolean>(true);
+  const { materials, loading } = useMaterialStore();
+  const currentCourse = materials.find(
+    material => material.id === id
+  ) as Material;
 
   const { showMessage: shouldShowMessage } = useLocalSearchParams();
 
-  useEffect(() => {
-    setLoading(true);
-
-    if (id) {
-      fetchCourseById(id as string);
-    }
-
-    setLoading(false);
-  }, [id, fetchCourseById]);
+  // useEffect(() => {
+  //   if (id) {
+  //     fetchCourseById(id as string);
+  //   }
+  // }, [id, fetchCourseById]);
 
   useEffect(() => {
     if (shouldShowMessage === 'true') {
@@ -61,13 +56,13 @@ export default function Course() {
     );
   }
 
-  if (!currentCourse) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Course not found</Text>
-      </View>
-    );
-  }
+  // if (!currentCourse) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <Text>Course not found</Text>
+  //     </View>
+  //   );
+  // }
 
   return (
     <>
