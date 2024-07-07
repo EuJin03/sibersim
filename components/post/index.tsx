@@ -121,7 +121,9 @@ export default function PostListItem({ post }: PostListItemProps) {
           </Pressable>
         </Link>
         {/* Text content */}
-        <Text style={styles.content}>{post.content}</Text>
+        <Text style={styles.content} selectable={true}>
+          {post.content}
+        </Text>
 
         {/* Image content */}
         {post.image && post.image.length > 1 ? (

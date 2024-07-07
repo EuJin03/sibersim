@@ -172,6 +172,7 @@ export default function CourseChapter() {
               lineHeight: 20,
               textAlign: 'justify',
             }}
+            selectable={true}
           >
             {item.value}
           </Text>
@@ -185,6 +186,7 @@ export default function CourseChapter() {
               fontWeight: 'bold',
               marginTop: actuatedNormalize(10),
             }}
+            selectable={true}
           >
             {item.value}
           </Text>
@@ -215,6 +217,7 @@ export default function CourseChapter() {
                 flex: 1,
                 textAlign: 'justify',
               }}
+              selectable={true}
             >
               {item.value}
             </Text>

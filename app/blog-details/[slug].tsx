@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, Linking } from 'react-native';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
@@ -13,6 +13,8 @@ import { Avatar as PaperAvatar } from 'react-native-paper';
 import { Stack } from 'expo-router';
 import Avatar from '@/components/user/Avatar';
 
+const URL_REGEX = /(https?:\/\/[^\s]+)/g;
+
 export default function BlogDetails() {
   const selectedBlog = useBlogStore(state => state.selectedBlog);
 
@@ -23,6 +25,35 @@ export default function BlogDetails() {
       </View>
     );
   }
+
+  const handleLinkPress = (url: string) => {
+    Linking.openURL(url);
+  };
+
+  const renderTextWithLinks = (text: string) => {
+    const parts = text.split(URL_REGEX);
+    return parts.map((part, index) => {
+      if (part.match(URL_REGEX)) {
+        return (
+          <Text
+            key={index}
+            style={{ color: 'blue', textDecorationLine: 'underline' }}
+            onPress={() => handleLinkPress(part)}
+          >
+            {part}
+          </Text>
+        );
+      }
+      return (
+        <Text
+          key={index}
+          style={{ fontSize: actuatedNormalize(13), lineHeight: 20 }}
+        >
+          {part}
+        </Text>
+      );
+    });
+  };
 
   return (
     <>
@@ -53,6 +84,7 @@ export default function BlogDetails() {
             fontWeight: 'bold',
             marginBottom: actuatedNormalizeVertical(6),
           }}
+          selectable={true}
         >
           {selectedBlog.title}
         </Text>
@@ -74,6 +106,7 @@ export default function BlogDetails() {
               fontSize: actuatedNormalize(14),
               color: '#888',
             }}
+            selectable={true}
           >
             {selectedBlog.author}
           </Text>
@@ -123,8 +156,9 @@ export default function BlogDetails() {
                     lineHeight: 20,
                     textAlign: 'justify',
                   }}
+                  selectable={true}
                 >
-                  {item.value}
+                  {renderTextWithLinks(item.value)}
                 </Text>
               );
             case 'subheader':
@@ -136,6 +170,7 @@ export default function BlogDetails() {
                     fontWeight: 'bold',
                     marginTop: actuatedNormalize(10),
                   }}
+                  selectable={true}
                 >
                   {item.value}
                 </Text>
@@ -166,8 +201,9 @@ export default function BlogDetails() {
                       flex: 1,
                       textAlign: 'justify',
                     }}
+                    selectable={true}
                   >
-                    {item.value}
+                    {renderTextWithLinks(item.value)}
                   </Text>
                 </View>
               );
