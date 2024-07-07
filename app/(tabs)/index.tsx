@@ -21,6 +21,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { fuzzySearch } from '@/utils/fuzzySearch';
 import { materials } from '@/assets/seeds/material';
 import { client } from '@/utils/sanity';
+import { blogs } from '@/assets/seeds/blog';
 
 export default function Blog() {
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -86,6 +87,43 @@ export default function Blog() {
   //   };
 
   //   migrateMaterialsToSanity();
+  // }, []);
+
+  // useEffect(() => {
+  //   const migrateBlogsToSanity = async () => {
+  //     try {
+  //       // Create an array to store the migration promises
+  //       const migrationPromises = blogs.map(async blog => {
+  //         // Check if the blogs already exists in Sanity
+  //         const existingBlogs = await client.fetch(
+  //           `*[_type == "blog" && id == $id][0]`,
+  //           { id: blog.id }
+  //         );
+
+  //         if (existingBlogs) {
+  //           console.log(`Blog with ID ${blog.id} already exists. Skipping...`);
+  //           return;
+  //         }
+
+  //         // Create a new document in Sanity for the blogs
+  //         await client.create({
+  //           _type: 'blog',
+  //           ...blog,
+  //         });
+
+  //         console.log(`Blog with ID ${blog.id} migrated successfully.`);
+  //       });
+
+  //       // Wait for all migration promises to resolve
+  //       await Promise.all(migrationPromises);
+
+  //       console.log('Data migration completed successfully.');
+  //     } catch (error) {
+  //       console.error('Error during data migration:', error);
+  //     }
+  //   };
+
+  //   migrateBlogsToSanity();
   // }, []);
 
   return (

@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, ActivityIndicator } from 'react-native-paper';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ScaledImage } from '@/components/basic/ScaledImage';
@@ -17,14 +17,23 @@ import { Colors } from '@/hooks/useThemeColor';
 export default function Course() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-  const { fetchCourseById, currentCourse, loading } = useMaterialStore();
+  const {
+    fetchCourseById,
+    currentCourse,
+    loading: storeLoading,
+  } = useMaterialStore();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { showMessage: shouldShowMessage } = useLocalSearchParams();
 
   useEffect(() => {
+    setLoading(true);
+
     if (id) {
       fetchCourseById(id as string);
     }
+
+    setLoading(false);
   }, [id, fetchCourseById]);
 
   useEffect(() => {
