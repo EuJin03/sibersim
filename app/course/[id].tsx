@@ -1,6 +1,6 @@
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import React, { useEffect } from 'react';
-import { Text } from 'react-native-paper';
+import { Text, ActivityIndicator } from 'react-native-paper';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ScaledImage } from '@/components/basic/ScaledImage';
 import {
@@ -10,16 +10,22 @@ import {
 import Avatar from '@/components/user/Avatar';
 import CourseContent from '@/components/blog/CourseContent';
 import useRelativeTime from '@/hooks/useTimeFormat';
-import { Material } from '@/constants/Types';
-import { materials } from '@/assets/seeds/material';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
+import useMaterialStore from '@/hooks/useMaterial';
+import { Colors } from '@/hooks/useThemeColor';
 
 export default function Course() {
   const { id } = useLocalSearchParams();
-  const item = materials.find(material => material.id === id) as Material;
+  const router = useRouter();
+  const { fetchCourseById, currentCourse, loading } = useMaterialStore();
 
   const { showMessage: shouldShowMessage } = useLocalSearchParams();
-  const router = useRouter();
+
+  useEffect(() => {
+    if (id) {
+      fetchCourseById(id as string);
+    }
+  }, [id, fetchCourseById]);
 
   useEffect(() => {
     if (shouldShowMessage === 'true') {
@@ -38,6 +44,22 @@ export default function Course() {
     router.setParams({ showMessage: 'false' });
   }, [shouldShowMessage]);
 
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color={Colors.light.secondary} />
+      </View>
+    );
+  }
+
+  if (!currentCourse) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Course not found</Text>
+      </View>
+    );
+  }
+
   return (
     <>
       <Stack.Screen
@@ -50,15 +72,21 @@ export default function Course() {
       <FlashMessage position={'top'} />
 
       <View
-        style={{ padding: actuatedNormalize(20), backgroundColor: '#f1f1f1' }}
+        style={{
+          flex: 1,
+          padding: actuatedNormalize(20),
+          backgroundColor: '#f1f1f1',
+        }}
       >
         <Text variant="titleLarge" numberOfLines={2}>
-          {item.title}
+          {currentCourse.title}
         </Text>
         <Text style={{ color: 'gray', fontSize: actuatedNormalize(10) }}>
-          {useRelativeTime(item.publishedAt)}
+          {useRelativeTime(currentCourse.publishedAt)}
         </Text>
-        {item?.thumbnail && <ScaledImage uri={item.thumbnail} />}
+        {currentCourse?.thumbnail && (
+          <ScaledImage uri={currentCourse.thumbnail} />
+        )}
         <Text variant="labelLarge">About Course</Text>
         <Text
           numberOfLines={6}
@@ -68,11 +96,14 @@ export default function Course() {
           }}
           variant="bodySmall"
         >
-          {item.description}
+          {currentCourse.description}
         </Text>
 
-        {item?.id && item?.topic && (
-          <CourseContent courseId={item.id} courseTopics={item.topic} />
+        {currentCourse?.id && currentCourse?.topic && (
+          <CourseContent
+            courseId={currentCourse.id}
+            courseTopics={currentCourse.topic}
+          />
         )}
       </View>
     </>

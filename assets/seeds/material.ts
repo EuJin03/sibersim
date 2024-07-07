@@ -80,12 +80,13 @@ export const materials: Material[] = [
             title: 'What is Phishing?',
             question: 'Which of the following best describes phishing?',
             choices: [
-              'A. A legitimate way to obtain personal information',
-              'B. A type of online scam that tricks people into revealing sensitive information',
-              'C. A secure method of communication used by banks and financial institutions',
-              'D. A form of online shopping',
+              'A legitimate way to obtain personal information',
+              'A type of online scam that tricks people into revealing sensitive information',
+              'A secure method of communication used by banks and financial institutions',
+              'A form of online shopping',
             ],
-            answer: 'B',
+            answer:
+              'A type of online scam that tricks people into revealing sensitive information',
             content: [
               {
                 type: 'title',
@@ -148,12 +149,13 @@ export const materials: Material[] = [
             question:
               'Which of the following is NOT a common phishing scam in Malaysia?',
             choices: [
-              'A. Email scams claiming to be from Maybank',
-              "B. Text messages pretending to be from Touch 'n Go eWallet",
-              'C. Phone calls from scammers posing as Inland Revenue Board (LHDN) officers',
-              'D. Legitimate emails from your bank requesting account verification',
+              'Email scams claiming to be from Maybank',
+              "Text messages pretending to be from Touch 'n Go eWallet",
+              'Phone calls from scammers posing as Inland Revenue Board (LHDN) officers',
+              'Legitimate emails from your bank requesting account verification',
             ],
-            answer: 'D',
+            answer:
+              'Legitimate emails from your bank requesting account verification',
             content: [
               {
                 type: 'title',
@@ -209,12 +211,13 @@ export const materials: Material[] = [
             question:
               'Which of the following is the best way to protect yourself from phishing scams?',
             choices: [
-              'A. Click on links in suspicious emails to verify their authenticity',
-              'B. Provide personal information when requested by unsolicited emails or messages',
-              'C. Ignore and delete suspicious emails, and contact organizations directly for verification',
-              'D. Forward suspicious emails to your friends and family for their opinion',
+              'Click on links in suspicious emails to verify their authenticity',
+              'Provide personal information when requested by unsolicited emails or messages',
+              'Ignore and delete suspicious emails, and contact organizations directly for verification',
+              'Forward suspicious emails to your friends and family for their opinion',
             ],
-            answer: 'C',
+            answer:
+              'Ignore and delete suspicious emails, and contact organizations directly for verification',
             content: [
               {
                 type: 'title',
@@ -357,12 +360,12 @@ export const materials: Material[] = [
             question:
               'Which of the following is a red flag that an email might be a scam?',
             choices: [
-              'A. The email comes from a trusted source',
-              'B. The email contains personal greetings and proper grammar',
-              'C. The email creates a sense of urgency or pressure',
-              'D. The email provides detailed contact information',
+              'The email comes from a trusted source',
+              'The email contains personal greetings and proper grammar',
+              'The email creates a sense of urgency or pressure',
+              'The email provides detailed contact information',
             ],
-            answer: 'C',
+            answer: 'The email creates a sense of urgency or pressure',
             content: [
               {
                 type: 'title',
@@ -411,12 +414,12 @@ export const materials: Material[] = [
             question:
               'Which of the following is the most effective way to protect against email scams?',
             choices: [
-              'A. Regularly update your anti-malware software',
-              'B. Open attachments from unknown senders to check their content',
-              'C. Reply to suspicious emails to verify their authenticity',
-              'D. Click on links in emails to see where they lead',
+              'Regularly update your anti-malware software',
+              'Open attachments from unknown senders to check their content',
+              'Reply to suspicious emails to verify their authenticity',
+              'Click on links in emails to see where they lead',
             ],
-            answer: 'A',
+            answer: 'Regularly update your anti-malware software',
             content: [
               {
                 type: 'title',
@@ -476,12 +479,12 @@ export const materials: Material[] = [
             question:
               'Which of the following is a common online shopping scam?',
             choices: [
-              'A. Legitimate retailers offering discounts',
-              'B. Non-delivery of purchased items',
-              'C. Secure payment gateways',
-              'D. Product reviews from verified buyers',
+              'Legitimate retailers offering discounts',
+              'Non-delivery of purchased items',
+              'Secure payment gateways',
+              'Product reviews from verified buyers',
             ],
-            answer: 'B',
+            answer: 'Non-delivery of purchased items',
             content: [
               {
                 type: 'title',
@@ -532,12 +535,12 @@ export const materials: Material[] = [
             question:
               'Which of the following is a sign of a trustworthy online seller?',
             choices: [
-              'A. Lack of contact information or physical address',
-              'B. Prices significantly lower than other sellers',
-              'C. Positive reviews from verified buyers',
-              'D. Unsecured payment gateways',
+              'Lack of contact information or physical address',
+              'Prices significantly lower than other sellers',
+              'Positive reviews from verified buyers',
+              'Unsecured payment gateways',
             ],
-            answer: 'C',
+            answer: 'Positive reviews from verified buyers',
             content: [
               {
                 type: 'title',
@@ -590,12 +593,12 @@ export const materials: Material[] = [
             question:
               'Which of the following is the safest way to pay for online purchases?',
             choices: [
-              "A. Bank transfers to the seller's personal account",
-              'B. Cash on delivery',
-              'C. Secure payment gateways like PayPal or credit cards',
-              'D. Cryptocurrency',
+              "Bank transfers to the seller's personal account",
+              'Cash on delivery',
+              'Secure payment gateways like PayPal or credit cards',
+              'Cryptocurrency',
             ],
-            answer: 'C',
+            answer: 'Secure payment gateways like PayPal or credit cards',
             content: [
               {
                 type: 'title',
@@ -674,12 +677,13 @@ export const materials: Material[] = [
             question:
               'Which of the following is a common type of phone scam in Malaysia?',
             choices: [
-              'A. Legitimate bank representatives requesting personal information',
-              'B. Scammers pretending to be from the Inland Revenue Board (LHDN)',
-              'C. Callers offering genuine investment opportunities',
-              'D. Phone surveys conducted by reputable organizations',
+              'Legitimate bank representatives requesting personal information',
+              'Scammers pretending to be from the Inland Revenue Board (LHDN)',
+              'Callers offering genuine investment opportunities',
+              'Phone surveys conducted by reputable organizations',
             ],
-            answer: 'B',
+            answer:
+              'Scammers pretending to be from the Inland Revenue Board (LHDN)',
             content: [
               {
                 type: 'title',
@@ -723,12 +727,13 @@ export const materials: Material[] = [
             question:
               'Which of the following is NOT a red flag during a phone call?',
             choices: [
-              'A. The caller pressures you to make an immediate decision',
-              'B. The caller asks for your personal or financial information',
-              'C. The caller provides a clear explanation of the purpose of the call',
-              'D. The caller becomes aggressive or threatening when questioned',
+              'The caller pressures you to make an immediate decision',
+              'The caller asks for your personal or financial information',
+              'The caller provides a clear explanation of the purpose of the call',
+              'The caller becomes aggressive or threatening when questioned',
             ],
-            answer: 'C',
+            answer:
+              'The caller provides a clear explanation of the purpose of the call',
             content: [
               {
                 type: 'title',
@@ -776,12 +781,12 @@ export const materials: Material[] = [
             question:
               'What should you do if you suspect a phone call is a scam?',
             choices: [
-              "A. Provide personal information to verify the caller's identity",
-              "B. Follow the caller's instructions to resolve the issue",
-              'C. Hang up and report the call to the relevant authorities',
-              'D. Engage with the caller to gather more information',
+              "Provide personal information to verify the caller's identity",
+              "Follow the caller's instructions to resolve the issue",
+              'Hang up and report the call to the relevant authorities',
+              'Engage with the caller to gather more information',
             ],
-            answer: 'C',
+            answer: 'Hang up and report the call to the relevant authorities',
             content: [
               {
                 type: 'title',
@@ -836,12 +841,13 @@ export const materials: Material[] = [
             title: 'What is SMS Phishing?',
             question: 'What is the purpose of SMS phishing?',
             choices: [
-              'A. To provide legitimate updates from banks or government agencies',
-              'B. To trick recipients into revealing personal or financial information',
-              'C. To offer genuine prizes or rewards for lucky winners',
-              'D. To conduct market research on behalf of reputable companies',
+              'To provide legitimate updates from banks or government agencies',
+              'To trick recipients into revealing personal or financial information',
+              'To offer genuine prizes or rewards for lucky winners',
+              'To conduct market research on behalf of reputable companies',
             ],
-            answer: 'B',
+            answer:
+              'To trick recipients into revealing personal or financial information',
             content: [
               {
                 type: 'title',
@@ -874,12 +880,12 @@ export const materials: Material[] = [
             title: 'Recognizing SMS Phishing Attempts',
             question: 'Which of the following is a red flag for SMS phishing?',
             choices: [
-              'A. The message comes from a known and trusted sender',
-              'B. The message contains a personalized greeting',
-              'C. The message includes a sense of urgency or threats',
-              'D. The message provides a clear explanation for the request',
+              'The message comes from a known and trusted sender',
+              'The message contains a personalized greeting',
+              'The message includes a sense of urgency or threats',
+              'The message provides a clear explanation for the request',
             ],
-            answer: 'C',
+            answer: 'The message includes a sense of urgency or threats',
             content: [
               {
                 type: 'title',
@@ -927,12 +933,12 @@ export const materials: Material[] = [
             question:
               'What is the best way to protect yourself from SMS phishing?',
             choices: [
-              'A. Reply to the message to verify its authenticity',
-              'B. Click on the links provided in the message',
-              'C. Ignore and delete suspicious messages',
-              'D. Call the number provided in the message for more information',
+              'Reply to the message to verify its authenticity',
+              'Click on the links provided in the message',
+              'Ignore and delete suspicious messages',
+              'Call the number provided in the message for more information',
             ],
-            answer: 'C',
+            answer: 'Ignore and delete suspicious messages',
             content: [
               {
                 type: 'title',
@@ -986,12 +992,13 @@ export const materials: Material[] = [
   },
   {
     type: 'course',
-    tags: ["Touch 'n Go eWallet scams", 'Maybank scams', 'cybersecurity'],
+    tags: ['E-Wallets'],
     id: 'c2d3e4f5-a6b7-8c9d-0e1f-2g3h4i5j6k7l',
     title: "Protecting Yourself from Touch 'n Go eWallet and Maybank Scams",
     description:
       "Learn how to identify and protect yourself from Touch 'n Go eWallet and Maybank scams in Malaysia.",
-    thumbnail: 'https://example.com/touch-n-go-maybank-scams-thumbnail.jpg',
+    thumbnail:
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fdigitalwalletfraud.jpg?alt=media&token=1bedc929-b347-482b-ba7f-52d64327e66f',
     createdAt: '2023-07-08T11:00:00Z',
     updatedAt: '2023-07-08T11:00:00Z',
     publishedAt: '2023-07-08T11:00:00Z',
@@ -1008,12 +1015,13 @@ export const materials: Material[] = [
             question:
               "Which of the following is a common type of Touch 'n Go eWallet scam?",
             choices: [
-              "A. Legitimate Touch 'n Go representatives requesting account information",
-              "B. Scammers posing as Touch 'n Go employees offering promotional deals",
-              "C. Genuine Touch 'n Go surveys with rewards for participation",
-              "D. Touch 'n Go official social media accounts requesting personal details",
+              "Legitimate Touch 'n Go representatives requesting account information",
+              "Scammers posing as Touch 'n Go employees offering promotional deals",
+              "Genuine Touch 'n Go surveys with rewards for participation",
+              "Touch 'n Go official social media accounts requesting personal details",
             ],
-            answer: 'B',
+            answer:
+              "Scammers posing as Touch 'n Go employees offering promotional deals",
             content: [
               {
                 type: 'title',
@@ -1056,12 +1064,12 @@ export const materials: Material[] = [
             question:
               "Which of the following is a red flag for a Touch 'n Go eWallet scam?",
             choices: [
-              'A. Requests for personal or account information',
-              'B. Promotions or deals that seem too good to be true',
-              'C. Pressure to act quickly or risk missing out on a deal',
-              'D. All of the above',
+              'Requests for personal or account information',
+              'Promotions or deals that seem too good to be true',
+              'Pressure to act quickly or risk missing out on a deal',
+              'All of the above',
             ],
-            answer: 'D',
+            answer: 'All of the above',
             content: [
               {
                 type: 'title',
@@ -1107,12 +1115,13 @@ export const materials: Material[] = [
             question:
               "Which of the following is the best way to protect your Touch 'n Go eWallet from scams?",
             choices: [
-              'A. Share your account information with friends and family',
-              'B. Click on links in unsolicited messages to verify their authenticity',
-              'C. Enable two-factor authentication and keep your login details secure',
-              "D. Respond to requests for personal information from Touch 'n Go",
+              'Share your account information with friends and family',
+              'Click on links in unsolicited messages to verify their authenticity',
+              'Enable two-factor authentication and keep your login details secure',
+              "Respond to requests for personal information from Touch 'n Go",
             ],
-            answer: 'C',
+            answer:
+              'Enable two-factor authentication and keep your login details secure',
             content: [
               {
                 type: 'title',
@@ -1167,12 +1176,12 @@ export const materials: Material[] = [
             title: 'Common Maybank Scam Tactics',
             question: 'Which of the following is a common Maybank scam tactic?',
             choices: [
-              'A. Legitimate Maybank employees requesting account information',
-              'B. Scammers pretending to be Maybank representatives',
-              'C. Genuine Maybank surveys with rewards for participation',
-              'D. Maybank official social media accounts requesting personal details',
+              'Legitimate Maybank employees requesting account information',
+              'Scammers pretending to be Maybank representatives',
+              'Genuine Maybank surveys with rewards for participation',
+              'Maybank official social media accounts requesting personal details',
             ],
-            answer: 'B',
+            answer: 'Scammers pretending to be Maybank representatives',
             content: [
               {
                 type: 'title',
@@ -1215,12 +1224,12 @@ export const materials: Material[] = [
             question:
               'Which of the following is a sign of a Maybank phishing scam?',
             choices: [
-              'A. Personalized greetings and well-written messages',
-              'B. Requests for personal or account information',
-              'C. Links to the official Maybank website',
-              'D. Absence of urgent deadlines or threats',
+              'Personalized greetings and well-written messages',
+              'Requests for personal or account information',
+              'Links to the official Maybank website',
+              'Absence of urgent deadlines or threats',
             ],
-            answer: 'B',
+            answer: 'Requests for personal or account information',
             content: [
               {
                 type: 'title',
@@ -1267,12 +1276,13 @@ export const materials: Material[] = [
             question:
               'What is the best way to keep your Maybank account secure?',
             choices: [
-              'A. Regularly share your login credentials with family members',
-              'B. Click on links in emails to verify their authenticity',
-              'C. Enable two-factor authentication and keep your login details private',
-              'D. Respond to requests for personal information from Maybank via email',
+              'Regularly share your login credentials with family members',
+              'Click on links in emails to verify their authenticity',
+              'Enable two-factor authentication and keep your login details private',
+              'Respond to requests for personal information from Maybank via email',
             ],
-            answer: 'C',
+            answer:
+              'Enable two-factor authentication and keep your login details private',
             content: [
               {
                 type: 'title',
@@ -1317,6 +1327,692 @@ export const materials: Material[] = [
                 type: 'text',
                 value:
                   'If you suspect that your Maybank account has been compromised, immediately change your login credentials and contact Maybank customer support for assistance. Remember, Maybank will never ask for your sensitive information via email, SMS, or phone calls.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'course',
+    tags: ['Financial Scam'],
+    id: 'd3e4f5a6-b7c8-9d0e-1f2g-3h4i5j6k7l8m',
+    title: 'Stay Safe: Online Banking and Financial Scams in Malaysia',
+    description:
+      'Learn how to protect yourself from online banking threats and common financial scams in Malaysia.',
+    thumbnail:
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Ffinancialscams.jpg?alt=media&token=78b7f56c-7f93-4091-85d5-7e960cfddabc',
+    createdAt: '2023-07-09T12:00:00Z',
+    updatedAt: '2023-07-09T12:00:00Z',
+    publishedAt: '2023-07-09T12:00:00Z',
+    videoUrl: '',
+    topic: [
+      {
+        id: '9n0o1p2q-3r4s-5t6u-7v8w-9x0y1z2a3b4c',
+        topic: 'Online Banking Security',
+        name: 'Protecting Your Online Banking Accounts',
+        lesson: [
+          {
+            id: '5d6e7f8g-9h0i-1j2k-3l4m-5n6o7p8q9r0s',
+            title: 'Creating Strong Passwords and PINs',
+            question:
+              'Which of the following is the best practice for creating a strong password?',
+            choices: [
+              'Use your birthdate or personal information',
+              'Choose a short and easy-to-remember password',
+              'Use a combination of uppercase, lowercase, numbers, and symbols',
+              'Share your password with family members for emergency access',
+            ],
+            answer:
+              'Use a combination of uppercase, lowercase, numbers, and symbols',
+            content: [
+              {
+                type: 'title',
+                value: 'Creating Strong Passwords and PINs',
+              },
+              {
+                type: 'text',
+                value:
+                  'One of the most crucial aspects of online banking security is creating strong passwords and PINs. Here are some best practices to follow:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Use a combination of uppercase and lowercase letters, numbers, and symbols',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Avoid using personal information like birthdates or names',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Create unique passwords for each online banking account',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Use a password manager to generate and store complex passwords securely',
+              },
+              {
+                type: 'bullet',
+                value: 'Change your passwords and PINs regularly',
+              },
+              {
+                type: 'text',
+                value:
+                  'Remember, a strong password is your first line of defense against unauthorized access to your online banking accounts. Never share your passwords or PINs with anyone, and avoid writing them down or storing them in unencrypted files.',
+              },
+            ],
+          },
+          {
+            id: '1t2u3v4w-5x6y-7z8a-9b0c-1d2e3f4g5h6i',
+            title: 'Identifying Secure Banking Websites',
+            question:
+              'Which of the following indicates that a banking website is secure?',
+            choices: [
+              'The website uses an HTTP connection',
+              'The website has a padlock icon in the address bar',
+              'The website asks for your login credentials on the homepage',
+              'The website has a flashy and colorful design',
+            ],
+            answer: 'The website has a padlock icon in the address bar',
+            content: [
+              {
+                type: 'title',
+                value: 'Identifying Secure Banking Websites',
+              },
+              {
+                type: 'text',
+                value:
+                  "When accessing your online banking accounts, it's essential to ensure that you are using a secure website. Here are some ways to identify a secure banking website:",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Look for "https://" at the beginning of the website address',
+              },
+              {
+                type: 'bullet',
+                value: 'Check for a padlock icon in the address bar',
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Verify the website's security certificate by clicking on the padlock icon",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of websites with spelling errors or unusual domain names',
+              },
+              {
+                type: 'text',
+                value:
+                  'Always access your online banking accounts by typing the official website address directly into your browser. Avoid clicking on links from emails or messages, as they may lead to fake websites designed to steal your login credentials.',
+              },
+            ],
+          },
+          {
+            id: '7j8k9l0m-1n2o-3p4q-5r6s-7t8u9v0w1x2y',
+            title: 'Enabling Two-Factor Authentication',
+            question:
+              'What is the purpose of two-factor authentication in online banking?',
+            choices: [
+              'To make the login process more complicated',
+              'To provide an additional layer of security',
+              'To share your login credentials with the bank',
+              "To store your personal information on the bank's servers",
+            ],
+            answer: 'To provide an additional layer of security',
+            content: [
+              {
+                type: 'title',
+                value: 'Enabling Two-Factor Authentication',
+              },
+              {
+                type: 'text',
+                value:
+                  'Two-factor authentication (2FA) is an essential security feature that adds an extra layer of protection to your online banking accounts. When enabled, 2FA requires you to provide an additional piece of information, such as a one-time password (OTP) or a biometric factor, in addition to your regular login credentials.',
+              },
+              {
+                type: 'text',
+                value: "Here's how 2FA typically works:",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'You enter your username and password on the banking website',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'The bank sends an OTP to your registered mobile number or email',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'You enter the OTP on the banking website to complete the login process',
+              },
+              {
+                type: 'text',
+                value:
+                  'By enabling 2FA, you make it much harder for cybercriminals to gain unauthorized access to your online banking accounts, even if they manage to obtain your login credentials. Most Malaysian banks offer 2FA, so make sure to enable it on your accounts for added security.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: '3z4a5b6c-7d8e-9f0g-1h2i-3j4k5l6m7n8o',
+        topic: 'Financial Scams',
+        name: 'Staying Vigilant Against Financial Scams',
+        lesson: [
+          {
+            id: '9p0q1r2s-3t4u-5v6w-7x8y-9z0a1b2c3d4e',
+            title: 'Identifying and Avoiding Phishing Scams',
+            question:
+              'Which of the following is a red flag for a phishing scam?',
+            choices: [
+              'The email is from a legitimate bank and asks you to update your information',
+              'The email contains a suspicious link or attachment',
+              'The email is personalized with your full name and account number',
+              'The email is sent from a trusted friend or family member',
+            ],
+            answer: 'The email contains a suspicious link or attachment',
+            content: [
+              {
+                type: 'title',
+                value: 'Identifying and Avoiding Phishing Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'Phishing scams are one of the most common types of financial scams in Malaysia. These scams typically involve fraudulent emails, messages, or websites that impersonate legitimate financial institutions to trick you into revealing your sensitive information.',
+              },
+              {
+                type: 'text',
+                value:
+                  'Here are some tips to identify and avoid phishing scams:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of unsolicited emails or messages claiming to be from your bank',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Look out for generic greetings, poor grammar, or spelling errors',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Avoid clicking on suspicious links or downloading attachments',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Verify the authenticity of the message by contacting your bank directly',
+              },
+              {
+                type: 'text',
+                value:
+                  'Remember, legitimate financial institutions will never ask for your sensitive information via email or text message. If you receive a suspicious message, report it to your bank and delete it immediately.',
+              },
+            ],
+          },
+          {
+            id: '5f6g7h8i-9j0k-1l2m-3n4o-5p6q7r8s9t0u',
+            title: 'Protecting Yourself from Phone Scams',
+            question:
+              'What should you do if you receive a suspicious phone call claiming to be from your bank?',
+            choices: [
+              'Provide your personal and account information to verify your identity',
+              "Follow the caller's instructions to resolve a supposed account issue",
+              'Hang up and contact your bank directly using a trusted number',
+              'Ask the caller for proof of their identity, such as an employee ID number',
+            ],
+            answer:
+              'Hang up and contact your bank directly using a trusted number',
+            content: [
+              {
+                type: 'title',
+                value: 'Protecting Yourself from Phone Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'Phone scams are another common type of financial scam in Malaysia. Scammers may call you pretending to be from your bank or a government agency, attempting to trick you into revealing your personal or financial information.',
+              },
+              {
+                type: 'text',
+                value:
+                  'Here are some tips to protect yourself from phone scams:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of unsolicited calls claiming to be from your bank or a government agency',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Do not provide any personal or financial information over the phone',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Hang up if the caller pressures you or becomes threatening',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Contact your bank directly using a trusted number to verify the legitimacy of the call',
+              },
+              {
+                type: 'text',
+                value:
+                  'Remember, scammers can spoof phone numbers to make it appear as if they are calling from a legitimate organization. Always be cautious and never share sensitive information over the phone unless you initiated the call.',
+              },
+            ],
+          },
+          {
+            id: '1v2w3x4y-5z6a-7b8c-9d0e-1f2g3h4i5j6k',
+            title: 'Staying Safe from Investment Scams',
+            question: 'What is a common red flag of an investment scam?',
+            choices: [
+              'The investment opportunity is registered with the Securities Commission Malaysia',
+              'The investment offers guaranteed high returns with little or no risk',
+              'The investment company provides a detailed prospectus and financial statements',
+              'The investment advisor is licensed by the relevant authorities',
+            ],
+            answer:
+              'The investment offers guaranteed high returns with little or no risk',
+            content: [
+              {
+                type: 'title',
+                value: 'Staying Safe from Investment Scams',
+              },
+              {
+                type: 'text',
+                value:
+                  'Investment scams lure victims with promises of high returns and low risks, often through fraudulent schemes or unauthorized investment products. These scams can result in significant financial losses for victims.',
+              },
+              {
+                type: 'text',
+                value: 'Here are some tips to stay safe from investment scams:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of unsolicited investment offers, especially those promising guaranteed high returns',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Research the investment company and advisor thoroughly before investing',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Check if the investment scheme is registered with the Securities Commission Malaysia',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be wary of pressure tactics or demands for immediate payment',
+              },
+              {
+                type: 'text',
+                value:
+                  'Remember, if an investment opportunity sounds too good to be true, it probably is. Always conduct thorough research and consult with a licensed financial advisor before making any investment decisions.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'course',
+    tags: ['mobile device security'],
+    id: 'e5f6g7h8-i9j0-k1l2-m3n4-o5p6q7r8s9t0',
+    title: 'Securing Your Mobile Devices: Best Practices',
+    description:
+      'Learn how to protect your mobile devices from cybersecurity threats and safeguard your personal information.',
+    thumbnail:
+      'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/Interactive%20course%20pics%2Fmobilesecurity.jpeg?alt=media&token=7f20f0a6-c66a-4af4-af27-85989edcc83f',
+    createdAt: '2023-07-10T13:00:00Z',
+    updatedAt: '2023-07-10T13:00:00Z',
+    publishedAt: '2023-07-10T13:00:00Z',
+    videoUrl: '',
+    topic: [
+      {
+        id: 'u1v2w3x4-y5z6-a7b8-c9d0-e1f2g3h4i5j6',
+        topic: 'Device Security',
+        name: 'Protecting Your Mobile Devices',
+        lesson: [
+          {
+            id: 'k7l8m9n0-o1p2-q3r4-s5t6-u7v8w9x0y1z2',
+            title: 'Setting Up a Strong Device Passcode',
+            question:
+              'What is the recommended minimum length for a strong device passcode?',
+            choices: [
+              '4 digits',
+              '6 digits',
+              '8 digits or characters',
+              'No passcode is necessary',
+            ],
+            answer: '8 digits or characters',
+            content: [
+              {
+                type: 'title',
+                value: 'Setting Up a Strong Device Passcode',
+              },
+              {
+                type: 'text',
+                value:
+                  'One of the most basic yet essential steps in securing your mobile device is setting up a strong passcode. A passcode prevents unauthorized access to your device and protects your personal information.',
+              },
+              {
+                type: 'text',
+                value:
+                  'Here are some tips for creating a strong device passcode:',
+              },
+              {
+                type: 'bullet',
+                value: 'Use a minimum of 8 digits or characters',
+              },
+              {
+                type: 'bullet',
+                value: 'Include a combination of numbers, letters, and symbols',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Avoid using easily guessable information like birthdays or sequential numbers',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Enable biometric authentication (e.g., fingerprint or facial recognition) for added security',
+              },
+              {
+                type: 'text',
+                value:
+                  'Remember to change your passcode regularly and avoid sharing it with anyone. If you suspect that your passcode has been compromised, change it immediately.',
+              },
+            ],
+          },
+          {
+            id: 'a3b4c5d6-e7f8-g9h0-i1j2-k3l4m5n6o7p8',
+            title: 'Enabling Device Encryption',
+            question: 'What does device encryption protect?',
+            choices: [
+              'Photos and videos',
+              'Contacts and call history',
+              'All data stored on the device',
+              'Device battery life',
+            ],
+            answer: 'All data stored on the device',
+            content: [
+              {
+                type: 'title',
+                value: 'Enabling Device Encryption',
+              },
+              {
+                type: 'text',
+                value:
+                  'Device encryption is a powerful security feature that protects all data stored on your mobile device. When enabled, encryption scrambles the data on your device, making it unreadable to anyone without the correct decryption key.',
+              },
+              {
+                type: 'text',
+                value: "Here's how device encryption works:",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'When you enable encryption, a unique encryption key is generated',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'The encryption key is derived from your device passcode',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'All data stored on the device, including apps, settings, and media, is encrypted',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Without the correct passcode, the data remains encrypted and inaccessible',
+              },
+              {
+                type: 'text',
+                value:
+                  "Most modern mobile devices have encryption enabled by default. However, it's essential to verify that encryption is active on your device and ensure that you have a strong passcode set up to protect the encryption key.",
+              },
+            ],
+          },
+          {
+            id: 'q9r0s1t2-u3v4-w5x6-y7z8-a9b0c1d2e3f4',
+            title: 'Keeping Your Device Updated',
+            question: 'Why is it important to keep your mobile device updated?',
+            choices: [
+              'To access the latest features and UI improvements',
+              'To improve device performance and battery life',
+              'To receive the latest security patches and bug fixes',
+              'To free up storage space on the device',
+            ],
+            answer: 'To receive the latest security patches and bug fixes',
+            content: [
+              {
+                type: 'title',
+                value: 'Keeping Your Device Updated',
+              },
+              {
+                type: 'text',
+                value:
+                  "Regularly updating your mobile device's operating system and apps is crucial for maintaining security. Updates often include security patches and bug fixes that address known vulnerabilities and protect against the latest threats.",
+              },
+              {
+                type: 'text',
+                value:
+                  'Here are some reasons why keeping your device updated is essential:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Updates fix security flaws that could be exploited by cybercriminals',
+              },
+              {
+                type: 'bullet',
+                value: 'Updates improve device performance and stability',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Updates ensure compatibility with the latest apps and services',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Updates may introduce new security features and enhancements',
+              },
+              {
+                type: 'text',
+                value:
+                  "To keep your device updated, enable automatic updates for your operating system and apps. Alternatively, regularly check for and install updates manually through your device's settings or app store.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'g5h6i7j8-k9l0-m1n2-o3p4-q5r6s7t8u9v0',
+        topic: 'App Security',
+        name: 'Securing Your Mobile Apps',
+        lesson: [
+          {
+            id: 'w1x2y3z4-a5b6-c7d8-e9f0-g1h2i3j4k5l6',
+            title: 'Downloading Apps from Trusted Sources',
+            question:
+              'Which of the following is the most trusted source for downloading mobile apps?',
+            choices: [
+              'Official app stores (e.g., Google Play Store, Apple App Store)',
+              'Third-party app websites',
+              'Direct download links shared on social media',
+              'All of the above',
+            ],
+            answer:
+              'Official app stores (e.g., Google Play Store, Apple App Store)',
+            content: [
+              {
+                type: 'title',
+                value: 'Downloading Apps from Trusted Sources',
+              },
+              {
+                type: 'text',
+                value:
+                  "When downloading mobile apps, it's essential to use trusted sources to minimize the risk of installing malicious or compromised apps. Malicious apps can steal your personal information, display unwanted ads, or even take control of your device.",
+              },
+              {
+                type: 'text',
+                value: 'Here are some guidelines for downloading apps safely:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Download apps only from official app stores like Google Play Store or Apple App Store',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Avoid downloading apps from third-party websites or untrusted sources',
+              },
+              {
+                type: 'bullet',
+                value: 'Be cautious of apps with few reviews or low ratings',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Read app permissions carefully before installing and grant only necessary permissions',
+              },
+              {
+                type: 'text',
+                value:
+                  "Official app stores have strict security measures in place to screen apps for malware and other threats. However, it's still important to be vigilant and research apps thoroughly before downloading them.",
+              },
+            ],
+          },
+          {
+            id: 'm7n8o9p0-q1r2-s3t4-u5v6-w7x8y9z0a1b2',
+            title: 'Reviewing App Permissions',
+            question:
+              'What should you do if an app requests excessive or unnecessary permissions?',
+            choices: [
+              'Grant all permissions to ensure the app functions properly',
+              'Review the permissions carefully and grant only necessary permissions',
+              'Deny all permissions to protect your privacy',
+              'Uninstall the app immediately',
+            ],
+            answer:
+              'Review the permissions carefully and grant only necessary permissions',
+            content: [
+              {
+                type: 'title',
+                value: 'Reviewing App Permissions',
+              },
+              {
+                type: 'text',
+                value:
+                  "When installing a new app or updating an existing one, it's crucial to review the permissions it requests. App permissions control what data and features the app can access on your device, such as your location, contacts, or camera.",
+              },
+              {
+                type: 'text',
+                value: 'Here are some tips for managing app permissions:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Review permissions carefully before granting them to an app',
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Grant only permissions that are necessary for the app's functionality",
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Be cautious of apps that request excessive or unrelated permissions',
+              },
+              {
+                type: 'bullet',
+                value:
+                  "Regularly review and adjust app permissions in your device's settings",
+              },
+              {
+                type: 'text',
+                value:
+                  'If an app requests permissions that seem unnecessary or excessive, consider whether you really need the app. In some cases, it may be safer to find an alternative app with more appropriate permission requirements.',
+              },
+            ],
+          },
+          {
+            id: 'c3d4e5f6-g7h8-i9j0-k1l2-m3n4o5p6q7r8',
+            title: 'Keeping Apps Updated',
+            question: 'How often should you update your mobile apps?',
+            choices: [
+              "Never, to avoid changes to the app's interface and features",
+              'Only when prompted by the app or app store',
+              'Regularly, as updates become available',
+              'Once a year, during annual device maintenance',
+            ],
+            answer: 'Regularly, as updates become available',
+            content: [
+              {
+                type: 'title',
+                value: 'Keeping Apps Updated',
+              },
+              {
+                type: 'text',
+                value:
+                  "Just like your mobile device's operating system, it's essential to keep your apps updated to ensure they have the latest security fixes and improvements. App updates often address vulnerabilities, fix bugs, and add new features.",
+              },
+              {
+                type: 'text',
+                value: 'Here are some reasons to keep your apps updated:',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Updates patch security flaws that could be exploited by attackers',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Updates improve app performance, stability, and compatibility',
+              },
+              {
+                type: 'bullet',
+                value: 'Updates may introduce new features and enhancements',
+              },
+              {
+                type: 'bullet',
+                value:
+                  'Updated apps are less likely to crash or cause system issues',
+              },
+              {
+                type: 'text',
+                value:
+                  "To keep your apps updated, enable automatic app updates in your device's settings or app store. Alternatively, regularly check for and install app updates manually. Be cautious of apps that have not been updated in a long time, as they may contain unpatched vulnerabilities.",
               },
             ],
           },

@@ -37,8 +37,6 @@ export default function HomeScreen() {
     fetchMaterials();
   }, []);
 
-  console.log(courseItems[4]);
-
   const filteredCourseItems = fuzzySearch(searchQuery, courseItems, [
     'title',
     'description',

@@ -8,7 +8,6 @@ import {
 import { useRouter } from 'expo-router';
 import { Material } from '@/constants/Types';
 import useRelativeTime from '@/hooks/useTimeFormat';
-import { client } from '@/utils/sanity';
 
 export default function CourseList({
   courseItems,
