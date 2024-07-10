@@ -168,14 +168,15 @@ export default function settings() {
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
           <TouchableRipple
             onPress={() =>
-              showMessage({
-                message: 'Sorry :(',
-                description:
-                  'This feature is not available currently due to budget reasons.',
-                type: 'warning',
-                duration: 3000,
-                titleStyle: { fontWeight: 'bold' },
-              })
+              // showMessage({
+              //   message: 'Sorry :(',
+              //   description:
+              //     'This feature is not available currently due to budget reasons.',
+              //   type: 'warning',
+              //   duration: 3000,
+              //   titleStyle: { fontWeight: 'bold' },
+              // })
+              router.navigate('/semak-mule')
             }
           >
             <View style={style.accordion}>

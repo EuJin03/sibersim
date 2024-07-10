@@ -55,14 +55,14 @@ export default function SignIn() {
         >
           <Text
             style={{
-              fontSize: 17,
-              fontWeight: 900,
+              fontSize: 20,
+              fontWeight: 'bold',
               color: '#ffffff',
               textAlign: 'center',
               width: '70%',
             }}
           >
-            Embrace the future of learning with Sibersim!🎉
+            Let's Sibersim-lah!🎉
           </Text>
           <Text
             style={{
@@ -70,10 +70,12 @@ export default function SignIn() {
               fontWeight: 'bold',
               color: '#ffffff',
               textAlign: 'center',
+              width: '80%',
+              lineHeight: 18,
             }}
           >
-            Boost your cybersecurity skills with us. Let's get started on
-            securing your digital life!
+            Level up your cybersecurity skills with us. Learn, Play, and Secure
+            Your Digital World Together!
           </Text>
         </View>
         <View style={style.bottomView}>

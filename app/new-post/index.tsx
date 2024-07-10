@@ -37,6 +37,7 @@ export default function NewPostScreen() {
   const [disableTouch, setDisableTouch] = useState<boolean>(false);
   const [isUpload, setIsUpload] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [contentLength, setContentLength] = useState<number>(0);
   const { dbUser } = useAuth();
   const { addPost } = usePosts();
   const router = useRouter();
@@ -122,10 +123,8 @@ export default function NewPostScreen() {
 
   const uploadImagesToFirebase = async (imageUris: string[]) => {
     try {
-      const promises = imageUris.map(async uri => {
-        const filename = `post/${Date.now()}-${Math.random()
-          .toString(36)
-          .slice(2, 9)}.jpg`;
+      const promises = imageUris.map(async (uri, index) => {
+        const filename = `post/${Date.now()}-${index}.jpg`;
         const imageRef = ref(storage, filename);
         const file = await fetch(uri);
         const blob = await file.blob();
@@ -136,7 +135,7 @@ export default function NewPostScreen() {
           if (newImages.length === 6) {
             newImages.pop(); // Remove the empty string '' from the end
           }
-          newImages.unshift(downloadURL); // Add the new image to the front
+          newImages.splice(1, 0, downloadURL); // Add the new image after the first element
           return newImages;
         });
       });
@@ -147,65 +146,75 @@ export default function NewPostScreen() {
     }
   };
 
+  const removeImage = (index: number) => {
+    setImages(prevImages => {
+      const newImages = [...prevImages];
+      newImages.splice(index, 1);
+      if (newImages.length === 0) {
+        newImages.push(''); // Add an empty string '' if the array becomes empty
+      }
+      return newImages;
+    });
+  };
+
+  const handleContentChange = (value: string) => {
+    setContentLength(value.length);
+  };
+
   return (
     <>
       <Stack.Screen options={{ title: '', headerRight: () => <Avatar /> }} />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={100}
-        style={{ flex: 1 }}
+
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{ paddingBottom: 40 }}
       >
-        <ScrollView style={styles.container}>
-          <View style={styles.buttonContainer}>
-            <Pressable onPress={() => console.log('pressed')}>
-              <Text style={styles.postButton}>Post</Text>
-            </Pressable>
-            <Pressable onPress={() => console.log('pressed')}>
-              <Text style={styles.blogButton}>Blog</Text>
-            </Pressable>
-          </View>
+        <View style={styles.buttonContainer}>
+          <Pressable onPress={() => console.log('pressed')}>
+            <Text style={styles.postButton}>Post</Text>
+          </Pressable>
+        </View>
 
-          {images.length > 1 ? (
-            <View
-              style={{
-                height: actuatedNormalize(180),
-                marginTop: actuatedNormalize(14),
-              }}
-            >
-              <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                data={images}
-                keyExtractor={(item, index) => item + index.toString()}
-                renderItem={({ item, index }) => {
-                  return (
-                    <View style={{ marginRight: actuatedNormalize(3) }}>
-                      {item === '' ? (
-                        <TouchableHighlight onPress={pickImages}>
-                          <View
-                            style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              width: actuatedNormalize(180),
-                              height: actuatedNormalize(180),
-                              backgroundColor: '#f9f9f9',
-                            }}
-                          >
-                            <Icon
-                              source="image"
-                              size={28}
-                              color={Colors.light.secondary}
-                            />
-
-                            <Text>Add Image</Text>
-                          </View>
-                        </TouchableHighlight>
-                      ) : (
-                        <TouchableHighlight
-                          onPress={() => console.log('image')}
+        {images.length > 1 ? (
+          <View
+            style={{
+              height: actuatedNormalize(180),
+              marginTop: actuatedNormalize(14),
+            }}
+          >
+            <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={images}
+              keyExtractor={(item, index) => item + index.toString()}
+              renderItem={({ item, index }) => {
+                return (
+                  <View style={{ marginRight: actuatedNormalize(3) }}>
+                    {item === '' ? (
+                      <TouchableHighlight onPress={pickImages}>
+                        <View
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: actuatedNormalize(180),
+                            height: actuatedNormalize(180),
+                            backgroundColor: '#f9f9f9',
+                          }}
                         >
+                          <Icon
+                            source="image"
+                            size={28}
+                            color={Colors.light.secondary}
+                          />
+
+                          <Text>Add Image</Text>
+                        </View>
+                      </TouchableHighlight>
+                    ) : (
+                      <TouchableHighlight onPress={() => console.log('image')}>
+                        <View>
                           <Image
                             source={{ uri: item }}
                             style={{
@@ -214,111 +223,121 @@ export default function NewPostScreen() {
                             }}
                             resizeMode="cover"
                           />
-                        </TouchableHighlight>
-                      )}
-                    </View>
-                  );
-                }}
-              />
-            </View>
-          ) : (
-            <TouchableHighlight
-              onPress={pickImages}
-              style={styles.mediaContainer}
-              disabled={disableTouch}
-            >
-              <View style={styles.mediaContent}>
-                <View style={styles.mediaInfo}>
-                  <View style={styles.mediaIcon}>
-                    <Icon
-                      source="file-image"
-                      size={28}
-                      color={Colors.light.secondary}
-                    />
+                          <TouchableHighlight
+                            onPress={() => removeImage(index)}
+                            style={{
+                              position: 'absolute',
+                              top: 5,
+                              right: 5,
+                              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                              borderRadius: 15,
+                              padding: 5,
+                            }}
+                          >
+                            <Icon source="close" size={20} color="#ffffff" />
+                          </TouchableHighlight>
+                        </View>
+                      </TouchableHighlight>
+                    )}
                   </View>
-                  <Text style={styles.mediaText}>Add media</Text>
-                </View>
-                {isUpload ? (
-                  <ActivityIndicator />
-                ) : (
+                );
+              }}
+            />
+          </View>
+        ) : (
+          <TouchableHighlight
+            onPress={pickImages}
+            style={styles.mediaContainer}
+            disabled={disableTouch}
+          >
+            <View style={styles.mediaContent}>
+              <View style={styles.mediaInfo}>
+                <View style={styles.mediaIcon}>
                   <Icon
-                    source="plus"
+                    source="file-image"
                     size={28}
                     color={Colors.light.secondary}
                   />
-                )}
+                </View>
+                <Text style={styles.mediaText}>Add media</Text>
               </View>
-            </TouchableHighlight>
-          )}
-
-          <View
-            style={{
-              backgroundColor: '#ffffff',
-              width: '100%',
-              paddingHorizontal: actuatedNormalize(16),
-              paddingVertical: actuatedNormalizeVertical(14),
-              marginTop: actuatedNormalizeVertical(14),
-              borderRadius: 20,
-              minHeight: actuatedNormalizeVertical(300),
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Controller
-              control={control}
-              name="content"
-              rules={{
-                required: 'Content is required',
-                maxLength: {
-                  value: 1000,
-                  message: 'Content cannot exceed 1000 characters',
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  editable
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  inlineImageLeft="search_icon"
-                  placeholder="Share with us your thoughts..."
-                  multiline
-                  style={{ lineHeight: actuatedNormalize(20) }}
-                  maxLength={1000}
-                />
-              )}
-            />
-
-            <View>
-              <Text>
-                {control._fields.content?._f.value?.length || 0}/1000 characters
-              </Text>
-              {errors.content && (
-                <Text style={{ color: 'red' }}>{errors.content.message}</Text>
+              {isUpload ? (
+                <ActivityIndicator />
+              ) : (
+                <Icon source="plus" size={28} color={Colors.light.secondary} />
               )}
             </View>
-          </View>
+          </TouchableHighlight>
+        )}
 
-          <Button
-            mode="contained"
-            style={{ marginTop: actuatedNormalizeVertical(20) }}
-            theme={{
-              colors: {
-                primary: Colors.light.secondary,
+        <View
+          style={{
+            backgroundColor: '#ffffff',
+            width: '100%',
+            paddingHorizontal: actuatedNormalize(16),
+            paddingVertical: actuatedNormalizeVertical(14),
+            marginTop: actuatedNormalizeVertical(14),
+            borderRadius: 20,
+            minHeight: actuatedNormalizeVertical(300),
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Controller
+            control={control}
+            name="content"
+            rules={{
+              required: 'Content is required',
+              maxLength: {
+                value: 1000,
+                message: 'Content cannot exceed 1000 characters',
               },
             }}
-            labelStyle={{
-              color: isLoading ? '#000000' : '#ffffff',
-            }}
-            onPress={handleSubmit(onSubmit)}
-            loading={isLoading}
-            disabled={isLoading}
-          >
-            <Text>{isLoading ? 'Posting' : 'Post'}</Text>
-          </Button>
-        </ScrollView>
-      </KeyboardAvoidingView>
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                editable
+                value={value}
+                onChangeText={text => {
+                  onChange(text);
+                  handleContentChange(text);
+                }}
+                onBlur={onBlur}
+                inlineImageLeft="search_icon"
+                placeholder="Share with us your thoughts..."
+                multiline
+                style={{ lineHeight: actuatedNormalize(20) }}
+                maxLength={1000}
+              />
+            )}
+          />
+
+          <View>
+            <Text>{contentLength}/1000 characters</Text>
+            {errors.content && (
+              <Text style={{ color: 'red' }}>{errors.content.message}</Text>
+            )}
+          </View>
+        </View>
+
+        <Button
+          mode="contained"
+          style={{ marginTop: actuatedNormalizeVertical(20) }}
+          theme={{
+            colors: {
+              primary: Colors.light.secondary,
+            },
+          }}
+          labelStyle={{
+            color: isLoading ? '#000000' : '#ffffff',
+          }}
+          onPress={handleSubmit(onSubmit)}
+          loading={isLoading}
+          disabled={isLoading}
+        >
+          <Text>{isLoading ? 'Posting' : 'Post'}</Text>
+        </Button>
+      </ScrollView>
     </>
   );
 }
@@ -336,7 +355,7 @@ const styles = StyleSheet.create({
     gap: actuatedNormalize(14),
   },
   postButton: {
-    paddingHorizontal: actuatedNormalize(12),
+    paddingHorizontal: actuatedNormalize(18),
     paddingVertical: actuatedNormalize(6),
     backgroundColor: Colors.light.secondary,
     borderRadius: 20,

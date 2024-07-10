@@ -21,10 +21,14 @@ import { router } from 'expo-router';
 import { generateUUID } from '@/hooks/useUuid';
 
 export default function blogpost() {
-  const { fetchBlogs, loading } = useBlogStore();
+  const { fetchBlogs } = useBlogStore();
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(true);
     fetchBlogs();
+    setLoading(false);
   }, []);
 
   const [search, setSearch] = useState<string>('');
@@ -177,6 +181,10 @@ export default function blogpost() {
         blog.title.toLowerCase().includes(search.toLowerCase())
       );
 
+  const filteredTags = uniqueTags.filter(tag =>
+    tag.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <View
       style={{
@@ -218,7 +226,7 @@ export default function blogpost() {
         <>
           <View style={{ marginVertical: actuatedNormalizeVertical(10) }}>
             <FlatList
-              data={uniqueTags}
+              data={filteredTags}
               renderItem={renderTagItem}
               keyExtractor={item => item}
               horizontal

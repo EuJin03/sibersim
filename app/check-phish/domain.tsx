@@ -87,7 +87,6 @@ const ScanUrlPage = () => {
     setIsLoading(false);
   };
 
-  console.log(scanResult);
 
   return (
     <>

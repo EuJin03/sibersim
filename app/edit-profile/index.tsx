@@ -30,7 +30,6 @@ interface EditProfile {
 
 export default function EditProfileScreen() {
   const { dbUser } = useAuth();
-  console.log('settingpage', dbUser);
 
   const router = useRouter();
   const { updateUser } = useUsersStore();

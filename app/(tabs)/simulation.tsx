@@ -141,8 +141,6 @@ export default function simulation() {
                   template => template.template === result.templateId
                 );
 
-                console.log(result.userResults);
-
                 if (!template) {
                   return null;
                 }
