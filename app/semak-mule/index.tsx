@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   Linking,
+  Image,
 } from 'react-native';
 import { useForm, Controller, FieldError } from 'react-hook-form';
 import { SegmentedButtons } from 'react-native-paper';
@@ -96,6 +97,8 @@ const ScammerDetails = () => {
     const title = lines[0].trim();
     const subtext = lines.slice(1).join('\n').trim();
 
+    console.log(lines);
+
     return (
       <>
         <Text
@@ -108,6 +111,23 @@ const ScammerDetails = () => {
           {title}
         </Text>
         <Text style={{ fontSize: 12, color: '#909090' }}>{subtext}</Text>
+        <View
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Image
+            source={{
+              uri: 'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/blogs%2Fsafe.jpg?alt=media&token=9778221d-09d2-4b86-9dcd-a602f2d46ac4',
+            }}
+            height={300}
+            width={300}
+            style={{ marginTop: 10 }}
+          />
+        </View>
       </>
     );
   };
@@ -190,9 +210,9 @@ const ScammerDetails = () => {
         </TouchableOpacity>
 
         {loading ? (
-          <View>
+          <View style={{ flex: 1 }}>
             <ActivityIndicator size="large" color={Colors.light.secondary} />
-            <Text></Text>
+            <Text>Please wait while contacting a CCIS Server</Text>
           </View>
         ) : (
           <>
