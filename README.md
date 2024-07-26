@@ -45,18 +45,60 @@ SiberSim is a comprehensive mobile application designed to enhance cybersecurity
 ## Project Structure
 
 ```bash
-sibersim/
-├── assets/
-├── src/
-│ ├── components/
-│ ├── screens/
-│ ├── navigation/
-│ ├── services/
-│ ├── store/
-│ └── utils/
-├── App.js
-├── app.json
-└── package.json
+.
+└── sibersim/
+    ├── app/
+    │   ├── (auth)/
+    │   │   ├── login.tsx
+    │   │   └── setup.tsx
+    │   ├── (tabs)/
+    │   │   ├── _layout.tsx
+    │   │   ├── blog.tsx
+    │   │   ├── index.tsx
+    │   │   ├── settings.tsx
+    │   │   ├── simulation.tsx
+    │   │   └── single_post.tsx
+    │   ├── blog-details/
+    │   │   └── [slug].tsx
+    │   ├── check-phish/
+    │   │   └── index.tsx
+    │   ├── course/
+    │   │   └── [id].tsx
+    │   ├── course-chapter/
+    │   │   └── [id].tsx
+    │   ├── edit-profile/
+    │   │   └── index.tsx
+    │   ├── leaderboard/
+    │   │   └── index.tsx
+    │   ├── new-post/
+    │   │   └── index.tsx
+    │   ├── posts/
+    │   │   └── [id].tsx
+    │   ├── semak-mule/
+    │   │   └── index.tsx
+    │   ├── user-profile/
+    │   │   └── [id].tsx
+    │   ├── video-course/
+    │   │   └── [id].tsx
+    │   ├── _layout.tsx
+    │   ├── +html.tsx
+    │   └── +not-found.tsx
+    ├── assets
+    ├── components
+    ├── constants
+    ├── contexts
+    ├── firebase
+    ├── hooks
+    ├── utils
+    ├── .gitignore
+    ├── app.json
+    ├── babel.config.js
+    ├── eas.json
+    ├── google-services.json
+    ├── package-lock.json
+    ├── package.json
+    ├── README.md
+    └── tsconfig.json
 ```
 
 ## Technologies Used
