@@ -70,6 +70,14 @@ export default function PostListItem({ post }: PostListItemProps) {
     setSelectedImage(null);
   };
 
+  const handlePostDetail = () => {
+    router.navigate(`/posts/${post.id}`);
+  };
+
+  const handleUserPosts = () => {
+    router.navigate(`/user-profile/${post.authorId}`);
+  };
+
   if (!post) return <View></View>;
 
   return (
@@ -79,47 +87,37 @@ export default function PostListItem({ post }: PostListItemProps) {
           backgroundColor: '#ffffff',
         }}
       >
-        <Link href={`/posts/${post.id}`} asChild>
-          <Pressable>
-            <View style={styles.header}>
-              <Pressable
-                onPressOut={() => router.navigate(`/posts/${post.id}`)}
+        <View style={styles.header}>
+          <Pressable onPress={handleUserPosts}>
+            <Image
+              source={{
+                uri: post?.authorImage,
+              }}
+              style={styles.userImage}
+            />
+          </Pressable>
+          <Pressable
+            onPress={handlePostDetail}
+            style={styles.pressableContainer}
+          >
+            <View style={styles.postDetailsContainer}>
+              <Text
+                style={styles.userName}
+                variant="bodyMedium"
+                numberOfLines={1}
               >
-                <Image
-                  source={{
-                    uri: post?.authorImage,
-                  }}
-                  style={styles.userImage}
-                />
-              </Pressable>
-              <View>
-                <Pressable
-                  onPressOut={() => router.navigate(`/posts/${post.id}`)}
-                >
-                  <Text style={styles.userName} variant="bodyMedium">
-                    {post.postedBy}
-                  </Text>
-                </Pressable>
-                <Text
-                  style={{ fontSize: actuatedNormalize(10), color: '#121212' }}
-                >
-                  {post.authorJob === ''
-                    ? 'member of SiberSim'
-                    : post.authorJob}
-                </Text>
-                <Text
-                  style={{
-                    marginVertical: actuatedNormalizeVertical(1),
-                    color: '#888888',
-                    fontSize: actuatedNormalize(10),
-                  }}
-                >
-                  {useRelativeTime(post.createdAt ?? '2021-09-01T00:00:00')}
-                </Text>
-              </View>
+                {post.postedBy}
+              </Text>
+              <Text style={styles.authorJob} numberOfLines={1}>
+                {post.authorJob === '' ? 'member of SiberSim' : post.authorJob}
+              </Text>
+              <Text style={styles.createdAt} numberOfLines={1}>
+                {useRelativeTime(post.createdAt ?? '2021-09-01T00:00:00')}
+              </Text>
             </View>
           </Pressable>
-        </Link>
+        </View>
+
         {/* Text content */}
         <Text style={styles.content} selectable={true}>
           {post.content}
@@ -211,9 +209,11 @@ export default function PostListItem({ post }: PostListItemProps) {
               post.upvote.length ?? 0
             }`}</Text>
           </View>
-          <Text
-            style={{ fontSize: 12, color: '#696969' }}
-          >{`${post.comments.length} comments`}</Text>
+          <Pressable onPress={() => router.navigate(`/posts/${post.id}`)}>
+            <Text
+              style={{ fontSize: 12, color: '#696969' }}
+            >{`${post.comments.length} comments`}</Text>
+          </Pressable>
         </View>
 
         {/* Footer */}
@@ -224,8 +224,13 @@ export default function PostListItem({ post }: PostListItemProps) {
             }}
             style={{
               flexDirection: 'row',
-              alignItems: 'center',
+
               gap: actuatedNormalize(2),
+              paddingVertical: actuatedNormalize(8),
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <FontAwesome
@@ -250,10 +255,29 @@ export default function PostListItem({ post }: PostListItemProps) {
               Like
             </Text>
           </TouchableOpacity>
-          <Pressable onPress={() => router.navigate(`/posts/${post.id}`)}>
+          <Pressable
+            onPress={() => router.navigate(`/posts/${post.id}`)}
+            style={{
+              paddingVertical: actuatedNormalize(8),
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <FooterButton text={`Comment`} icon="comment-o" />
           </Pressable>
-          <FooterButton text="Share" icon="share" />
+          <Pressable
+            style={{
+              paddingVertical: actuatedNormalize(8),
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <FooterButton text="Share" icon="share" />
+          </Pressable>
         </View>
       </View>
       <Modal
@@ -282,7 +306,6 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: actuatedNormalize(500),
     alignSelf: 'center',
-
     marginBottom: actuatedNormalizeVertical(5),
   },
 
@@ -291,6 +314,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: actuatedNormalize(10),
+  },
+  pressableContainer: {
+    flex: 1,
+  },
+  postDetailsContainer: {
+    flex: 1,
+  },
+
+  authorJob: {
+    fontSize: actuatedNormalize(10),
+    color: '#121212',
+  },
+  createdAt: {
+    marginVertical: actuatedNormalizeVertical(1),
+    color: '#888888',
+    fontSize: actuatedNormalize(10),
   },
   userName: {
     fontWeight: 'bold',
@@ -321,7 +360,6 @@ const styles = StyleSheet.create({
   footer: {
     backgroundColor: 'white',
     flexDirection: 'row',
-    paddingVertical: actuatedNormalize(10),
     justifyContent: 'space-around',
     borderTopWidth: 0.5,
     borderColor: 'lightgray',

@@ -18,6 +18,7 @@ import { IconButton } from 'react-native-paper';
 import { Colors } from '@/hooks/useThemeColor';
 import CourseList from '../blog/CourseList';
 import useMaterialStore from '@/hooks/useMaterial';
+import useRelativeTime from '@/hooks/useTimeFormat';
 
 export default function ResultModal({
   isVisible,
@@ -100,7 +101,11 @@ export default function ResultModal({
                       : null,
                   ]}
                 >
-                  {member.comment}
+                  {member.comment === 'User clicked the phishing link'
+                    ? 'User clicked the link on ' +
+                      useRelativeTime(member.updatedAt)
+                    : 'User has not clicked on the link since ' +
+                      useRelativeTime(member.updatedAt)}
                 </Text>
               </View>
             ))}
@@ -217,6 +222,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginBottom: actuatedNormalizeVertical(8),
     color: '#000000',
+    fontSize: actuatedNormalize(12),
   },
   failedComment: {
     color: 'red',

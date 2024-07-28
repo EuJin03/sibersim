@@ -341,6 +341,11 @@ const useGroupStore = create<GroupState>((set, get) => ({
       const groupDocRef = doc(groupsCollection, groupDoc.id);
       const groupData = groupDoc.data() as Group;
 
+      // Remove previous results with the same templateId
+      const filteredResults =
+        groupData.results?.filter(result => result.templateId !== templateId) ||
+        [];
+
       const newResults: Result[] = await Promise.all(
         members.map(async userId => {
           const userDocRef = doc(getFirestore(), 'users', userId);
@@ -356,15 +361,12 @@ const useGroupStore = create<GroupState>((set, get) => ({
             templateId: templateId,
             user: userId,
             username: userData.displayName,
-            updatedAt: new Date().toISOString(), // Convert to ISO string
+            updatedAt: new Date().toISOString(),
           };
         })
       );
 
-      const updatedResults: Result[] = [
-        ...(groupData.results || []),
-        ...newResults,
-      ];
+      const updatedResults: Result[] = [...filteredResults, ...newResults];
 
       await updateDoc(groupDocRef, {
         results: updatedResults,
@@ -393,7 +395,6 @@ const useGroupStore = create<GroupState>((set, get) => ({
       set({ error: error as Error, loading: false });
     }
   },
-
   resetState: () => {
     set({
       groups: [],

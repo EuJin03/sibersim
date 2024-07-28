@@ -20,6 +20,7 @@ import { Comment, Post } from '@/constants/Types';
 
 interface PostsState {
   posts: Post[];
+  userPosts: Post[];
   postDetail: Post | null;
   postLoading: boolean;
   loading: boolean;
@@ -39,10 +40,12 @@ interface PostsState {
     commentCreatedAt: string,
     userId: string
   ) => Promise<void>;
+  fetchPostsByUserId: (userId: string) => Promise<void>;
 }
 
 const usePosts = create<PostsState>((set, get) => ({
   posts: [],
+  userPosts: [],
   postDetail: null,
   postLoading: false,
   loading: false,
@@ -142,6 +145,9 @@ const usePosts = create<PostsState>((set, get) => ({
           posts: state.posts.map(post =>
             post.id === postId ? { ...post, upvote: updatedUpvoteArray } : post
           ),
+          userPosts: state.userPosts.map(post =>
+            post.id === postId ? { ...post, upvote: updatedUpvoteArray } : post
+          ),
           postDetail:
             state.postDetail?.id === postId
               ? { ...state.postDetail, upvote: updatedUpvoteArray }
@@ -160,6 +166,9 @@ const usePosts = create<PostsState>((set, get) => ({
       // Revert the Zustand state changes in case of an error
       set(state => ({
         posts: state.posts.map(post =>
+          post.id === postId ? { ...post, upvote: post.upvote || [] } : post
+        ),
+        userPosts: state.userPosts.map(post =>
           post.id === postId ? { ...post, upvote: post.upvote || [] } : post
         ),
         postDetail:
@@ -212,6 +221,21 @@ const usePosts = create<PostsState>((set, get) => ({
       // Update the Zustand state with the new comment
       set(state => ({
         posts: state.posts.map(post =>
+          post.id === postId
+            ? {
+                ...post,
+                comments: [
+                  ...post.comments,
+                  { ...commentData, createdAt: new Date().toISOString() },
+                ].sort(
+                  (a, b) =>
+                    new Date(b.createdAt ?? '').getTime() -
+                    new Date(a.createdAt ?? '').getTime()
+                ), // Sort comments by createdAt in descending order
+              }
+            : post
+        ),
+        userPosts: state.userPosts.map(post =>
           post.id === postId
             ? {
                 ...post,
@@ -293,6 +317,24 @@ const usePosts = create<PostsState>((set, get) => ({
                     }
                   : post
               ),
+              userPosts: state.userPosts.map(post =>
+                post.id === postId
+                  ? {
+                      ...post,
+                      comments: post.comments
+                        .map(comment =>
+                          comment.createdAt === commentCreatedAt
+                            ? { ...comment, upvote: updatedUpvoteArray }
+                            : comment
+                        )
+                        .sort(
+                          (a, b) =>
+                            new Date(b.createdAt ?? '').getTime() -
+                            new Date(a.createdAt ?? '').getTime()
+                        ), // Sort comments by createdAt in descending order
+                    }
+                  : post
+              ),
             }));
           } else {
             // Add userId to upvote array
@@ -337,6 +379,29 @@ const usePosts = create<PostsState>((set, get) => ({
       }
     } catch (error) {
       console.error('Error upvoting comment:', error);
+    }
+  },
+
+  fetchPostsByUserId: async (userId: string) => {
+    set({ loading: true, error: null });
+    try {
+      const db = getFirestore();
+      const postsRef = collection(db, 'posts');
+      const q = query(
+        postsRef,
+        where('authorId', '==', userId),
+        orderBy('updatedAt', 'desc')
+      );
+      const snapshot = await getDocs(q);
+      const posts = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Post[];
+
+      set({ userPosts: posts, loading: false });
+      console.log(posts);
+    } catch (error) {
+      set({ error: error as Error, loading: false });
     }
   },
 }));

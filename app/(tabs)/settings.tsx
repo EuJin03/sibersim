@@ -18,6 +18,7 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 import { useAuth } from '@/contexts/userContext';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
@@ -161,8 +162,8 @@ export default function settings() {
             }}
           >
             <View style={style.accordion}>
-              <Icon source="exclamation-thick" size={18} />
-              <Text>Report Suspicious Activities</Text>
+              <Icon source="television-guide" size={18} />
+              <Text>Guide to report suspicious activity</Text>
             </View>
           </TouchableRipple>
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
@@ -180,8 +181,12 @@ export default function settings() {
             }
           >
             <View style={style.accordion}>
-              <Icon source="phone-alert-outline" size={18} />
-              <Text>Scan a suspicious h/p number</Text>
+              <Icon
+                source="alert-circle-outline"
+                size={18}
+                color={Colors.light.secondary}
+              />
+              <Text>Scan for reported accounts</Text>
             </View>
           </TouchableRipple>
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
@@ -189,7 +194,7 @@ export default function settings() {
             onPress={() => router.navigate('/check-phish/domain')}
           >
             <View style={style.accordion}>
-              <Icon source="email-alert-outline" size={18} />
+              <Icon source="email-alert-outline" size={20} />
               <Text>Scan a suspicious website</Text>
             </View>
           </TouchableRipple>
@@ -207,7 +212,7 @@ export default function settings() {
             }}
           >
             <View style={style.accordion}>
-              <Icon source="alert-circle-outline" size={18} />
+              <Icon source="chat-alert-outline" size={18} />
               <Text>Provide Feedback</Text>
             </View>
           </TouchableRipple>

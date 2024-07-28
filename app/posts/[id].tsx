@@ -76,7 +76,7 @@ export default function PostDetailsScreen() {
         options={{
           title: '',
           headerRight: () => <Avatar />,
-          animation: 'slide_from_right',
+          animation: 'fade_from_bottom',
           animationDuration: 50,
         }}
       />

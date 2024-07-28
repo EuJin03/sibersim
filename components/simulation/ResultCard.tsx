@@ -93,7 +93,7 @@ export default function ResultCard({
               {template.title}
             </Text>
             <Text numberOfLines={5} style={styles.description}>
-              Created {useRelativeTime('2024-06-07T09:15:00Z')}
+              Created {useRelativeTime(groupInfo.results[0].updatedAt)}
             </Text>
           </View>
 
@@ -101,7 +101,7 @@ export default function ResultCard({
             <Text style={styles.participantsLabel}>Participants</Text>
             <View style={styles.participantsContainer}>
               {userInfo.map((user, index) => {
-                if (index < 4) {
+                if (index < 3) {
                   return (
                     <Text key={user.user} style={styles.participantName}>
                       {user.username}

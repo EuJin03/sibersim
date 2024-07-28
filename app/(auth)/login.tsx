@@ -1,14 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/contexts/userContext';
 import { Stack } from 'expo-router';
-import {
-  ActivityIndicator,
-  Animated,
-  Dimensions,
-  Image,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import {
   actuatedNormalize,
@@ -16,16 +9,22 @@ import {
 } from '@/constants/DynamicSize';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import BackgroundAnimation from '@/components/basic/BackgroundAnimation';
+import { Colors } from '@/hooks/useThemeColor';
 
 export default function SignIn() {
   const { signIn } = useAuth();
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     setIsLoading(true);
-    signIn();
-    setIsLoading(false);
+    try {
+      await signIn();
+    } catch (error) {
+      console.error('Sign in error:', error);
+      // Optionally handle the error, e.g., show an error message to the user
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -78,7 +77,7 @@ export default function SignIn() {
             Your Digital World Together!
           </Text>
         </View>
-        <View style={style.bottomView}>
+        <View style={styles.bottomView}>
           <View
             style={{
               width: '100%',
@@ -97,7 +96,7 @@ export default function SignIn() {
               Welcome Back! Sign in with{' '}
             </Text>
             {isLoading ? (
-              <ActivityIndicator size="large" color="#0000ff" />
+              <ActivityIndicator size="large" color={Colors.light.secondary} />
             ) : (
               <GoogleSigninButton
                 onPress={handleSignIn}
@@ -124,12 +123,7 @@ export default function SignIn() {
   );
 }
 
-const style = StyleSheet.create({
-  gradient: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
+const styles = StyleSheet.create({
   bottomView: {
     position: 'absolute',
     bottom: 0,

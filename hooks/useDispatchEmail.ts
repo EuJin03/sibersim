@@ -21,9 +21,11 @@ export default async function handleEmail({ params }: { params: EmailParams }) {
     email: params.email,
     userId: params.userId,
     groupId: params.groupId,
-    url: `localhost:3001?templateId=${params.template}&userId=${
-      params.userId
-    }&groupId=${params.groupId}&uniqueId=${generateUUID(10)}`,
+    url: `sibersim-store.onrender.com/record-behavior?templateId=${
+      params.template
+    }&userId=${params.userId}&groupId=${params.groupId}&uniqueId=${generateUUID(
+      10
+    )}`,
   };
 
   try {

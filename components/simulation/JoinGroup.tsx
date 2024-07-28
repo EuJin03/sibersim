@@ -1,5 +1,5 @@
 import { View, StyleSheet, Dimensions } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
@@ -8,6 +8,8 @@ import { IconButton, Searchbar, Text } from 'react-native-paper';
 import CreateGroup from './CreateGroup';
 import useGroupStore from '@/hooks/useGroup';
 import { useAuth } from '@/contexts/userContext';
+import { showMessage } from 'react-native-flash-message';
+import FlashMessage from 'react-native-flash-message';
 
 export default function JoinGroup({
   onJoinGroup,
@@ -17,19 +19,47 @@ export default function JoinGroup({
   const { dbUser } = useAuth();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const { joinGroup, loading } = useGroupStore();
+  const { joinGroup, loading, error } = useGroupStore();
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
 
+  useEffect(() => {
+    if (error) {
+      showMessage({
+        message: 'Error',
+        description:
+          error.message ||
+          'An error occurred while joining the group. Please try again.',
+        type: 'danger',
+        duration: 1000,
+      });
+    }
+  }, [error]);
+
   const handleJoinGroup = async () => {
-    try {
-      await joinGroup(searchQuery, dbUser?.id ?? '');
+    if (searchQuery.trim() === '') {
+      showMessage({
+        message: 'Empty Group Code',
+        description: 'Please enter a group code.',
+        type: 'warning',
+        duration: 1000,
+      });
+      return;
+    }
+
+    await joinGroup(searchQuery, dbUser?.id ?? '');
+
+    if (!error) {
       setSearchQuery('');
       onJoinGroup();
-    } catch (error) {
-      console.error('Error joining group:', error);
+      showMessage({
+        message: 'Success',
+        description: 'You have successfully joined the group.',
+        type: 'success',
+        duration: 3000,
+      });
     }
   };
 
@@ -76,6 +106,7 @@ export default function JoinGroup({
       >
         <Text style={{ color: 'gray' }}>No Content Yet</Text>
       </View>
+      <FlashMessage position="top" />
     </>
   );
 }

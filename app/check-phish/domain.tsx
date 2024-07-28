@@ -35,6 +35,7 @@ const ScanUrlPage = () => {
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [countdown, setCountdown] = useState(180); // 3 minutes in seconds
 
   const {
     control,
@@ -50,27 +51,47 @@ const ScanUrlPage = () => {
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
+    let intervalId: NodeJS.Timeout;
 
     if (isLoading) {
       timeout = setTimeout(() => {
         setIsLoading(false);
         showMessage({
-          message: 'Requested timed out.',
-          description: 'The URL is invalid. Please check and try again.',
+          message: 'Request timed out.',
+          description:
+            'The URL is invalid or the server is not responding. Please check and try again.',
           type: 'danger',
         });
         reset();
-      }, 60000);
+      }, 180000); // 3 minutes timeout
+
+      intervalId = setInterval(() => {
+        setCountdown(prevCountdown => {
+          if (prevCountdown <= 1) {
+            clearInterval(intervalId);
+            return 0;
+          }
+          return prevCountdown - 1;
+        });
+      }, 1000);
     }
 
     return () => {
       clearTimeout(timeout);
+      clearInterval(intervalId);
     };
   }, [isLoading, reset]);
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     setError(null);
+    setCountdown(180); // Reset countdown to 3 minutes
 
     try {
       const response = await axios.post<ScanResult>(
@@ -86,7 +107,6 @@ const ScanUrlPage = () => {
 
     setIsLoading(false);
   };
-
 
   return (
     <>
@@ -104,10 +124,10 @@ const ScanUrlPage = () => {
             Steps to extract a website from the email to scan for phishing
           </Text>
           <Text style={{ fontSize: 10, marginVertical: 1, color: '#909090' }}>
-            1. Open the email containing thes suspicious website.
+            1. Open the email containing the suspicious website.
           </Text>
           <Text style={{ fontSize: 10, marginVertical: 1, color: '#909090' }}>
-            2. Hold on the link until a tooltip appear.
+            2. Hold on the link until a tooltip appears.
           </Text>
           <Text style={{ fontSize: 10, marginVertical: 1, color: '#909090' }}>
             3. Copy the URL of the website from the email.
@@ -137,7 +157,7 @@ const ScanUrlPage = () => {
               required: 'URL is required',
               pattern: {
                 value:
-                  /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/,
+                  /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,})([\/\w .-]*)*\/?([\?&][\w=&]+)*$/,
                 message: 'Invalid URL format',
               },
             }}
@@ -160,6 +180,18 @@ const ScanUrlPage = () => {
             <Text style={styles.buttonText}>Scan</Text>
           )}
         </TouchableOpacity>
+
+        {isLoading && (
+          <View style={styles.loadingContainer}>
+            <Text style={styles.loadingText}>
+              First-time scanning may take a while. Please be patient and do not
+              click away.
+            </Text>
+            <Text style={styles.timerText}>
+              Time Estimated: {formatTime(countdown)}
+            </Text>
+          </View>
+        )}
 
         {scanResult && (
           <View style={styles.resultContainer}>
@@ -243,6 +275,23 @@ const styles = StyleSheet.create({
     color: 'red',
     marginBottom: actuatedNormalize(6),
     marginTop: actuatedNormalize(-14),
+  },
+  loadingContainer: {
+    marginTop: actuatedNormalize(10),
+    alignItems: 'center',
+    width: '80%',
+  },
+  loadingText: {
+    fontSize: 12,
+    color: Colors.light.secondary,
+    textAlign: 'center',
+    marginBottom: actuatedNormalize(5),
+    marginTop: actuatedNormalize(10),
+  },
+  timerText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: Colors.light.secondary,
   },
 });
 

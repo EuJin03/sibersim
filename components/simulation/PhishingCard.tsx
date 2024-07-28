@@ -1,10 +1,10 @@
 import { View, Image, Alert, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   actuatedNormalize,
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
-import { IconButton, Text } from 'react-native-paper';
+import { IconButton, Text, ActivityIndicator } from 'react-native-paper';
 import { Colors } from '@/hooks/useThemeColor';
 import { Template } from '@/constants/Types';
 import handleEmail from '@/hooks/useDispatchEmail';
@@ -23,9 +23,11 @@ export default function PhishingCard({
 }) {
   const { groupDetail, addResult } = useGroupStore();
   const { getUserById } = useUserStore();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDispatchEmail = async () => {
     try {
+      setIsLoading(true);
       const uniqueId = generateUUID(8);
       if (groupDetail) {
         Alert.alert(
@@ -70,6 +72,8 @@ export default function PhishingCard({
         'Error',
         'An error occurred while dispatching emails. Please try again.'
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -92,10 +96,11 @@ export default function PhishingCard({
           )
         }
         style={styles.iconButton}
-        icon="plus"
+        icon={isLoading ? () => <ActivityIndicator color="#ffffff" /> : 'plus'}
         iconColor="#ffffff"
         size={18}
         containerColor={Colors.light.secondary}
+        disabled={isLoading}
       />
 
       <Image
