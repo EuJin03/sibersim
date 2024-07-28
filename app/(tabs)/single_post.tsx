@@ -19,22 +19,54 @@ import useRelativeTime from '@/hooks/useTimeFormat';
 import useBlogStore from '@/hooks/useBlogs';
 import { router } from 'expo-router';
 import { generateUUID } from '@/hooks/useUuid';
+import NetInfo from '@react-native-community/netinfo';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function blogpost() {
   const { fetchBlogs } = useBlogStore();
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [isConnected, setIsConnected] = useState<boolean>(true);
+  const [search, setSearch] = useState<string>('');
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const blogs = useBlogStore(state => state.blogs);
+  const setSelectedBlog = useBlogStore(state => state.setSelectedBlog);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected ?? true);
+      if (state.isConnected === false) {
+        showMessage({
+          message: 'No internet connection',
+          description: "You're offline. Some features may be unavailable.",
+          type: 'warning',
+          duration: 3000,
+        });
+      } else if (state.isConnected === true && !isConnected) {
+        showMessage({
+          message: 'Back online',
+          description: 'Your internet connection has been restored.',
+          type: 'success',
+          duration: 3000,
+        });
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [isConnected]);
 
   useEffect(() => {
     setLoading(true);
-    fetchBlogs();
+    if (isConnected) {
+      fetchBlogs();
+    }
     setLoading(false);
-  }, []);
-
-  const [search, setSearch] = useState<string>('');
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const blogs = useBlogStore(state => state.blogs);
-  const setSelectedBlog = useBlogStore(state => state.setSelectedBlog);
+  }, [isConnected]);
 
   const uniqueTags = Array.from(new Set(blogs.flatMap(blog => blog.tags)));
 
@@ -42,12 +74,19 @@ export default function blogpost() {
     setSelectedTag(tag === selectedTag ? null : tag);
   };
 
-  const [refreshing, setRefreshing] = useState(false);
-
   const onRefresh = async () => {
-    setRefreshing(true);
-    await fetchBlogs();
-    setRefreshing(false);
+    if (isConnected) {
+      setRefreshing(true);
+      await fetchBlogs();
+      setRefreshing(false);
+    } else {
+      showMessage({
+        message: "Can't refresh",
+        description: "You're offline. Please check your internet connection.",
+        type: 'warning',
+        duration: 3000,
+      });
+    }
   };
 
   const renderTagItem = ({ item }: { item: string }) => {
@@ -101,8 +140,18 @@ export default function blogpost() {
         gap: actuatedNormalize(10),
       }}
       onPress={() => {
-        setSelectedBlog(item);
-        router.navigate({ pathname: `/blog-details/${item.slug}` });
+        if (isConnected) {
+          setSelectedBlog(item);
+          router.navigate({ pathname: `/blog-details/${item.slug}` });
+        } else {
+          showMessage({
+            message: "Can't open blog",
+            description:
+              "You're offline. Please check your internet connection.",
+            type: 'warning',
+            duration: 3000,
+          });
+        }
       }}
     >
       <Image
@@ -185,6 +234,43 @@ export default function blogpost() {
     tag.toLowerCase().includes(search.toLowerCase())
   );
 
+  const renderNoConnectionView = () => (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 50,
+      }}
+    >
+      <MaterialIcons
+        name="signal-wifi-statusbar-connected-no-internet-4"
+        size={50}
+        color={Colors.light.secondary}
+      />
+      <Text
+        style={{
+          fontSize: 18,
+          fontWeight: 'bold',
+          textAlign: 'center',
+          marginTop: 20,
+        }}
+      >
+        No internet connection
+      </Text>
+      <Text
+        style={{
+          fontSize: 14,
+          color: 'gray',
+          textAlign: 'center',
+          marginTop: 10,
+        }}
+      >
+        Please check your connection and try again
+      </Text>
+    </View>
+  );
+
   return (
     <View
       style={{
@@ -192,6 +278,14 @@ export default function blogpost() {
         flex: 1,
       }}
     >
+      <FlashMessage position="top" />
+      {!isConnected && (
+        <View style={{ backgroundColor: 'red', padding: 10 }}>
+          <Text style={{ color: 'white', textAlign: 'center' }}>
+            No internet connection
+          </Text>
+        </View>
+      )}
       <View
         style={{
           backgroundColor: '#ffffff',
@@ -222,6 +316,8 @@ export default function blogpost() {
           color={Colors.light.secondary}
           style={{ marginTop: actuatedNormalizeVertical(60) }}
         />
+      ) : !isConnected && blogs.length === 0 ? (
+        renderNoConnectionView()
       ) : (
         <>
           <View style={{ marginVertical: actuatedNormalizeVertical(10) }}>
@@ -251,6 +347,22 @@ export default function blogpost() {
                 colors={[Colors.light.secondary]}
                 tintColor={Colors.light.secondary}
               />
+            }
+            ListEmptyComponent={
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 50,
+                }}
+              >
+                <Text style={{ fontSize: 16, color: 'gray' }}>
+                  {isConnected
+                    ? 'No blogs found'
+                    : 'Cannot load blogs while offline'}
+                </Text>
+              </View>
             }
           />
         </>
