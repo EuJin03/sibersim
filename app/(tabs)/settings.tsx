@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Button,
@@ -28,15 +28,36 @@ import { useRouter } from 'expo-router';
 import useBlogStore from '@/hooks/useBlogs';
 import { blogs } from '@/assets/seeds/blog';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
+import NetInfo from '@react-native-community/netinfo';
 
 export default function settings() {
   const { dbUser, signOut } = useAuth();
   const { setSelectedBlog } = useBlogStore();
   const router = useRouter();
+  const [isConnected, setIsConnected] = useState<boolean>(true);
 
-  const [expanded, setExpanded] = React.useState(true);
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected ?? true);
+    });
 
-  const handlePress = () => setExpanded(!expanded);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const handleFeatureAccess = (feature: string, action: () => void) => {
+    if (isConnected) {
+      action();
+    } else {
+      showMessage({
+        message: 'No internet connection',
+        description: `You can't access ${feature} while offline. Please check your connection and try again.`,
+        type: 'warning',
+        duration: 3000,
+      });
+    }
+  };
 
   return (
     <View
@@ -47,6 +68,13 @@ export default function settings() {
       }}
     >
       <FlashMessage position="top" />
+      {!isConnected && (
+        <View style={{ backgroundColor: 'red', padding: 10 }}>
+          <Text style={{ color: 'white', textAlign: 'center' }}>
+            No internet connection
+          </Text>
+        </View>
+      )}
       <View
         style={{
           display: 'flex',
@@ -150,14 +178,16 @@ export default function settings() {
         <View>
           <TouchableRipple
             onPress={() => {
-              const selectedBlog = blogs.find(
-                blog => blog.id === '6af331b1-0956'
-              );
-              if (selectedBlog) {
-                setSelectedBlog(selectedBlog);
-              }
-              router.navigate({
-                pathname: `/blog-details/reporting-cyber-scams-to-authorities'`,
+              handleFeatureAccess('Guide to report suspicious activity', () => {
+                const selectedBlog = blogs.find(
+                  blog => blog.id === '6af331b1-0956'
+                );
+                if (selectedBlog) {
+                  setSelectedBlog(selectedBlog);
+                }
+                router.navigate({
+                  pathname: `/blog-details/reporting-cyber-scams-to-authorities'`,
+                });
               });
             }}
           >
@@ -169,15 +199,9 @@ export default function settings() {
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
           <TouchableRipple
             onPress={() =>
-              // showMessage({
-              //   message: 'Sorry :(',
-              //   description:
-              //     'This feature is not available currently due to budget reasons.',
-              //   type: 'warning',
-              //   duration: 3000,
-              //   titleStyle: { fontWeight: 'bold' },
-              // })
-              router.navigate('/semak-mule')
+              handleFeatureAccess('Scan for reported accounts', () =>
+                router.navigate('/semak-mule')
+              )
             }
           >
             <View style={style.accordion}>
@@ -191,7 +215,11 @@ export default function settings() {
           </TouchableRipple>
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
           <TouchableRipple
-            onPress={() => router.navigate('/check-phish/domain')}
+            onPress={() =>
+              handleFeatureAccess('Scan a suspicious website', () =>
+                router.navigate('/check-phish/domain')
+              )
+            }
           >
             <View style={style.accordion}>
               <Icon source="email-alert-outline" size={20} />
@@ -201,7 +229,6 @@ export default function settings() {
           <Divider theme={{ colors: { outlineVariant: '#000000' } }} />
           <TouchableRipple
             onPress={() => {
-              /* HERE WE GONE SHOW OUR FIRST MESSAGE */
               showMessage({
                 message: 'Sorry :(',
                 description: 'This feature is not available yet',
@@ -249,7 +276,6 @@ const style = StyleSheet.create({
     justifyContent: 'flex-start',
     gap: actuatedNormalize(10),
     paddingVertical: actuatedNormalizeVertical(20),
-
     paddingHorizontal: actuatedNormalize(2),
   },
   divider: {

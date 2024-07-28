@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   View,
   FlatList,
@@ -23,6 +23,7 @@ import {
   actuatedNormalizeVertical,
 } from '@/constants/DynamicSize';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import NetInfo from '@react-native-community/netinfo';
 
 const Quiz: React.FC<{
   question: string;
@@ -118,9 +119,31 @@ export default function CourseChapter() {
 
   const [isUpdating, setIsUpdating] = useState(false);
   const [quizCorrect, setQuizCorrect] = useState<boolean>(false);
+  const [isConnected, setIsConnected] = useState<boolean>(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected ?? true);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const onClickNext = async (index: number) => {
     if (isUpdating) return;
+
+    if (index === topicLength - 1 && !isConnected) {
+      showMessage({
+        message: 'No internet connection',
+        description:
+          "You can't complete the course while offline. Please check your connection and try again.",
+        type: 'warning',
+        duration: 3000,
+      });
+      return;
+    }
 
     setIsUpdating(true);
     setQuizCorrect(false);
@@ -160,7 +183,6 @@ export default function CourseChapter() {
 
     setIsUpdating(false);
   };
-
   const renderContent = (item: any, index: number) => {
     switch (item.type) {
       case 'text':
@@ -270,6 +292,11 @@ export default function CourseChapter() {
         }}
       />
       <FlashMessage position={'top'} />
+      {!isConnected && (
+        <View style={styles.offlineBar}>
+          <Text style={styles.offlineText}>No internet connection</Text>
+        </View>
+      )}
       <FlatList
         data={lessons}
         horizontal={true}
@@ -310,11 +337,18 @@ export default function CourseChapter() {
 
             <TouchableOpacity
               onPress={() => onClickNext(index)}
-              disabled={isUpdating || !quizCorrect}
+              disabled={
+                isUpdating ||
+                !quizCorrect ||
+                (index === topicLength - 1 && !isConnected)
+              }
               style={[
                 styles.button,
                 { backgroundColor: Colors[colorScheme].primary },
-                (isUpdating || !quizCorrect) && styles.buttonDisabled,
+                (isUpdating ||
+                  !quizCorrect ||
+                  (index === topicLength - 1 && !isConnected)) &&
+                  styles.buttonDisabled,
               ]}
             >
               {isUpdating ? (
@@ -389,5 +423,13 @@ const styles = StyleSheet.create({
   retryButtonText: {
     color: 'white',
     fontSize: actuatedNormalize(16),
+  },
+  offlineBar: {
+    backgroundColor: 'red',
+    padding: 10,
+  },
+  offlineText: {
+    color: 'white',
+    textAlign: 'center',
   },
 });

@@ -17,6 +17,7 @@ import {
   arrayUnion,
 } from 'firebase/firestore';
 import { Comment, Post } from '@/constants/Types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface PostsState {
   posts: Post[];
@@ -27,6 +28,10 @@ interface PostsState {
   error: Error | null;
   lastVisible: any;
   hasMore: boolean;
+  draft: {
+    content: string;
+    images: string[];
+  };
   fetchPosts: (userId?: string) => Promise<void>;
   fetchMorePosts: (userId?: string) => Promise<void>;
   likePost: (postId: string, userId: string) => Promise<void>;
@@ -41,6 +46,10 @@ interface PostsState {
     userId: string
   ) => Promise<void>;
   fetchPostsByUserId: (userId: string) => Promise<void>;
+
+  setDraft: (draft: { content: string; images: string[] }) => Promise<void>;
+  clearDraft: () => Promise<void>;
+  loadDraft: () => Promise<void>;
 }
 
 const usePosts = create<PostsState>((set, get) => ({
@@ -52,7 +61,37 @@ const usePosts = create<PostsState>((set, get) => ({
   error: null,
   lastVisible: null,
   hasMore: true,
+  draft: { content: '', images: [''] },
 
+  setDraft: async draft => {
+    set({ draft });
+    try {
+      await AsyncStorage.setItem('postDraft', JSON.stringify(draft));
+    } catch (error) {
+      console.error('Error saving draft:', error);
+    }
+  },
+
+  clearDraft: async () => {
+    set({ draft: { content: '', images: [''] } });
+    try {
+      await AsyncStorage.removeItem('postDraft');
+    } catch (error) {
+      console.error('Error clearing draft:', error);
+    }
+  },
+
+  loadDraft: async () => {
+    try {
+      const draftString = await AsyncStorage.getItem('postDraft');
+      if (draftString) {
+        const draft = JSON.parse(draftString);
+        set({ draft });
+      }
+    } catch (error) {
+      console.error('Error loading draft:', error);
+    }
+  },
   fetchPosts: async userId => {
     set({ loading: true, error: null });
     try {
