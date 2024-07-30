@@ -175,13 +175,23 @@ const ScammerDetails = () => {
         <Text
           style={{
             fontSize: 20,
-            color: Colors.light.secondary,
+            color: title.toLowerCase().includes('no report earned')
+              ? Colors.light.secondary
+              : 'red',
             marginBottom: 8,
           }}
         >
-          {title}
+          {title.toLowerCase().includes('no report earned')
+            ? title
+            : title.length !== 0 && 'Scammer Detected!'}
         </Text>
-        <Text style={{ fontSize: 12, color: '#909090' }}>{subtext}</Text>
+        <Text style={{ fontSize: 12, color: '#909090' }}>
+          {title.toLowerCase().includes('no report earned')
+            ? subtext
+            : title.length !== 0 &&
+              searchValue +
+                ' has been reported as a scammer several times. Please do not engage with this person/account.'}
+        </Text>
         <View
           style={{
             width: '100%',

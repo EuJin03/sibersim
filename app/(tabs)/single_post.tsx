@@ -31,6 +31,15 @@ export default function blogpost() {
   const [search, setSearch] = useState<string>('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 60000); // 60000 ms = 1 minute
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const blogs = useBlogStore(state => state.blogs);
   const setSelectedBlog = useBlogStore(state => state.setSelectedBlog);
@@ -357,11 +366,18 @@ export default function blogpost() {
                   marginTop: 50,
                 }}
               >
-                <Text style={{ fontSize: 16, color: 'gray' }}>
-                  {isConnected
-                    ? 'No blogs found'
-                    : 'Cannot load blogs while offline'}
-                </Text>
+                {initialLoading ? (
+                  <ActivityIndicator
+                    size="large"
+                    color={Colors.light.secondary}
+                  />
+                ) : (
+                  <Text style={{ fontSize: 16, color: 'gray' }}>
+                    {isConnected
+                      ? 'No blogs found'
+                      : 'Cannot load blogs while offline'}
+                  </Text>
+                )}
               </View>
             }
           />

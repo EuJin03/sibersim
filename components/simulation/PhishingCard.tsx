@@ -11,6 +11,7 @@ import handleEmail from '@/hooks/useDispatchEmail';
 import useGroupStore from '@/hooks/useGroup';
 import useUserStore from '@/hooks/useUsers';
 import { generateUUID } from '@/hooks/useUuid';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function PhishingCard({
   template,
@@ -79,33 +80,49 @@ export default function PhishingCard({
 
   return (
     <View style={styles.container}>
-      <IconButton
-        mode="contained"
-        onPress={() =>
-          Alert.alert(
-            'Create Phishing Simulation',
-            'Are you sure you want to create this phishing simulation?',
-            [
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              { text: 'OK', onPress: handleDispatchEmail },
-            ]
-          )
-        }
-        style={styles.iconButton}
-        icon={isLoading ? () => <ActivityIndicator color="#ffffff" /> : 'plus'}
-        iconColor="#ffffff"
-        size={18}
-        containerColor={Colors.light.secondary}
-        disabled={isLoading}
-      />
+      {template.template === 'empty' ? (
+        <MaterialIcons
+          style={{
+            position: 'absolute',
+            right: actuatedNormalize(8),
+            bottom: actuatedNormalize(8),
+            zIndex: 100,
+          }}
+          name="new-releases"
+          size={24}
+          color="#909090"
+        />
+      ) : (
+        <IconButton
+          mode="contained"
+          onPress={() =>
+            Alert.alert(
+              'Create Phishing Simulation',
+              'Are you sure you want to create this phishing simulation?',
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                { text: 'OK', onPress: handleDispatchEmail },
+              ]
+            )
+          }
+          style={styles.iconButton}
+          icon={
+            isLoading ? () => <ActivityIndicator color="#ffffff" /> : 'plus'
+          }
+          iconColor="#ffffff"
+          size={18}
+          containerColor={Colors.light.secondary}
+          disabled={isLoading}
+        />
+      )}
 
       <Image
         source={{
-          uri: 'https://firebasestorage.googleapis.com/v0/b/sibersim-2a3c3.appspot.com/o/google-sign-in-template.jpg?alt=media&token=51d7b17e-70a6-4cb9-9cfb-69868e224f6b',
+          uri: template.image,
         }}
         style={styles.image}
       />

@@ -60,10 +60,16 @@ export default function NewPostScreen() {
         return;
       }
 
+      const trimmedContent = data.content.replace(/^\s+|\s+$/g, '');
+      if (trimmedContent.length === 0) {
+        console.error('Content cannot be empty');
+        return;
+      }
+
       try {
         setIsLoading(true);
         const postData: Omit<Post, 'id' | 'createdAt' | 'updatedAt'> = {
-          content: data.content,
+          content: trimmedContent,
           image: images.filter(img => img !== ''),
           upvote: [],
           postedBy: dbUser.displayName,
@@ -78,7 +84,7 @@ export default function NewPostScreen() {
         // Reset the form fields
         reset();
         setImages(['']);
-        setIsUpload(false); // Reset the upload state
+        setIsUpload(false);
         redirectToTabs();
       } catch (error) {
         console.error('Error adding post: ', error);
@@ -158,7 +164,7 @@ export default function NewPostScreen() {
   };
 
   const handleContentChange = (value: string) => {
-    setContentLength(value.length);
+    setContentLength(value.replace(/\s+/g, '').length);
   };
 
   return (
@@ -293,6 +299,9 @@ export default function NewPostScreen() {
                 value: 1000,
                 message: 'Content cannot exceed 1000 characters',
               },
+              validate: value =>
+                value.replace(/\s+/g, '').length > 0 ||
+                'Content cannot be empty',
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
@@ -302,7 +311,11 @@ export default function NewPostScreen() {
                   onChange(text);
                   handleContentChange(text);
                 }}
-                onBlur={onBlur}
+                onBlur={() => {
+                  const trimmedValue = value.replace(/^\s+|\s+$/g, '');
+                  onChange(trimmedValue);
+                  handleContentChange(trimmedValue);
+                }}
                 inlineImageLeft="search_icon"
                 placeholder="Share with us your thoughts..."
                 multiline
